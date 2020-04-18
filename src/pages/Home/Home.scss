@@ -1,0 +1,55 @@
+
+$primary-color:#05ffba;
+
+
+section div.section-body{
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+section.header{
+    background-image: url(https://source.unsplash.com/random);
+    background-size: cover;
+    min-height: 400px;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 30px;
+
+    .header-title{
+
+    color: $primary-color;
+    font-weight: bold;
+    font-size: 24px;
+    padding-bottom:5px;
+    }
+    .header-text{
+        color:white;
+        font-size:18px;
+
+    }
+}
+
+section.theme-nav{
+    padding:10px;
+    border-bottom:1px solid lightgray;
+    ul{
+        display:flex;
+    }
+    li{
+        padding-right:20px;
+    }
+}
+
+
+// 추천 섹션
+section.recomand{
+    padding:20px;
+    .section-title{
+        padding-top:10px;
+        font-weight:bold;
+        font-size:24px;
+    }
+}
