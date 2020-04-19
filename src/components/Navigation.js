@@ -1,5 +1,6 @@
 import React from "react";
 import "./Navigation.scss";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   return (
@@ -12,7 +13,7 @@ const Navigation = () => {
       </div>
 
       <ul className="menu-list">
-        <li className="menu-item">서비스 탐색</li>
+      <Link to="/service"><li className="menu-item">서비스 탐색</li></Link>
         <li className="menu-item">인기 서비스</li>
         <li className="menu-item">커뮤니티</li>
         <li className="menu-item">공유하기</li>
