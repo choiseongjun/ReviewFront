@@ -1,10 +1,10 @@
 import React from "react";
-import Navigation from "../components/Navigation";
+import Navigation from "../components/common/Navigation";
 
 const Service = () => {
   return (
     <div>
-       <Navigation />
+      <Navigation />
       <h2>서비스</h2>
     </div>
   );
