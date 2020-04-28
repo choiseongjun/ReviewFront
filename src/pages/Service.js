@@ -1,13 +1,12 @@
-import React from "react";
-import Navigation from "../components/Navigation";
+import React from 'react';
+import Navigation from '../components/base/Navigation';
 
-const Service = () => {
+function Service() {
   return (
     <div>
-       <Navigation />
       <h2>서비스</h2>
     </div>
   );
-};
+}
 
 export default Service;
