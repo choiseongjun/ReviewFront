@@ -20,7 +20,7 @@ const initalState = [
       title:'안녕하세요',
       writer : '관리자2',
       img : '',
-      like : 1000,
+      like : '1000',
       active : false,
       view : 10000,
     }
@@ -32,7 +32,7 @@ const serviceReducer = (state = initalState , action) => {
   switch(action.type){
     case LIKE_TOGGLE :
       return state.map( item => 
-        item.id === action.id ? { ...item,  active : !item.active } : item
+        item.id === action.id ? {...item , like : item.like - 1 } : {...item , like : item.like + 1} 
        );
       default :
       return state;
