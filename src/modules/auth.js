@@ -8,8 +8,6 @@ import * as authAPI from "../lib/api/auth";
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
   "auth/LOGIN",
 );
-const INPUT = "auth/INPUT";
-const REGISTER = "auth/REGISTER";
 
 //action
 export const login = ({ userid, password }) => ({
@@ -17,7 +15,6 @@ export const login = ({ userid, password }) => ({
   userid,
   password,
 });
-export const input = ({ key, value }) => ({ type: INPUT, key, value });
 
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 
@@ -26,10 +23,6 @@ export function* authSaga() {
 }
 
 const initialState = {
-  login: {
-    userid: "",
-    password: "",
-  },
   auth: "",
   authError: "",
 };
@@ -37,22 +30,17 @@ const initialState = {
 //reducer
 const auth = (state = initialState, action) => {
   switch (action.type) {
-    case INPUT:
-      return {
-        ...state,
-        login: { ...state.login, [action.key]: action.value },
-      };
     case LOGIN_SUCCESS:
       console.log(state, action);
       return {
         ...state,
-        auth: state.auth,
+        auth: action.payload.accessToken,
       };
     case LOGIN_FAILURE:
       console.log(state, action);
       return {
         ...state,
-        authError: state.authError,
+        authError: action.payload.error,
       };
     default:
       return state;

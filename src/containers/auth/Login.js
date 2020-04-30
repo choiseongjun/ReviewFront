@@ -39,7 +39,7 @@ export function Login() {
     if (auth) {
       console.log("로그인 성공");
     }
-  }, []);
+  }, [auth]);
 
   const handleClick = (e) => {
     e.preventDefault();
