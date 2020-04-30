@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import CenterWrapper from '../../components/common/CenterWrapper';
-import Button from '../../components/common/buttons/Button';
-import { newServices } from '../../data';
-import palette from '../../lib/styles/palette';
-import { remcalc } from '../../lib/styles/utils';
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import CenterWrapper from "../../components/common/CenterWrapper";
+import Button from "../../components/common/Buttons/Button";
+import { newServices } from "../../data";
+import palette from "../../lib/styles/palette";
+import { remcalc } from "../../lib/styles/utils";
 
 function NewServiceNav() {
   return (

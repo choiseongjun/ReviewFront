@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import CenterWrapper from '../../components/common/CenterWrapper';
-import Button from '../../components/common/buttons/Button.js';
-import palette from '../../lib/styles/palette';
-import { remcalc } from '../../lib/styles/utils';
+import React from "react";
+import styled from "styled-components";
+import CenterWrapper from "../../components/common/CenterWrapper";
+import Button from "../../components/common/Buttons/Button.js";
+import palette from "../../lib/styles/palette";
+import { remcalc } from "../../lib/styles/utils";
 
 function MainVisual() {
   return (
@@ -12,7 +12,7 @@ function MainVisual() {
         <CenterWrapper>
           <h1>우주웹 Would you Web?</h1>
           <p>자신에게 필요한 서비스를 찾아보세요.</p>
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button color="gray" size="xlarge" border="light">
               공유하기
             </Button>

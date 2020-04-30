@@ -1,16 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Modal from 'react-modal';
-import styled from 'styled-components';
-import palette from '../../lib/styles/palette';
-import Button from '../../components/common/buttons/Button.js';
-import { remcalc } from '../../lib/styles/utils';
-import AuthWrapper from '../../components/auth/AuthWrapper';
-import Login from './Login';
-import Register from './Register';
-import './Modal.scss';
+import React from "react";
+import ReactDOM from "react-dom";
+import Modal from "react-modal";
+import styled from "styled-components";
+import palette from "../../lib/styles/palette";
+import Button from "../../components/common/Buttons/Button.js";
+import { remcalc } from "../../lib/styles/utils";
+import AuthWrapper from "../../components/auth/AuthWrapper";
+import Login from "./Login";
+import Register from "./Register";
+import "./Modal.scss";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 class AuthModal extends React.Component {
   constructor() {
@@ -100,6 +100,6 @@ const NavUser = styled.ul`
   }
 `;
 
-ReactDOM.render(<AuthModal {...props} />, document.getElementById('root'));
+ReactDOM.render(<AuthModal {...props} />, document.getElementById("root"));
 
 export default AuthModal;

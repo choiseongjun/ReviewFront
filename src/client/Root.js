@@ -2,11 +2,19 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import App from "../shared/App";
 import { Provider } from "react-redux";
-import rootReducer from "../modules";
-import { createStore } from "redux";
+import rootReducer, { rootSaga } from "../modules";
+import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-const store = createStore(rootReducer, composeWithDevTools());
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(sagaMiddleware)),
+);
+
+sagaMiddleware.run(rootSaga);
 
 const Root = () => (
   <Provider store={store}>
