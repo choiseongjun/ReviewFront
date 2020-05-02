@@ -8,56 +8,56 @@ function ServiceList() {
             company : '주식회사',
             view :100,
             vote : 100,
-            // img : '../'
+            img:'../asset/img/img_test.png'
         },
         {
             title:'혼자 떠나고 싶을때 "해변 사랑"',
             company : '주식회사',
             view :100,
             vote : 100,
-            // img : '../'
+            img:'../../asset/img/img_test.png'
         },
         {
             title:'밑줄 그을때 "Highlight"',
             company : '주식회사',
             view :100,
             vote : 100,
-            // img : '../'
+            img:'../../asset/img/img_test.png'
         },
         {
             title:'혼자 떠나고 싶을때 "해변 사랑"',
             company : '주식회사',
             view :100,
             vote : 100,
-            // img : '../'
+            img:'../../asset/img/img_test.png'
         },
         {
             title:'밑줄 그을때 "Highlight"',
             company : '주식회사',
             view :100,
             vote : 100,
-            // img : '../'
+            img:'../../asset/img/img_test.png'
         },
         {
             title:'혼자 떠나고 싶을때 "해변 사랑"',
             company : '주식회사',
             view :100,
             vote : 100,
-            // img : '../'
+            img:'../../asset/img/img_test.png'
         },
         {
             title:'밑줄 그을때 "Highlight"',
             company : '주식회사',
             view :100,
             vote : 100,
-            // img : '../'
+            img:'../../asset/img/img_test.png'
         },
         {
             title:'혼자 떠나고 싶을때 "해변 사랑"',
             company : '주식회사',
             view :100,
             vote : 100,
-            // img : '../'
+            img:'../../asset/img/img_test.png'
         },
     ]
     return (
@@ -68,7 +68,7 @@ function ServiceList() {
                         list.map((item,index) => 
                             <li>
                                 <span className="pic">
-                                    <img src="" alt=""/>
+                                    <img src={item.img} alt=""/>
                                 </span>
                                 <div className="info">
                                 <strong className="title">{item.title}</strong>
@@ -116,6 +116,9 @@ const ListWrap = styled.div`
                         font-size:9px;
                         line-height:13px;
                         color:#171717;
+                        &.view {
+                            background:url(../../asset/img/icon_view.png) no-repeat left center;
+                        }
                         span {
                             margin-right:2px;
                             color:#707070;
