@@ -39,6 +39,7 @@ const Contents = styled.section`
       height:100%;
       padding:0 30px 0 10px;
       border:none;
+      font-weight: bold;
       border-radius: 0px; /* iOS 둥근모서리 제거 */
       -webkit-appearance: none; /* 네이티브 외형 감추기 */
       -moz-appearance: none;
@@ -50,7 +51,19 @@ const Contents = styled.section`
     }
   }
   .input-wrap {
+    display:flex;
     width:100%;
+    margin-top:14px;
+    input {
+      width:calc(100% - 56px);
+      height:56px;
+      padding:0 14px;
+      border:1px solid #C9C9C9;
+      color:#171717;
+      &::placeholder {
+        color:rgba(#171717 , .6);
+      }
+    }
     button {
       width:96px;
       height:56px;
@@ -58,6 +71,7 @@ const Contents = styled.section`
       font-size:17px;
       line-height:56px;
       background-color:#1AE1CC;
+      border:none;
     }
   }
 `
