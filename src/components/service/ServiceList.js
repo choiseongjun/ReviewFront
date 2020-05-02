@@ -63,6 +63,10 @@ function ServiceList() {
     return (
         <ListWrap>
             <div className="inner">
+                <div className="sort-wrap">
+                    <button type="button">분류별</button>
+                    <button type="button">관심 순으로</button>
+                </div>
                 <ul>
                     {
                         list.map((item,index) => 
@@ -146,4 +150,31 @@ const ListWrap = styled.div`
             }
         }
     }
+    .sort-wrap{
+        display:flex;
+        justify-content: flex-end;
+        button {
+            position:relative;
+            padding-right:23px;
+            font-size:14px;
+            line-height:20px;
+            color:#474747;
+            border:none;
+            background:none;
+            font-weight:bold;
+            &::after {
+              position:absolute;
+              right:0;
+              top:50%;
+              display:block;
+              content:"";
+              border-top: 12px solid #b7b7b7;
+              border-left: 7px solid transparent;
+              border-right: 7px solid transparent;
+              transform: translateY(-50%);
+            }
+            + button {
+                margin-left:26px;
+            }
+        }
 `
