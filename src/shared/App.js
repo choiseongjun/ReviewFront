@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import Home from '../pages/Home/Home.js';
-import Service from '../pages/Service';
-import Navigation from '../components/base/Navigation';
-import GlobalStyles from '../GlobalStyles.js';
-import Responsive from '../lib/styles/responsive';
-import AuthModal from '../containers/auth/AuthModal.js';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import Home from "../pages/Home";
+import Service from "../pages/Service";
+import Navigation from "../containers/base/NaviContainer";
+import GlobalStyles from "../lib/styles/GlobalStyles.js";
+import Responsive from "../lib/styles/responsive";
 
 function App() {
   return (
     <>
+      <Navigation />
       <GlobalStyles />
       <Responsive />
-      <Navigation>
-        <AuthModal />
-      </Navigation>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/service" component={Service} />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/service" component={Service} />
+      </Switch>
     </>
   );
-} 
+}
 
 export default App;
