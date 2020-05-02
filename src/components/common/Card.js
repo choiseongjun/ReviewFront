@@ -1,17 +1,14 @@
-import React from 'react';
-import { css } from 'styled-components';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import palette from '../../lib/styles/palette';
-import { remcalc } from '../../lib/styles/utils';
-import media from '../../lib/styles/media';
+import React from "react";
+import { css } from "styled-components";
+import styled from "styled-components";
+import { remcalc } from "../../lib/styles/utils";
 
 const CardBlock = styled.div`
   display: flex;
   background: #0c0;
 
   ${(props) =>
-    props.size === 'small' &&
+    props.size === "small" &&
     css`
       flex: 1;
       height: 290px;
@@ -20,7 +17,7 @@ const CardBlock = styled.div`
     `}
 
   ${(props) =>
-    props.size === 'medium' &&
+    props.size === "medium" &&
     css`
       flex: 1;
       height: 290px;
@@ -28,7 +25,7 @@ const CardBlock = styled.div`
     `}
 
     ${(props) =>
-      props.size === 'large' &&
+      props.size === "large" &&
       css`
         height: 100%;
         flex: 2;
@@ -45,7 +42,7 @@ function Card({ size, children }) {
   return (
     <CardBlock size={size}>
       <div className="img-area">
-        <img></img>
+        <img alt=""></img>
       </div>
       <div className="txt-area"></div>
       {children}

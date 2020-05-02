@@ -3,9 +3,19 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import CenterWrapper from "../../components/common/CenterWrapper";
 import Button from "../../components/common/Buttons/Button";
-import { newServices } from "../../data";
 import palette from "../../lib/styles/palette";
 import { remcalc } from "../../lib/styles/utils";
+
+//sample data 작업 후 삭제
+const newServices = [
+  { title: "금융은 A다", path: "/" },
+  { title: "금융은 B다", path: "/" },
+  { title: "금융은 C다", path: "/" },
+  { title: "금융은 D다", path: "/" },
+  { title: "금융은 E다", path: "/" },
+  { title: "금융은 F다", path: "/" },
+  { title: "금융은 G다", path: "/" },
+];
 
 function NewServiceNav() {
   return (
