@@ -10,9 +10,9 @@ export const breakpoints = {
 
 const baseFontSize = {
   xlarge: "100%",
-  large: "90%",
-  medium: "85%",
-  small: "80%",
+  large: "100%",
+  medium: "95%",
+  small: "90%",
   xsmall: "70%",
 };
 

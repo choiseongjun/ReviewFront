@@ -75,6 +75,9 @@ function Navigation({ user, state, onClick, onClose, onLogout }) {
           <li className="menu-item">인기 서비스</li>
           <li className="menu-item">커뮤니티</li>
           <li className="menu-item">공유하기</li>
+        </ul>
+
+        <ul>
           {console.log("user: ", user)}
           {user ? (
             <li className="menu-item" onClick={onLogout}>

@@ -1,8 +1,8 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import palette, { buttonColorMap } from '../../../lib/styles/palette';
-import media from '../../../lib/styles/media';
-import { remcalc } from '../../../lib/styles/utils';
+import React from "react";
+import styled, { css } from "styled-components";
+import palette, { buttonColorMap } from "../../../lib/styles/palette";
+import media from "../../../lib/styles/media";
+import { remcalc } from "../../../lib/styles/utils";
 
 const ButtonBlock = styled.button`
   display: inline-flex;
@@ -11,8 +11,8 @@ const ButtonBlock = styled.button`
   font-weight: bold; 
   cursor: pointer;
   outline: none;
-  border: none;
   color: white;
+  border: none;
   background: ${(props) => buttonColorMap[props.color].background};
   color: ${(props) => buttonColorMap[props.color].color};
   &:hover,
@@ -44,7 +44,7 @@ const ButtonBlock = styled.button`
     `}
 
   ${(props) =>
-    props.size === 'medium' &&
+    props.size === "medium" &&
     css`
       height: 2rem;
       padding-left: 1.25rem;
@@ -53,7 +53,7 @@ const ButtonBlock = styled.button`
     `}
 
     ${(props) =>
-      props.size === 'large' &&
+      props.size === "large" &&
       css`
         height: 2.5rem;
         padding-left: 1.125rem;
@@ -65,7 +65,7 @@ const ButtonBlock = styled.button`
       `}
 
     ${(props) =>
-      props.size === 'xlarge' &&
+      props.size === "xlarge" &&
       css`
         height: ${remcalc(40)};
         padding-left: ${remcalc(30)};
@@ -77,15 +77,23 @@ const ButtonBlock = styled.button`
       `}
 
     ${(props) =>
-      props.border === 'light' &&
+      props.border &&
       css`
-        border: 2px solid ${palette.gray5};
+        border: 1px solid ${palette.gray2};
       `}
 
     ${(props) =>
-      props.weight === 'normal' &&
+      props.weight === "normal" &&
       css`
         font-weight: normal;
+      `}
+
+    ${(props) =>
+      props.fullwidth &&
+      css`
+        width: 100%;
+        height: ${remcalc(50)};
+        border-radius: 0;
       `}
 
     &:disabled {
@@ -102,9 +110,9 @@ const ButtonBlock = styled.button`
 const Button = ({
   children,
   ref,
-  color = 'teal',
+  color = "teal",
   inline,
-  size = 'medium',
+  size = "medium",
   border,
   weight,
   responsive = false,

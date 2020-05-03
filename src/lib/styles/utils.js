@@ -13,5 +13,5 @@ export const calcToRem = (px) => {
 };
 
 export const remcalc = (px) => `
-  ${calcToRem(px)}rem;
+  ${calcToRem(px)}rem
 `;
