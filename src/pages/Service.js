@@ -1,59 +1,70 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import styled from "styled-components";
 import Search from '../components/common/Search';
 import ServiceList from '../components/service/ServiceList';
+import axios from 'axios';
 
 function Service() {
-  const categoryTab = [
-    {title:'생산성',active:true,id:0},
-    {title:'생활/편의',active:false,id:1},
-    {title:'심심풀이',active:false,id:2},
-    {title:'건강/운동',active:false,id:3},
-    {title:'교육',active:false,id:4},
-    {title:'심리건강',active:false,id:5},
-    {title:'엔터테이먼트',active:false,id:6},
-    {title:'비즈니스',active:false,id:7},
-    {title:'금융',active:false,id:8},
-    {title:'애완동물',active:false,id:9,}
-]
-const hashTag = [
-  {title:'#여행관련',active:true},
-  {title:'#두글',active:false},
-  {title:'#세글자',active:false},
-  {title:'#네글자요',active:false},
-  {title:'#다섯글자요',active:false},
-  {title:'#여섯글자요요',active:false},
-  {title:'#일곱글자요요요',active:false},
-]
-// const onToggle = (id) => {
-//   console.log(categoryTab[id] , id)
-//   categoryTab.map(item => item.id === id ? {...item , active : !item.active} :item)
-// }
+  const [category, setCategory] = useState([]);
+  const [subcategory,setSubcategory] = useState([]);
+  const [active,setActive] = useState("");
+  useEffect(() => {
+    axios.get('http://localhost:8080/web/category')
+    .then(function (data) {
+      setCategory(data.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  },[]);
+let check = new Boolean(true);
+function activateLasers(item) {
+  console.log()
+  
+  console.log(item)
+  
+  if(check==true){
+    item.active=true;
+    setActive("true");
+    check=false;
+  }else{
+    item.active=false;
+    setActive("false");
+    check=true;
+  }
+}
+function smallCategory(item) {
+  setSubcategory(item.subCategory);
+}
+function serviceList(item){
+  console.log(item)
+}
   return (
     <Contents>
       <Search></Search>
       <CategotyTab>
         <ul>
           {
-            categoryTab.map((item, index) =>
-              <li key={index} className={item.active === true ? 'active' : ''}>
-                <button type="button">{item.title}</button>
+            category.map((item, index) =>
+              <li onClick={activateLasers.bind(this, item)} key={index} className={item.active === true ? 'active' : ''}>
+                <button type="button" onClick={smallCategory.bind(this, item)} >{item.name}</button>
               </li>
             )
           }
         </ul>
       </CategotyTab>
       <HashTag>
-        <ul>
+          <ul>
           {
-            hashTag.map((item, index) =>
-              <li key={index} className={item.active === true ? 'active' : ''}>
-                <button type="button">{item.title}</button>
-              </li>
+            
+            subcategory.map((item, index) =>
+                <li key={index}  className={item.active === true ? 'active' : ''}> 
+                  <button type="button" onClick={serviceList.bind(this, item)}>{item.name}</button>
+                </li>
             )
           }
-        </ul>
-      </HashTag>
+          </ul>
+        </HashTag>
       <ServiceList></ServiceList>
     </Contents>
   );

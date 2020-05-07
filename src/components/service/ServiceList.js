@@ -1,65 +1,20 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react';
 import styled from 'styled-components'
+import axios from 'axios';
 
 function ServiceList() {
-    const list = [
-        {
-            title:'밑줄 그을때 "Highlight"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'혼자 떠나고 싶을때 "해변 사랑"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'밑줄 그을때 "Highlight"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'혼자 떠나고 싶을때 "해변 사랑"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'밑줄 그을때 "Highlight"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'혼자 떠나고 싶을때 "해변 사랑"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'밑줄 그을때 "Highlight"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'혼자 떠나고 싶을때 "해변 사랑"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-    ]
+    const [weblist, setWeblist] = useState([]);
+    useEffect(() => {
+        axios.get('http://localhost:8080/web/service')
+        .then(function (data) {
+            console.log(data.data.content)
+            setWeblist(data.data.content);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+      },[]);
+    
     return (
         <ListWrap>
             <div className="inner">
@@ -69,17 +24,18 @@ function ServiceList() {
                 </div>
                 <ul>
                     {
-                        list.map((item,index) => 
+                        weblist.map((item,index) => 
                             <li>
                                 <span className="pic">
-                                    <img src={item.img} alt=""/>
+                                <img src={item.file_name == null?require('../../asset/img/img_test.png'):'http://localhost:8080/getWebImage/'+item.file_name} width='320' height='200'/>
                                 </span>
                                 <div className="info">
+                                
                                 <strong className="title">{item.title}</strong>
-                                    <span className="writer">{item.company}</span>
+                                    <span className="writer"></span>
                                     <div className="right">
-                                        <p className="view"><span>{item.view}</span> view</p>
-                                        <p className="vote"><span>{item.vote}</span> vote</p>
+                                        <p className="view"><span></span> view</p>
+                                        <p className="vote"><span></span> vote</p>
                                     </div>
                                 </div>
                             </li>
