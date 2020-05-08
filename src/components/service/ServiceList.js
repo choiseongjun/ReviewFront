@@ -1,18 +1,34 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useCallback} from 'react';
 import styled from 'styled-components'
 import axios from 'axios';
+import { useSelector, useDispatch } from "react-redux";
+import {
+    initalizeWebList
+} from "../../modules/weblist";
+
 
 function ServiceList() {
-    const [weblist, setWeblist] = useState([]);
+    
+    //const [serviceweblist,setServiceweblist] =useSelector(state => console.log(state));
+    const dispatch = useDispatch();
+    // const { weblist } = useSelector(({ weblist }) => ({
+    //     weblist: weblist,
+       
+    //   }));
+   
+    
+    useSelector(state =>console.log(state.weblist))
     useEffect(() => {
-        axios.get('http://localhost:8080/web/service')
-        .then(function (data) {
-            console.log(data.data.content)
-            setWeblist(data.data.content);
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
+        dispatch(initalizeWebList())     
+        
+        // axios.get('http://localhost:8080/web/service')
+        // .then(function (data) {
+        //     console.log(data.data.content)
+        //     setWeblist(data.data.content);
+        // })
+        // .catch(function (error) {
+        //   console.log(error);
+        // })
       },[]);
     
     return (
@@ -24,22 +40,22 @@ function ServiceList() {
                 </div>
                 <ul>
                     {
-                        weblist.map((item,index) => 
-                            <li>
-                                <span className="pic">
-                                <img src={item.file_name == null?require('../../asset/img/img_test.png'):'http://localhost:8080/getWebImage/'+item.file_name} width='320' height='200'/>
-                                </span>
-                                <div className="info">
+                        // weblist.map((item,index) => 
+                        //     <li>
+                        //         <span className="pic">
+                        //         <img src={item.file_name == null?require('../../asset/img/img_test.png'):'http://localhost:8080/getWebImage/'+item.file_name} width='320' height='200'/>
+                        //         </span>
+                        //         <div className="info">
                                 
-                                <strong className="title">{item.title}</strong>
-                                    <span className="writer"></span>
-                                    <div className="right">
-                                        <p className="view"><span></span> view</p>
-                                        <p className="vote"><span></span> vote</p>
-                                    </div>
-                                </div>
-                            </li>
-                        )
+                        //         <strong className="title">{item.title}</strong>
+                        //             <span className="writer"></span>
+                        //             <div className="right">
+                        //                 <p className="view"><span></span> view</p>
+                        //                 <p className="vote"><span></span> vote</p>
+                        //             </div>
+                        //         </div>
+                        //     </li>
+                        // )
                     }
                 </ul>
             </div>
