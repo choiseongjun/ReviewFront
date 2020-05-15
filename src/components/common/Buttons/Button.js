@@ -77,6 +77,29 @@ const ButtonBlock = styled.button`
       `}
 
     ${(props) =>
+      props.size === "big" &&
+      css`
+        width: ${remcalc(260)};
+        height: ${remcalc(50)};
+        & + & {
+          margin-left: ${remcalc(18)};
+        }
+        font-size: ${remcalc(16)};
+      `}
+
+    ${(props) =>
+      props.size === "long" &&
+      css`
+        height: ${remcalc(40)};
+        padding-left: ${remcalc(50)};
+        padding-right: ${remcalc(50)};
+        & + & {
+          margin-left: ${remcalc(16)};
+        }
+        font-size: ${remcalc(16)};
+      `}
+
+    ${(props) =>
       props.border &&
       css`
         border: 1px solid ${palette.gray2};

@@ -5,7 +5,7 @@ const palette = {
   teal2: "#1AE1CC",
   teal3: "#06C4B0",
   /* gray */
-  gray0: "#FCFCFC",
+  gray0: "#F3F3F3",
   gray1: "#E1E1E1",
   gray2: "#C9C9C9",
   gray3: "#B9B9B9",
@@ -20,7 +20,8 @@ const palette = {
   green1: "#0bb74d",
   /* blue */
   blue0: "#1C82DC",
-  blue1: "#1069b7",
+  blue1: "#287CCF",
+  blue2: "#1069b7",
   /* red */
   red0: "#F23F3F",
   /* yellow */
@@ -31,6 +32,11 @@ export const buttonColorMap = {
   teal: {
     background: palette.teal1,
     color: "white",
+    hoverBackground: palette.teal0,
+  },
+  tealnblack: {
+    background: palette.teal1,
+    color: palette.gray9,
     hoverBackground: palette.teal0,
   },
   gray: {
@@ -45,10 +51,20 @@ export const buttonColorMap = {
     hoverColor: palette.teal3,
   },
   black: {
-    background: "none",
-    color: "black",
+    background: "white",
+    color: palette.gray9,
     hoverBackground: "none",
     hoverColor: palette.teal3,
+  },
+  blacknteal: {
+    background: "white",
+    color: palette.gray9,
+    hoverBackground: palette.teal2,
+  },
+  blackngray: {
+    background: "white",
+    color: palette.gray9,
+    hoverBackground: palette.gray2,
   },
   lightGray: {
     background: palette.gray1,
@@ -64,7 +80,7 @@ export const buttonColorMap = {
   blue: {
     background: palette.blue0,
     color: "white",
-    hoverBackground: palette.blue1,
+    hoverBackground: palette.blue2,
   },
 };
 

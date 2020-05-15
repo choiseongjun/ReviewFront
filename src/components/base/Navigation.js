@@ -9,6 +9,7 @@ import Modal from "../../containers/auth/ModalContainer";
 
 const TopNav = styled.nav`
   position: fixed;
+  z-index: 10000;
   width: 100%;
   background-color: white;
 
@@ -45,6 +46,10 @@ const TopNav = styled.nav`
       cursor: pointer;
     }
   }
+
+  .menu-item {
+    cursor: pointer;
+  }
 `;
 
 function Navigation({ user, state, onClick, onClose, onLogout }) {
@@ -73,8 +78,10 @@ function Navigation({ user, state, onClick, onClose, onLogout }) {
             <li className="menu-item">서비스 탐색</li>
           </Link>
           <li className="menu-item">인기 서비스</li>
-          <li className="menu-item">커뮤니티</li>
-          <li className="menu-item">공유하기</li>
+          <Link to="/share">
+            <li className="menu-item">공유하기</li>
+          </Link>
+          <li className="menu-item">내 서비스 보기</li>
         </ul>
 
         <ul>
