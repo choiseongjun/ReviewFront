@@ -7,10 +7,13 @@ export const createRequestActionTypes = (type) => {
 };
 
 export default function createRequestSaga(type, request) {
+  
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
-
+  console.log("request")
+  console.log(request)
   return function* (action) {
+    
     try {
       console.log("action", action, request);
       const response = yield call(request, action);
