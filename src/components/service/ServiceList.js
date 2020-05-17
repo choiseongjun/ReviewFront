@@ -1,71 +1,78 @@
-import React,{useState,useEffect,useCallback} from 'react';
-import styled from 'styled-components'
-import axios from 'axios';
+import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    initalizeWebList
-} from "../../modules/weblist";
-
+import { initalizeWebList } from "../../modules/weblist";
 
 function ServiceList() {
-    
-    //const [serviceweblist,setServiceweblist] =useSelector(state => console.log(state));
-    const dispatch = useDispatch();
-    // const { weblist } = useSelector(({ weblist }) => ({
-    //     weblist: weblist,
-       
-    //   }));
-   
-    
-    const {weblist} = useSelector(({weblist}) =>({
-        weblist:weblist.weblist}))
-    console.log(weblist)
-    useEffect(() => {
-        dispatch(initalizeWebList())     
-        
-        // axios.get('http://localhost:8080/web/service')
-        // .then(function (data) {
-        //     console.log(data.data.content)
-        //     setWeblist(data.data.content);
-        // })
-        // .catch(function (error) {
-        //   console.log(error);
-        // })
-      },[]);
-    
-    return (
-        <ListWrap>
-            <div className="inner">
-                <div className="sort-wrap">
-                    <button type="button">분류별</button>
-                    <button type="button">관심 순으로</button>
+  //const [serviceweblist,setServiceweblist] =useSelector(state => console.log(state));
+  const dispatch = useDispatch();
+  // const { weblist } = useSelector(({ weblist }) => ({
+  //     weblist: weblist,
+  //   }));
+
+  const { weblist } = useSelector(({ weblist }) => ({
+    weblist: weblist.weblist,
+  }));
+  console.log(weblist);
+  useEffect(() => {
+    dispatch(initalizeWebList());
+
+    // axios.get('http://localhost:8080/web/service')
+    // .then(function (data) {
+    //     console.log(data.data.content)
+    //     setWeblist(data.data.content);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // })
+  }, []);
+
+  return (
+    <ListWrap>
+      <div className="inner">
+        <div className="sort-wrap">
+          <button type="button">분류별</button>
+          <button type="button">관심 순으로</button>
+        </div>
+        {weblist && weblist.length > 0 && (
+          <ul>
+            {weblist.map((item, index) => (
+              <li>
+                <span className="pic">
+                  <img
+                    src={
+                      item.file_name == null
+                        ? require("../../asset/img/img_test.png")
+                        : "http://52.79.57.173/getWebImage/" + item.file_name
+                    }
+                    width="320"
+                    height="200"
+                    alt={item.content}
+                  />
+                </span>
+                <div className="info">
+                  <strong className="title">{item.title}</strong>
+                  <span className="writer"></span>
+                  <div className="right">
+                    <p className="view">
+                      <span></span> view
+                    </p>
+                    <p className="vote">
+                      <span></span> vote
+                    </p>
+                  </div>
                 </div>
-                <ul>
-                    {/* {
-                        weblist.map((item,index) => 
-                            <li>
-                                <span className="pic">
-                                <img src={item.file_name == null?require('../../asset/img/img_test.png'):'http://localhost:8080/getWebImage/'+item.file_name} width='320' height='200'/>
-                                </span>
-                                <div className="info">
-                                
-                                <strong className="title">{item.title}</strong>
-                                    <span className="writer"></span>
-                                    <div className="right">
-                                        <p className="view"><span></span> view</p>
-                                        <p className="vote"><span></span> vote</p>
-                                    </div>
-                                </div>
-                            </li>
-                        )
-                    } */}
-                </ul>
-            </div>
-        </ListWrap>
-    )
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </ListWrap>
+  );
 }
 
-export default ServiceList
+export default ServiceList;
 
 const ListWrap = styled.div`
     padding:60px 0;
@@ -151,4 +158,4 @@ const ListWrap = styled.div`
                 margin-left:26px;
             }
         }
-`
+`;
