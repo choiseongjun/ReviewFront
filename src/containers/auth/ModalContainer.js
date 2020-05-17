@@ -18,7 +18,6 @@ function ModalContainer({ onClose }) {
     authError: auth.authError,
   }));
   const dispatch = useDispatch();
-
   const onChange = useCallback(
     (e) => {
       const { value, name } = e.target;
