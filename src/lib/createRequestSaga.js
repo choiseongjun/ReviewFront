@@ -12,7 +12,7 @@ export default function createRequestSaga(type, request) {
 
   return function* (action) {
     try {
-      console.log("action", action, request);
+      console.log("action", action);
       const response = yield call(request, action);
       console.log("response", response);
       yield put({

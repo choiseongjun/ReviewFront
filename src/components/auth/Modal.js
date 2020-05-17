@@ -4,6 +4,114 @@ import { remcalc } from "../../lib/styles/utils";
 import palette from "../../lib/styles/palette";
 import Button from "../common/Buttons/Button";
 
+//가입시 아이디, 이메일 중복확인 버튼 작업필요
+const Modal = ({ type, onChange, onSubmit, onClose, onChangeForm }) => {
+  const text = typeList[type];
+  return (
+    <Container>
+      <ContentWrap>
+        <Content>
+          <LoginTitle>{text}하기</LoginTitle>
+          <Button type="button" onClick={onClose} color="transparent">
+            X
+          </Button>
+          <LogoWrap>
+            <LogoImg src="https://image.flaticon.com/icons/svg/2240/2240764.svg"></LogoImg>
+            <LogoText>WOOZOOWeb</LogoText>
+          </LogoWrap>
+          <LoginForm onSubmit={onSubmit}>
+            <LoginFormListWrap>
+              <LoginFormList>
+                <LoginLabel for="userid">아이디</LoginLabel>
+                <LoginInput
+                  name="userid"
+                  id="userid"
+                  placeholder="ID를 입력해 주세요"
+                  onChange={onChange}
+                />
+              </LoginFormList>
+              {type === "register" && (
+                <>
+                  <LoginFormList>
+                    <LoginLabel for="email">이메일</LoginLabel>
+                    <LoginInput
+                      name="email"
+                      id="email"
+                      type="email"
+                      placeholder="EMAIL를 입력해 주세요"
+                      onChange={onChange}
+                    />
+                  </LoginFormList>
+                  <LoginFormList>
+                    <LoginLabel for="name">이름</LoginLabel>
+                    <LoginInput
+                      name="name"
+                      id="name"
+                      placeholder="성함을 입력해 주세요"
+                      onChange={onChange}
+                    />
+                  </LoginFormList>
+                </>
+              )}
+              <LoginFormList>
+                <LoginLabel for="password">비밀번호</LoginLabel>
+                <LoginInput
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="PASSWORD를 입력해 주세요"
+                  onChange={onChange}
+                />
+              </LoginFormList>
+              {type === "register" && (
+                <LoginFormList>
+                  <LoginLabel for="passwordConfirm">비밀번호 확인</LoginLabel>
+                  <LoginInput
+                    type="password"
+                    name="passwordConfirm"
+                    id="passwordConfirm"
+                    placeholder="PASSWORD를 입력해 주세요"
+                    onChange={onChange}
+                  />
+                </LoginFormList>
+              )}
+              <LoginFormList>
+                <Button type="submit" color="lightGray" border fullwidth>
+                  {text}하기
+                </Button>
+              </LoginFormList>
+              {type === "login" && (
+                <LoginFormList>
+                  <InlineButton>아이디 찾기</InlineButton>
+                  <InlineButton>비밀번호 찾기</InlineButton>
+                  <InlineButton primary onClick={onChangeForm}>
+                    회원가입하기
+                  </InlineButton>
+                </LoginFormList>
+              )}
+            </LoginFormListWrap>
+          </LoginForm>
+        </Content>
+        {type === "login" && (
+          <Content>
+            <SubTitle>소셜계정으로 로그인</SubTitle>
+            <LoginForm onSubmit={onSubmit}>
+              <Button type="submit" color="green" border fullwidth>
+                네이버 계정으로 로그인
+              </Button>
+              <Button type="submit" color="blue" border fullwidth>
+                페이스북 계정으로 로그인
+              </Button>
+            </LoginForm>
+          </Content>
+        )}
+      </ContentWrap>
+    </Container>
+  );
+};
+
+export default Modal;
+
 const Container = styled.div`
   background: rgba(0, 0, 0, 0.7);
   position: fixed;
@@ -137,66 +245,7 @@ const SubTitle = styled.h2`
   text-align: left;
 `;
 
-const Modal = ({ onChange, onSubmit, onClose }) => {
-  return (
-    <Container>
-      <ContentWrap>
-        <Content>
-          <LoginTitle>로그인하기</LoginTitle>
-          <Button type="button" onClick={onClose} color="transparent">
-            X
-          </Button>
-          <LogoWrap>
-            <LogoImg src="https://image.flaticon.com/icons/svg/2240/2240764.svg"></LogoImg>
-            <LogoText>WOOZOOWeb</LogoText>
-          </LogoWrap>
-          <LoginForm onSubmit={onSubmit}>
-            <LoginFormListWrap>
-              <LoginFormList>
-                <LoginLabel for="userid">아이디</LoginLabel>
-                <LoginInput
-                  name="userid"
-                  id="userid"
-                  placeholder="ID를 입력해 주세요"
-                  onChange={onChange}
-                />
-              </LoginFormList>
-              <LoginFormList>
-                <LoginLabel for="password">비밀번호</LoginLabel>
-                <LoginInput
-                  name="password"
-                  id="password"
-                  placeholder="PASSWORD를 입력해 주세요"
-                  onChange={onChange}
-                />
-              </LoginFormList>
-              <LoginFormList>
-                <Button type="submit" color="lightGray" border fullwidth>
-                  로그인하기
-                </Button>
-              </LoginFormList>
-              <LoginFormList>
-                <InlineButton>아이디 찾기</InlineButton>
-                <InlineButton>비밀번호 찾기</InlineButton>
-                <InlineButton primary>회원가입하기</InlineButton>
-              </LoginFormList>
-            </LoginFormListWrap>
-          </LoginForm>
-        </Content>
-        <Content>
-          <SubTitle>소셜계정으로 로그인</SubTitle>
-          <LoginForm onSubmit={onSubmit}>
-            <Button type="submit" color="green" border fullwidth>
-              네이버 계정으로 로그인
-            </Button>
-            <Button type="submit" color="blue" border fullwidth>
-              페이스북 계정으로 로그인
-            </Button>
-          </LoginForm>
-        </Content>
-      </ContentWrap>
-    </Container>
-  );
+const typeList = {
+  login: "로그인",
+  register: "회원가입",
 };
-
-export default Modal;
