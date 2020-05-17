@@ -1,97 +1,78 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { initalizeWebList } from "../../modules/weblist";
 
 function ServiceList() {
-    const list = [
-        {
-            title:'밑줄 그을때 "Highlight"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'혼자 떠나고 싶을때 "해변 사랑"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'밑줄 그을때 "Highlight"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'혼자 떠나고 싶을때 "해변 사랑"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'밑줄 그을때 "Highlight"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'혼자 떠나고 싶을때 "해변 사랑"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'밑줄 그을때 "Highlight"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-        {
-            title:'혼자 떠나고 싶을때 "해변 사랑"',
-            company : '주식회사',
-            view :100,
-            vote : 100,
-            img:'../../asset/img/img_test.png'
-        },
-    ]
-    return (
-        <ListWrap>
-            <div className="inner">
-                <div className="sort-wrap">
-                    <button type="button">분류별</button>
-                    <button type="button">관심 순으로</button>
-                </div>
-                <ul>
-                    {
-                        list.map((item,index) => 
-                            <li>
-                                <span className="pic">
-                                    <img src={item.img} alt=""/>
-                                </span>
-                                <div className="info">
-                                <strong className="title">{item.title}</strong>
-                                    <span className="writer">{item.company}</span>
-                                    <div className="right">
-                                        <p className="view"><span>{item.view}</span> view</p>
-                                        <p className="vote"><span>{item.vote}</span> vote</p>
-                                    </div>
-                                </div>
-                            </li>
-                        )
+  //const [serviceweblist,setServiceweblist] =useSelector(state => console.log(state));
+  const dispatch = useDispatch();
+  // const { weblist } = useSelector(({ weblist }) => ({
+  //     weblist: weblist,
+  //   }));
+
+  const { weblist } = useSelector(({ weblist }) => ({
+    weblist: weblist.weblist,
+  }));
+  console.log(weblist);
+  useEffect(() => {
+    dispatch(initalizeWebList());
+
+    // axios.get('http://localhost:8080/web/service')
+    // .then(function (data) {
+    //     console.log(data.data.content)
+    //     setWeblist(data.data.content);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // })
+  }, []);
+
+  return (
+    <ListWrap>
+      <div className="inner">
+        <div className="sort-wrap">
+          <button type="button">분류별</button>
+          <button type="button">관심 순으로</button>
+        </div>
+        {weblist && weblist.length > 0 && (
+          <ul>
+            {weblist.map((item, index) => (
+              <li>
+                <span className="pic">
+                  <img
+                    src={
+                      item.file_name == null
+                        ? require("../../asset/img/img_test.png")
+                        : "http://52.79.57.173/getWebImage/" + item.file_name
                     }
-                </ul>
-            </div>
-        </ListWrap>
-    )
+                    width="320"
+                    height="200"
+                    alt={item.content}
+                  />
+                </span>
+                <div className="info">
+                  <strong className="title">{item.title}</strong>
+                  <span className="writer"></span>
+                  <div className="right">
+                    <p className="view">
+                      <span></span> view
+                    </p>
+                    <p className="vote">
+                      <span></span> vote
+                    </p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </ListWrap>
+  );
 }
 
-export default ServiceList
+export default ServiceList;
 
 const ListWrap = styled.div`
     padding:60px 0;
@@ -177,4 +158,4 @@ const ListWrap = styled.div`
                 margin-left:26px;
             }
         }
-`
+`;
