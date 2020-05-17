@@ -17,7 +17,9 @@ function ServiceList() {
     //   }));
    
     
-    useSelector(state =>console.log(state.weblist))
+    const {weblist} = useSelector(({weblist}) =>({
+        weblist:weblist.weblist}))
+    console.log(weblist)
     useEffect(() => {
         dispatch(initalizeWebList())     
         
@@ -39,24 +41,24 @@ function ServiceList() {
                     <button type="button">관심 순으로</button>
                 </div>
                 <ul>
-                    {
-                        // weblist.map((item,index) => 
-                        //     <li>
-                        //         <span className="pic">
-                        //         <img src={item.file_name == null?require('../../asset/img/img_test.png'):'http://localhost:8080/getWebImage/'+item.file_name} width='320' height='200'/>
-                        //         </span>
-                        //         <div className="info">
+                    {/* {
+                        weblist.map((item,index) => 
+                            <li>
+                                <span className="pic">
+                                <img src={item.file_name == null?require('../../asset/img/img_test.png'):'http://localhost:8080/getWebImage/'+item.file_name} width='320' height='200'/>
+                                </span>
+                                <div className="info">
                                 
-                        //         <strong className="title">{item.title}</strong>
-                        //             <span className="writer"></span>
-                        //             <div className="right">
-                        //                 <p className="view"><span></span> view</p>
-                        //                 <p className="vote"><span></span> vote</p>
-                        //             </div>
-                        //         </div>
-                        //     </li>
-                        // )
-                    }
+                                <strong className="title">{item.title}</strong>
+                                    <span className="writer"></span>
+                                    <div className="right">
+                                        <p className="view"><span></span> view</p>
+                                        <p className="vote"><span></span> vote</p>
+                                    </div>
+                                </div>
+                            </li>
+                        )
+                    } */}
                 </ul>
             </div>
         </ListWrap>

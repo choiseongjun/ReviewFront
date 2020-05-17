@@ -25,12 +25,15 @@ const initialState = {
   };
 //reducer
 const weblist = (state = initialState, action) => {
-  
+    console.log("action")
+    console.log(action)
+   
     switch (action.type) {
       case WEBLIST_SUCCESS:
+        console.log(state,action)
         return {
           ...state,
-          weblist: weblist,
+          weblist: action.payload,
         };
         case WEBLIST_FAILURE:
         return {
