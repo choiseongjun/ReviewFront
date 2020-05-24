@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { initalizeWebList } from "../../modules/weblist";
+import { Link } from "react-router-dom";
 
 function ServiceList() {
   //const [serviceweblist,setServiceweblist] =useSelector(state => console.log(state));
@@ -14,7 +15,7 @@ function ServiceList() {
   const { weblist } = useSelector(({ weblist }) => ({
     weblist: weblist.weblist,
   }));
-  console.log(weblist);
+   console.log(weblist);
   useEffect(() => {
     dispatch(initalizeWebList());
 
@@ -38,32 +39,34 @@ function ServiceList() {
         {weblist && weblist.length > 0 && (
           <ul>
             {weblist.map((item, index) => (
-              <li>
-                <span className="pic">
-                  <img
-                    src={
-                      item.file_name == null
-                        ? require("../../asset/img/img_test.png")
-                        : "http://52.79.57.173/getWebImage/" + item.file_name
-                    }
-                    width="320"
-                    height="200"
-                    alt={item.content}
-                  />
-                </span>
-                <div className="info">
-                  <strong className="title">{item.title}</strong>
-                  <span className="writer"></span>
-                  <div className="right">
-                    <p className="view">
-                      <span></span> view
-                    </p>
-                    <p className="vote">
-                      <span></span> vote
-                    </p>
+              <Link to={"/serviceDetail/" + item.id}>
+                <li>
+                  <span className="pic">
+                    <img
+                      src={
+                        item.file_name == null
+                          ? require("../../asset/img/img_test.png")
+                          : "http://52.79.57.173/getWebImage/" + item.file_name
+                      }
+                      width="320"
+                      height="200"
+                      alt={item.content}
+                    />
+                  </span>
+                  <div className="info">
+                    <strong className="title">{item.title}</strong>
+                    <span className="writer"></span>
+                    <div className="right">
+                      <p className="view">
+                        <span></span> view
+                      </p>
+                      <p className="vote">
+                        <span></span> vote
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </li>
+                </li>
+              </Link>
             ))}
           </ul>
         )}
