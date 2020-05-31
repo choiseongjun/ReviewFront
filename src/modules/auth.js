@@ -85,6 +85,7 @@ const auth = (state = initialState, action) => {
         authError: action.payload.error,
       };
     case LOGIN_SUCCESS:
+      console.log("login", action);
       return {
         ...state,
         auth: action.payload.accessToken,

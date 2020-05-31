@@ -1,14 +1,27 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import palette from "../lib/styles/palette";
-import { remcalc } from "../lib/styles/utils";
-import ProgressIcon from "../components/common/ProgressIcon";
-import Button from "../components/common/Buttons/Button";
+import palette from "../../lib/styles/palette";
+import { remcalc } from "../../lib/styles/utils";
+import ProgressIcon from "../common/ProgressIcon";
+import Button from "../common/Buttons/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function RegisterService() {
-  const hashTag = ["하이라이트", "형광펜", "공부할때", "일상", "디자인"];
-
+function RegisterPresenter({
+  onChange,
+  onInput,
+  onSelect,
+  onClick,
+  onSubmit,
+  imgBase64,
+  img2Base64,
+  category,
+  subCategory,
+  form,
+  error,
+}) {
+  console.log("img", imgBase64);
+  console.log("img2", img2Base64.length);
+  //const hashTag = ["하이라이트", "형광펜", "공부할때", "일상", "디자인"];
   return (
     <Bg>
       <Wrapper>
@@ -23,9 +36,8 @@ function RegisterService() {
           <Form>
             <FormListWrap flex>
               <FormList center>
-                <ImgBox>
-                  <img />
-                  <GuideWrap>
+                <ImgBox imgUrl={imgBase64}>
+                  <GuideWrap img={imgBase64}>
                     <FontAwesomeIcon icon={["far", "image"]} size="4x" />
                     <Caption>썸네일 이미지</Caption>
                     <Desctext>
@@ -37,53 +49,50 @@ function RegisterService() {
                 </ImgBox>
                 <ImgUpload>
                   <Label>
-                    <Input name="serviceName" id="serviceName" type="file" />
+                    <Input
+                      name="file1"
+                      id="file1"
+                      type="file"
+                      onChange={onChange}
+                    />
                   </Label>
                 </ImgUpload>
               </FormList>
               <RestAlign>
                 <FormList>
-                  <Label for="serviceName">서비스 이름을 적어주세요.</Label>
+                  <Label htmlFor="title">서비스 이름을 적어주세요.</Label>
                   <InputWrap>
-                    <Input name="serviceName" id="serviceName" />
-                    <Button>선택</Button>
-                    <CheckIcon complete>
-                      <FontAwesomeIcon icon={["fas", "check"]} />
-                    </CheckIcon>
+                    <Input name="title" id="title" onInput={onInput} />
                   </InputWrap>
                   <Alert>
                     이름을 정확하게 등록해주세요. 특수 문자는 불가능합니다.
                   </Alert>
                 </FormList>
                 <FormList>
-                  <Label for="companyName">회사명을 적어주세요.</Label>
+                  <Label htmlFor="companyname">회사명을 적어주세요.</Label>
                   <InputWrap>
-                    <Input name="companyName" id="companyName" />
-                    <Button>선택</Button>
-                    <CheckIcon complete>
-                      <FontAwesomeIcon icon={["fas", "check"]} />
-                    </CheckIcon>
+                    <Input
+                      name="companyname"
+                      id="companyname"
+                      onInput={onInput}
+                    />
                   </InputWrap>
                   <AddWrap>
                     <Alert>
                       이름을 정확하게 등록해주세요. 특수 문자는 불가능합니다.
                     </Alert>
-                    <CheckWrap>
+                    {/*                     <CheckWrap>
                       <Checkbox id="selectNickname" type="checkbox"></Checkbox>
-                      <CheckLabel for="selectNickname">
+                      <CheckLabel htmlFor="selectNickname">
                         닉네임으로 선택
                       </CheckLabel>
-                    </CheckWrap>
+                    </CheckWrap> */}
                   </AddWrap>
                 </FormList>
                 <FormList>
-                  <Label for="serviceAddr">서비스 주소를 적어주세요.</Label>
+                  <Label htmlFor="url">서비스 주소를 적어주세요.</Label>
                   <InputWrap>
-                    <Input name="serviceAddr" id="serviceAddr" type="text" />
-                    <Button>선택</Button>
-                    <CheckIcon complete>
-                      <FontAwesomeIcon icon={["fas", "check"]} />
-                    </CheckIcon>
+                    <Input name="url" id="url" type="text" onInput={onInput} />
                   </InputWrap>
                   <Alert>
                     이름을 정확하게 등록해주세요. 특수 문자는 불가능합니다.
@@ -97,26 +106,32 @@ function RegisterService() {
                 <Label>서비스의 분류를 선택해주세요.</Label>
                 <SelectGroup>
                   <SelectWrap>
-                    <Select>
-                      <Option value="c1">대분류 선택</Option>
-                      <Option value="c2">분류1</Option>
-                      <Option value="c3">분류1</Option>
-                      <Option value="c4">분류1</Option>
+                    <Select onChange={onSelect} id="category">
+                      {category &&
+                        category.length > 0 &&
+                        category.map((item, index) => (
+                          <Option key={index} value={item.mcode}>
+                            {item.name}
+                          </Option>
+                        ))}
                     </Select>
                   </SelectWrap>
                   <SelectWrap>
-                    <Select>
-                      <Option value="c1">중분류 선택</Option>
-                      <Option value="c2">분류1</Option>
-                      <Option value="c3">분류1</Option>
-                      <Option value="c4">분류1</Option>
+                    <Select onChange={onSelect} id="subCategory">
+                      {subCategory &&
+                        subCategory.length > 0 &&
+                        subCategory.map((item, index) => (
+                          <Option key={index} value={item.mcode}>
+                            {item.name}
+                          </Option>
+                        ))}
                     </Select>
                   </SelectWrap>
                 </SelectGroup>
               </FormList>
-              <FormList>
+              {/*               <FormList>
                 <DescWrap>
-                  <Label for="descService">
+                  <Label htmlFor="descService">
                     어떤 서비스인지 50자로 표현해주세요! 서비스 소개에
                     노출됩니다.
                   </Label>
@@ -126,16 +141,16 @@ function RegisterService() {
                     maxlength="50"
                   ></textarea>
                 </DescWrap>
-              </FormList>
+              </FormList> */}
               <FormList>
-                <Label for="publishType">서비스 등록하기</Label>
+                <Label htmlFor="publishType">서비스 등록하기</Label>
                 <ButtonWrap>
-                  <Button size="big" color="blacknteal" border>
+                  <StyledButton id="mobile" onClick={onClick}>
                     모바일 등록하기
-                  </Button>
-                  <Button size="big" color="blacknteal" border>
+                  </StyledButton>
+                  <StyledButton id="web" onClick={onClick}>
                     웹사이트 등록하기
-                  </Button>
+                  </StyledButton>
                 </ButtonWrap>
               </FormList>
             </FormListWrap>
@@ -148,13 +163,21 @@ function RegisterService() {
 
         <InfoWrap>
           <SubTitleText>추가 정보 등록하기</SubTitleText>
-          <Form>
+          <Form onSubmit={onSubmit}>
             <FormListWrap>
               <FormList>
                 <Label>사진 추가하기</Label>
                 <AddImgWrap>
+                  {img2Base64 &&
+                    img2Base64.length > 0 &&
+                    img2Base64.map((img2, index) => (
+                      <>
+                        <ImgBox imgUrl={img2} key={index}>
+                          <GuideWrap></GuideWrap>
+                        </ImgBox>
+                      </>
+                    ))}
                   <ImgBox>
-                    <img />
                     <GuideWrap>
                       <FontAwesomeIcon icon={["far", "image"]} size="3x" />
                       <Caption>이미지 크기</Caption>
@@ -165,7 +188,12 @@ function RegisterService() {
                         </em>
                       </Desctext>
                       <Label>
-                        <Input name="addImg" id="addImg" type="file" />
+                        <Input
+                          name="file2"
+                          id="file2"
+                          type="file"
+                          onChange={onChange}
+                        />
                       </Label>
                     </GuideWrap>
                   </ImgBox>
@@ -173,12 +201,16 @@ function RegisterService() {
               </FormList>
               <FormList>
                 <IntroWrap>
-                  <Label for="introService">서비스 소개 작성</Label>
-                  <textarea name="introService" id="introService"></textarea>
+                  <Label htmlFor="introService">서비스 소개 작성</Label>
+                  <textarea
+                    name="content"
+                    id="content"
+                    onInput={onInput}
+                  ></textarea>
                 </IntroWrap>
               </FormList>
-              <FormList>
-                <Label for="introService">해시태그 추가하기</Label>
+              {/*               <FormList>
+                <Label htmlFor="introService">해시태그 추가하기</Label>
                 <HashWrap>
                   <Input
                     name="addHash"
@@ -197,24 +229,24 @@ function RegisterService() {
                     </ul>
                   </HashTag>
                 </HashWrap>
-              </FormList>
+              </FormList> */}
             </FormListWrap>
+            <BottomButtonWrap>
+              <Button color="blackngray" fullwidth border>
+                뒤로가기
+              </Button>
+              <Button color="tealnblack" fullwidth border type="submit">
+                등록하기
+              </Button>
+            </BottomButtonWrap>
           </Form>
         </InfoWrap>
-        <BottomButtonWrap>
-          <Button color="blackngray" fullwidth border>
-            뒤로가기
-          </Button>
-          <Button color="tealnblack" fullwidth border>
-            등록하기
-          </Button>
-        </BottomButtonWrap>
       </Wrapper>
     </Bg>
   );
 }
 
-export default RegisterService;
+export default RegisterPresenter;
 
 const Bg = styled.div`
   background: ${palette.gray0};
@@ -313,6 +345,9 @@ const ImgBox = styled.div`
   align-items: center;
   line-height: ${remcalc(22)};
   margin-right: ${remcalc(30)};
+  background: url(${(props) => props.imgUrl});
+  background-repeat: no-repeat;
+  background-size: contain;
 
   & + button {
     text-align: center;
@@ -325,7 +360,10 @@ const ImgBox = styled.div`
   }
 `;
 
-const GuideWrap = styled.div``;
+const GuideWrap = styled.div`
+  width: inherit;
+  display: ${(props) => props.img && "none"};
+`;
 
 const Caption = styled.h4`
   font-size: ${remcalc(14)};
@@ -560,6 +598,8 @@ const Notice = styled.p`
 `;
 
 const AddImgWrap = styled.div`
+display:flex;
+overflow-x:scroll;
   width: 100%;
   background: ${palette.gray0};
   padding: 14px ${remcalc(17)};
@@ -568,7 +608,6 @@ const AddImgWrap = styled.div`
   & > div {
     width: ${remcalc(150)};
     height: 180px;
-    background: ${palette.gray1};
     border: 0;
     line-height: ${remcalc(16)};
 
@@ -674,5 +713,17 @@ const BottomButtonWrap = styled.div`
 
   button + button {
     border-left: none;
+  }
+`;
+
+const StyledButton = styled.span`
+  display: inline-block;
+  cursor: pointer;
+  /* background-color: #1ae1cc; */
+  border: 1px solid black;
+  padding: 3px;
+  margin-right: 10px;
+  &:hover {
+    background-color: #1ae1cc;
   }
 `;

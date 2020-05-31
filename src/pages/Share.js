@@ -121,7 +121,7 @@ function Share() {
                 내가 만든 서비스 우주웹에서 만나봐요.
               </SubCopy>
             </CopyArea>
-            <Link to="/registerService">
+            <Link to="/register">
               <Button size="long" color="tealnblack">
                 다음
               </Button>
