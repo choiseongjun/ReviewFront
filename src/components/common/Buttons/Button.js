@@ -139,6 +139,7 @@ const Button = ({
   border,
   weight,
   responsive = false,
+  type,
   ...rest
 }) => {
   const htmlProps = rest;
@@ -151,7 +152,9 @@ const Button = ({
       weight={weight}
       responsive={responsive}
       {...htmlProps}
+      type={type}
       onClick={(e) => {
+        console.log("btnclick");
         if (htmlProps.onClick) {
           htmlProps.onClick(e);
         }

@@ -85,13 +85,20 @@ function Navigation({ user, state, onClick, onClose, onLogout }) {
         </ul>
 
         <ul>
-          {console.log("user: ", user)}
           {user ? (
-            <li className="menu-item" onClick={onLogout}>
+            <li
+              className="menu-item"
+              style={{ cursor: "pointer" }}
+              onClick={onLogout}
+            >
               로그아웃
             </li>
           ) : (
-            <li className="menu-item" onClick={onClick}>
+            <li
+              className="menu-item"
+              style={{ cursor: "pointer" }}
+              onClick={onClick}
+            >
               로그인
             </li>
           )}

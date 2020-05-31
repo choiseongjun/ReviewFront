@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Navigation from "../../components/base/Navigation";
 import { modalState, logout } from "../../modules/auth";
@@ -11,19 +11,19 @@ function NaviContainer() {
   }));
   const dispatch = useDispatch();
 
-  const onClick = () => {
+  const onClick = useCallback(() => {
     dispatch(modalState(true));
-  };
+  }, [dispatch]);
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     dispatch(modalState(false));
-  };
+  }, [dispatch]);
 
-  const onLogout = () => {
+  const onLogout = useCallback(() => {
     window.localStorage.clear();
     setUser(false);
     dispatch(logout());
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     if (auth) {

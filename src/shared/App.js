@@ -8,7 +8,7 @@ import Navigation from "../containers/base/NaviContainer";
 import Footer from "../components/base/Footer";
 import GlobalStyles from "../lib/styles/GlobalStyles.js";
 import Responsive from "../lib/styles/responsive";
-import RegisterService from "../pages/RegisterService";
+import Register from "../pages/Service/Register";
 import "../lib/styles/fontawesome";
 
 function App() {
@@ -20,9 +20,9 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/service" component={Service} />
+        <Route exact path="/register" component={Register} />
         <Route exact path="/serviceDetail/:id" component={ServiceDetail} />
         <Route exact path="/share" component={Share} />
-        <Route exact path="/registerService" component={RegisterService} />
       </Switch>
       <Footer />
     </>
