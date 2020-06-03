@@ -4,6 +4,7 @@ import CenterWrapper from "../../components/common/CenterWrapper";
 import Button from "../../components/common/Buttons/Button.js";
 import palette from "../../lib/styles/palette";
 import { remcalc } from "../../lib/styles/utils";
+import Search from '../common/Search';
 
 function MainVisual() {
   return (
@@ -17,6 +18,7 @@ function MainVisual() {
               공유하기
             </Button>
           </div>
+          <Search />
         </CenterWrapper>
       </div>
     </Visual>
@@ -24,7 +26,7 @@ function MainVisual() {
 }
 
 const Visual = styled.section`
-  background-image: url(/images/header-bg.png);
+  background-image: url(/images/head-bg.png);
   background-size: cover;
   height: 400px;
   background-position: center;

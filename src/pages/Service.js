@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Search from '../components/common/Search';
 import ServiceList from '../components/service/ServiceList';
 import axios from 'axios';
+import MainVisual from "../components/home/MainVisual";
 
 function Service() {
   const [category, setCategory] = useState([]);
@@ -40,39 +41,42 @@ function serviceList(item){
   console.log(item)
 }
   return (
-    <Contents>
-      <Search></Search>
-      <CategotyTab>
-        <ul>
-          {
-            category.map((item, index) =>
-              <li onClick={activateLasers.bind(this, item)} key={index} className={item.active === true ? 'active' : ''}>
-                <button type="button" onClick={smallCategory.bind(this, item)} >{item.name}</button>
-              </li>
-            )
-          }
-        </ul>
-      </CategotyTab>
-      <HashTag>
+    <>
+    <MainVisual />
+      <Contents>
+        
+        <CategotyTab>
           <ul>
-          {
-            
-            subcategory.map((item, index) =>
-                <li key={index}  className={item.active === true ? 'active' : ''}> 
-                  <button type="button" onClick={serviceList.bind(this, item)}>{item.name}</button>
+            {
+              category.map((item, index) =>
+                <li onClick={activateLasers.bind(this, item)} key={index} className={item.active === true ? 'active' : ''}>
+                  <button type="button" onClick={smallCategory.bind(this, item)} >{item.name}</button>
                 </li>
-            )
-          }
+              )
+            }
           </ul>
-        </HashTag>
-      <ServiceList></ServiceList>
-    </Contents>
+        </CategotyTab>
+        <HashTag>
+            <ul>
+            {
+              
+              subcategory.map((item, index) =>
+                  <li key={index}  className={item.active === true ? 'active' : ''}> 
+                    <button type="button" onClick={serviceList.bind(this, item)}>{item.name}</button>
+                  </li>
+              )
+            }
+            </ul>
+          </HashTag>
+        <ServiceList></ServiceList>
+      </Contents>
+    </>
   );
 }
 
 export default Service;
 const Contents = styled.section`
-  padding-top:118px;
+  padding-top:18px;
   .sub-tit {
     display:flex;
     flex-wrap:wrap;

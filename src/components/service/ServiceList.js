@@ -15,7 +15,9 @@ function ServiceList() {
   const { weblist } = useSelector(({ weblist }) => ({
     weblist: weblist.weblist,
   }));
-   console.log(weblist);
+  console.log('fdfds') 
+   console.log(weblist); 
+   console.log('fdfds')
   useEffect(() => {
     dispatch(initalizeWebList());
 
@@ -47,7 +49,7 @@ function ServiceList() {
                         item.file_name == null
                           ? require("../../asset/img/img_test.png")
                           : "http://52.79.57.173/getWebImage/" + item.file_name
-                      }
+                      } 
                       width="320"
                       height="200"
                       alt={item.content}
