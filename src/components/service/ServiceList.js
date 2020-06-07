@@ -1,32 +1,17 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { initalizeWebList } from "../../modules/weblist";
 
 function ServiceList() {
-  //const [serviceweblist,setServiceweblist] =useSelector(state => console.log(state));
   const dispatch = useDispatch();
-  // const { weblist } = useSelector(({ weblist }) => ({
-  //     weblist: weblist,
-  //   }));
-
   const { weblist } = useSelector(({ weblist }) => ({
     weblist: weblist.weblist,
   }));
   console.log(weblist);
   useEffect(() => {
     dispatch(initalizeWebList());
-
-    // axios.get('http://localhost:8080/web/service')
-    // .then(function (data) {
-    //     console.log(data.data.content)
-    //     setWeblist(data.data.content);
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // })
-  }, []);
+  }, [dispatch]);
 
   return (
     <ListWrap>

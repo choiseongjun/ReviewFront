@@ -52,7 +52,6 @@ function RegisterContainer({ history }) {
         const file2 = event.target.files[0];
         reader.readAsDataURL(event.target.files[0]);
         imgFile2.push(file2);
-
         setImgFile2(imgFile2);
       }
     },
@@ -106,54 +105,70 @@ function RegisterContainer({ history }) {
     [dispatch, form.app_yn, form.web_yn],
   );
 
-  const handleSubmit = useCallback(async (e) => {
-    e.preventDefault();
-    const token = JSON.parse(localStorage.getItem("user"));
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    const formData = new FormData();
-    formData.append("file", imgFile);
-    formData.append(
-      "webList",
-      new Blob(
-        [
-          JSON.stringify({
-            title: form.title,
-            content: form.content,
-            url: form.url,
-            companyname: form.companyname,
-            categoryname: form.categoryname,
-            app_yn: form.app_yn,
-            web_yn: form.web_yn,
-          }),
-        ],
-        {
-          type: "application/json",
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      const token = JSON.parse(localStorage.getItem("user"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      ),
-    );
-    formData.append("file2", imgFile2);
-    formData.append("file2", imgFile2);
-    formData.append("file2", imgFile2);
+      };
 
-    try {
-      const { data } = await Axios.post(
-        "http://52.79.57.173/web/service",
-        formData,
-        config,
+      const formData = new FormData();
+      console.log("file1", imgFile);
+      formData.append("file", imgFile);
+      formData.append(
+        "webList",
+        new Blob(
+          [
+            JSON.stringify({
+              title: form.title,
+              content: form.content,
+              url: form.url,
+              companyname: form.companyname,
+              categoryname: form.categoryname,
+              app_yn: form.app_yn,
+              web_yn: form.web_yn,
+            }),
+          ],
+          {
+            type: "application/json",
+          },
+        ),
       );
-      if (data.code === "1") {
+      imgFile2.forEach((file) => {
+        console.log("file2", file);
+        formData.append("file2", file);
+      });
+      try {
+        const { data } = await Axios.post(
+          "http://52.79.57.173/web/service",
+          formData,
+          config,
+        );
+        /*       if (data.code === "1") {
         alert("저장되었습니다.");
         history.push("/");
+      } */
+        console.log("data", data);
+      } catch (error) {
+        console.log("error");
       }
-    } catch (error) {
-      console.log("error");
-    }
-  }, []);
+    },
+    [
+      form.app_yn,
+      form.categoryname,
+      form.companyname,
+      form.content,
+      form.title,
+      form.url,
+      form.web_yn,
+      imgFile,
+      imgFile2,
+    ],
+  );
+
   const checkExp = (value) => {
     // eslint-disable-next-line no-useless-escape
     const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
@@ -166,6 +181,7 @@ function RegisterContainer({ history }) {
   };
 
   useEffect(() => {
+    console.log("form", form);
     async function getCategory() {
       const { data: category } = await Axios.get(
         "http://52.79.57.173/web/category",
@@ -174,7 +190,7 @@ function RegisterContainer({ history }) {
       setSubCategory(category[0].subCategory);
     }
     getCategory();
-  }, []);
+  }, [form]);
 
   return (
     <RegisterPresenter

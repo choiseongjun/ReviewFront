@@ -78,9 +78,9 @@ function RegisterPresenter({
                     />
                   </InputWrap>
                   <AddWrap>
-                    <Alert>
-                      이름을 정확하게 등록해주세요. 특수 문자는 불가능합니다.
-                    </Alert>
+                      <Alert>
+                        이름을 정확하게 등록해주세요. 특수 문자는 불가능합니다.
+                      </Alert>
                     {/*                     <CheckWrap>
                       <Checkbox id="selectNickname" type="checkbox"></Checkbox>
                       <CheckLabel htmlFor="selectNickname">
@@ -476,7 +476,7 @@ const AddWrap = styled.div`
 const Alert = styled.p`
   padding: 8px;
   font-size: ${remcalc(11)};
-  color: ${palette.blue1};
+  color: ${(props) => (props.error ? "red" : palette.blue1)};
 `;
 
 const CheckWrap = styled.div``;
