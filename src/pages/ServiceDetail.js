@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from "styled-components";
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import ServiceDetail from '../components/service/ServiceDetail';
 
-export default function ServiceDetail(e) {
-  const [serviceDetail, setServiceDetail] = useState([]);
-  useEffect(() => {
-    axios.get(`http://52.79.57.173/web/service/${e.match.params.id}`)
-      .then(function (data) {
-        setServiceDetail(data.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-  }, []);
+export default function ({match}) {
+  const serviceDetail = ServiceDetail(match.params.id);
   console.log(serviceDetail);
   function shareBtnHandler() {
     alert("공유하기는 미구현입니다.");
@@ -30,24 +21,25 @@ export default function ServiceDetail(e) {
   function pcBtnHandler() {
     alert("PC는 미구현입니다.");
   }
-
+  
   function nextImageHandler(e) {
-    console.log(e.target);
     let element = document.getElementById("recommend_service");
     let children = element.childNodes;
     let scrollLeft = element.scrollLeft;
     if(element.scrollWidth <= element.offsetWidth + scrollLeft) {
       element.scroll({top: 0, left: 0, behavior: 'smooth' });
     } else {
+      let left = 0;
       children.forEach(function(v, i) {
+        console.log(v.offsetLeft, scrollLeft);
         if(v.offsetLeft == scrollLeft) {
-          element.scroll({top: 0, left: children[i+1].offsetLeft, behavior: 'smooth' });
-          return false;
+          // element.scroll({top: 0, left: children[i+1].offsetLeft, behavior: 'smooth' });
+          left = left || children[i+1].offsetLeft;
         }
       });
+      element.scroll({top: 0, left: left, behavior: 'smooth' });
     }
   }
-
   return (
     <Contents>
       <Container>
@@ -68,49 +60,49 @@ export default function ServiceDetail(e) {
             </div>
             <div className="content-wrap">
               <div className="image-wrap">
-                <img src="/image/121111.png"></img>
+                {/* <img src="/image/121111.png"></img> */}
+                <img src={"http://52.79.57.173/getWebImage/" + serviceDetail.file_name}></img>
               </div>
               <div className="container">
                 <h3>{serviceDetail.title}</h3>
-                {/* <div>{serviceDetail.user.name}</div> */}
-                <div className="user">
+                {/* <div className="user">
                   <span>
-                    <img src="/image/heart.png" class="small-img"></img>
-                    <span>해바라기</span>
+                    <img src="/image/heart.png" className="small-img"></img>
+                    <span>{serviceDetail.user?.name ?? ""}</span>
                   </span>
                   <span>
-                    <img src="/image/iconmonstr-star-3-240.png" class="small-img"></img>
+                    <img src="/image/iconmonstr-star-3-240.png" className="small-img"></img>
                     <span>별점 0개</span>
                   </span>
-                </div>
+                </div> */}
                 <hr></hr>
                 <div className="text">
-                  <p>{serviceDetail.content}</p>
+                  {/* <p>{serviceDetail.content}</p> */}
                 </div>
                 <div className="btn-wrap">
-                  <span onClick={mobileBtnHandler}>모바일</span>
-                  <span onClick={pcBtnHandler}>PC</span>
+                  <span className={serviceDetail.app_yn == "Y" ? "active" : ""} onClick={mobileBtnHandler}>모바일</span>
+                  <span className={serviceDetail.web_yn == "Y" ? "active" : ""} onClick={pcBtnHandler}>PC</span>
                 </div>
               </div>
             </div>
           </Subject>
           <Profile>
-            <div class="profile-content">
+            <div className="profile-content">
               <div className="profile-header">
                 <span className="profile-header-title">메이커</span>
                 <img className="profile-header-img" src="/image/iconmonstr-user-8-240.png"></img>
               </div>
             </div>
-            <div class="container">
+            <div className="container">
               <div>
                 <img src="/image/heart@2x.png"></img>
-                <h5>해바라기님</h5>
+                <h5>{serviceDetail.user.name}님</h5>
                 <p className="intro">안녕하세요 해바라기입니다!<br/>저의 서비스를 보러 와보세요!</p>
                 <hr/>
                 <p className="state"><span className="cyan-font">받은 별 개수</span> 2314개 <span className="cyan-font">팔로우</span> 2210명</p>
               </div>
             </div>
-            <div class="profile-show-btn">
+            <div className="profile-show-btn">
               <p>프로필 보러가기</p>
             </div>
           </Profile>
@@ -124,11 +116,11 @@ export default function ServiceDetail(e) {
           <div className="content-middle">
             <ImageSlider className="slider">
               <div className="img-wrap">
-                <img src="/image/img_3.png"/>
-                <img src="/image/img_2.png"/>
-                <img src="/image/img_1.png"/>
-                <img src="/image/img_3.png"/>
-                <img src="/image/img_2.png"/>
+                {serviceDetail.webfile?.map((contact, i) => {
+                  return (
+                    <img src={"http://52.79.57.173/getWebImage/" +  contact.file_name}/>
+                  );
+                })}
               </div>
             </ImageSlider>
             <div className="slider-btn-wrap">
@@ -139,17 +131,11 @@ export default function ServiceDetail(e) {
             </div>
           </div>
           <div className="container">
-            <h4>실속있는 여행의 시작 해바라기 여행</h4>
+            {/* <h4>실속있는 여행의 시작 해바라기 여행</h4> */}
             <div>
-              <p>해바라기 여행은 여행만 바라보고 무슨 서비스무슨 서비스입니다.</p>
-              <p>그래서 이런 서비스들을 한 번 이용해 보세요! 해바라기 여행 좋은 서비스 좋습니다!해바라기 여행은 여행만 바라보고 무슨 서비스무슨 서비스입니다. 그래서 이런 서비스들을 한 번 이용해 해바라기 여행 좋은 서비스 좋습니다!해바라기 여행은 여행만 바라보고 무슨 서비스무슨 서비스입니다. 그래서 이런 서비스들을 한 번 이용해 여행은 여행만 바라보고 무슨 서비스무슨 서비스입니다. 그래서 이런 서비스들을 한 번 이용해보세요! 해바라기 여행 좋은 서비스 좋습니다!
-              </p>
-              <br/>
-              <p>
-               해바라기 여행은 여행만 바라보고 무슨 서비스무슨 서비스입니다. 그래서 이런 서비스들을 한 번 이용해 보세요! 해바라기 여행 좋은 서비스 좋습니다!해바라기 여행은 여행만 바라보고 무슨 서비스무슨 서비스입니다. 그래서 이런 서비스들을 한 번 이용해보세요! 해바라기 여행 좋은 서비스 좋습니다!
-              </p>
+              <p>{serviceDetail.content}</p>
             </div>
-            <div className="container-footer">
+            {/* <div className="container-footer">
               <strong>해시태그</strong>
               <span>
                 <span>하이라이트</span>
@@ -159,14 +145,14 @@ export default function ServiceDetail(e) {
                 <span>디자인</span>
               </span>
               <p><strong>버전</strong> 0.8ver 마지막 수정일 {(serviceDetail.updatedAt ?? "").substring(0, 10)}</p>
-            </div>
+            </div> */}
           </div>
         </ContentMiddle>
         {/* <ContentBottom>
         </ContentBottom> */}
       </Container>
       <Footer>
-        <div>
+        {/* <div>
           <h4>비슷한 추천 서비스</h4>
           <ImageSlider className="slider">
               <div className="img-wrap" id="recommend_service">
@@ -181,7 +167,7 @@ export default function ServiceDetail(e) {
               </div>>
           </ImageSlider>
           <span className="next-img-btn" onClick={(e) => nextImageHandler(e)}>〈</span>
-        </div>
+        </div> */}
       </Footer>
     </Contents>
   );
@@ -293,6 +279,11 @@ const Subject = styled.div`
     text-align: right;
   }
 
+  .btn-wrap>span.active {
+    background: #1AE1CC;
+    pointer: cursor;
+  }
+
   .btn-wrap>span {
     display: inline-block;
     width: 88px;
@@ -388,6 +379,7 @@ const ContentMiddle = styled.div`
     flex: 0 0 60px;
     width: 100%;
     padding: 0 21px 0 0;
+    display: none;
   }
 
   .content-header>span {
@@ -408,7 +400,6 @@ const ContentMiddle = styled.div`
   }
 
   .content-middle {
-    background: #E6E6E6;
     flex: 0 0 260px;
     width: 100%;
   }
@@ -556,49 +547,12 @@ const Footer = styled.div`
 const ImageSlider = styled.div`
   white-space: nowrap;
   overflow: hidden;
+
+  .img-wrap {
+    height: 100%;
+  }
+
+  .img-wrap>img {
+    height: 100%;
+  }
 `
-
-
-// const [SERVICE_DETAIL, SERVICE_DETAIL_SUCCESS, SERVICE_DETAIL_FAILURE] = createRequestActionTypes("web/Service/52");
-
-// export const serviceDetail = createAction(SERVICE_DETAIL)
-
-
-// const serviceDetailSaga = createRequestSaga(SERVICE_DETAIL, serviceDetailApi.serviceDetail);
-// // export const testing = createAction(SERVICE_DETAIL)
-// // const testSaga = createRequestSaga(TEST, authAPI.testSaga)
-
-// export function* serviceDetailSagaLatest() {
-//   yield takeLatest(SERVICE_DETAIL, serviceDetailSaga);
-// }
-
-// const weblistsaga = createRequestSaga(SERVICE_DETAIL, serviceDetail);
-
-// export function* weblistSaga() {
-//   yield takeLatest(WEBLIST, weblistsaga);
-// }
-
-// const initialState = {
-//   weblist: null,
-//   weblistError: "",
-// };
-// const ServiceDetail = (state = initialState, action) => {
-//     let { id } = useParams();
-
-//     switch (action.type) {
-//       case SERVICE_DETAIL_SUCCESS:
-//         console.log("suc", state, action);
-//         return {
-//           ...state,
-//           weblist: action.payload,
-//         };
-//       default:
-//         return state;
-//     }
-//     console.log(SERVICE_DETAIL)
-//     return (
-//         <Contents>{id}</Contents>   
-//     );
-// }
-
-// export default ServiceDetail;

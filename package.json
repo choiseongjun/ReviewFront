@@ -18,11 +18,12 @@
     "react-modal": "^3.11.2",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.1",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.1.3",
+    "start": "^5.1.0",
     "styled-components": "^5.1.0"
   },
   "scripts": {
@@ -46,5 +47,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://52.79.57.173"
+  "proxy": "http://192.168.1.241:8080"
 }
