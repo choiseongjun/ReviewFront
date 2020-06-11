@@ -83,7 +83,6 @@ function RegisterContainer({ history }) {
   const handleClick = useCallback(
     (e) => {
       e.preventDefault();
-      console.log("click", e.target.id);
       if (e.target.id === "mobile") {
         if (form.app_yn === "N") {
           dispatch(changeInput({ key: "app_yn", value: "Y" }));
@@ -138,7 +137,6 @@ function RegisterContainer({ history }) {
         ),
       );
       imgFile2.forEach((file) => {
-        console.log("file2", file);
         formData.append("file2", file);
       });
       try {
@@ -147,11 +145,10 @@ function RegisterContainer({ history }) {
           formData,
           config,
         );
-        /*       if (data.code === "1") {
-        alert("저장되었습니다.");
-        history.push("/");
-      } */
-        console.log("data", data);
+        if (data.code === "1") {
+          alert("저장되었습니다.");
+          history.push("/");
+        }
       } catch (error) {
         console.log("error");
       }
