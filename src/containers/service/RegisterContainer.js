@@ -4,7 +4,6 @@ import RegisterPresenter from "../../components/service/RegisterPresenter";
 import { useDispatch, useSelector } from "react-redux";
 import { changeInput, changeImage } from "../../modules/service";
 import Axios from "axios";
-import { register } from "../../modules/service";
 
 function RegisterContainer({ history }) {
   const dispatch = useDispatch();
@@ -161,6 +160,7 @@ function RegisterContainer({ history }) {
       form.title,
       form.url,
       form.web_yn,
+      history,
       imgFile,
       imgFile2,
     ],
