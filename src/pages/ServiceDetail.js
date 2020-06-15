@@ -23,7 +23,7 @@ export default function ({match}) {
   }
   
   function nextImageHandler(e) {
-    let element = document.getElementById("recommend_service");
+    let element = document.getElementById("service_img_list");
     let children = element.childNodes;
     let scrollLeft = element.scrollLeft;
     if(element.scrollWidth <= element.offsetWidth + scrollLeft) {
@@ -32,8 +32,7 @@ export default function ({match}) {
       let left = 0;
       children.forEach(function(v, i) {
         console.log(v.offsetLeft, scrollLeft);
-        if(v.offsetLeft == scrollLeft) {
-          // element.scroll({top: 0, left: children[i+1].offsetLeft, behavior: 'smooth' });
+        if(v.offsetLeft == Math.round(scrollLeft)) {
           left = left || children[i+1].offsetLeft;
         }
       });
@@ -60,24 +59,13 @@ export default function ({match}) {
             </div>
             <div className="content-wrap">
               <div className="image-wrap">
-                {/* <img src="/image/121111.png"></img> */}
                 <img src={"http://52.79.57.173/getWebImage/" + serviceDetail.file_name}></img>
               </div>
               <div className="container">
                 <h3>{serviceDetail.title}</h3>
-                {/* <div className="user">
-                  <span>
-                    <img src="/image/heart.png" className="small-img"></img>
-                    <span>{serviceDetail.user?.name ?? ""}</span>
-                  </span>
-                  <span>
-                    <img src="/image/iconmonstr-star-3-240.png" className="small-img"></img>
-                    <span>별점 0개</span>
-                  </span>
-                </div> */}
                 <hr></hr>
                 <div className="text">
-                  {/* <p>{serviceDetail.content}</p> */}
+                  <p>{serviceDetail.url}</p>
                 </div>
                 <div className="btn-wrap">
                   <span className={serviceDetail.app_yn == "Y" ? "active" : ""} onClick={mobileBtnHandler}>모바일</span>
@@ -115,37 +103,20 @@ export default function ({match}) {
           </div>
           <div className="content-middle">
             <ImageSlider className="slider">
-              <div className="img-wrap">
+              <div className="img-wrap" id="service_img_list">
                 {serviceDetail.webfile?.map((contact, i) => {
                   return (
                     <img src={"http://52.79.57.173/getWebImage/" +  contact.file_name}/>
                   );
                 })}
               </div>
+              <span className="next-img-btn" onClick={(e) => nextImageHandler(e)}>〈</span>
             </ImageSlider>
-            <div className="slider-btn-wrap">
-              <span className="active"></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
           </div>
           <div className="container">
-            {/* <h4>실속있는 여행의 시작 해바라기 여행</h4> */}
             <div>
               <p>{serviceDetail.content}</p>
             </div>
-            {/* <div className="container-footer">
-              <strong>해시태그</strong>
-              <span>
-                <span>하이라이트</span>
-                <span>형광펜</span>
-                <span>공부할때</span>
-                <span>일상</span>
-                <span>디자인</span>
-              </span>
-              <p><strong>버전</strong> 0.8ver 마지막 수정일 {(serviceDetail.updatedAt ?? "").substring(0, 10)}</p>
-            </div> */}
           </div>
         </ContentMiddle>
         {/* <ContentBottom>
@@ -418,29 +389,6 @@ const ContentMiddle = styled.div`
   .img-wrap>img:not(:last-child) {
     margin-right: 15px;
   }
-
-  .slider-btn-wrap {
-    width: 100%;
-    height: 19px;
-    background: #fff;
-    text-align: center;
-  }
-
-  .slider-btn-wrap>span {
-    width: 8px;
-    height: 8px;
-    display: inline-block;
-    background: #D1D1D1;
-    border-radius: 50%;
-    margin: 0 3px;
-    cursor: pointer;
-  }
-
-  .slider-btn-wrap>span.active {
-    width: 22px;
-    background: #1AE1CC;
-    border-radius: 5px;
-  }
   
   .container {
     height: 100%;
@@ -546,13 +494,24 @@ const Footer = styled.div`
 
 const ImageSlider = styled.div`
   white-space: nowrap;
-  overflow: hidden;
+  position: relative;
 
   .img-wrap {
+    position: relative;
     height: 100%;
+    overflow: hidden;
   }
 
   .img-wrap>img {
     height: 100%;
+  }
+
+  .next-img-btn {
+    position: absolute;
+    left: 0px;
+    top: calc(50% + 10px);
+    transform: translate(0, -50%);
+    font-size: 40px;
+    cursor: pointer;
   }
 `
