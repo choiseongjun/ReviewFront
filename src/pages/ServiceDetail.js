@@ -31,9 +31,26 @@ export default function ({match}) {
     } else {
       let left = 0;
       children.forEach(function(v, i) {
-        console.log(v.offsetLeft, scrollLeft);
         if(v.offsetLeft == Math.round(scrollLeft)) {
           left = left || children[i+1].offsetLeft;
+        }
+      });
+      element.scroll({top: 0, left: left, behavior: 'smooth' });
+    }
+  }
+  
+  function preImageHandler(e) {
+    let element = document.getElementById("service_img_list");
+    let children = element.childNodes;
+    let scrollLeft = element.scrollLeft;
+    console.log("pre");
+    if(scrollLeft == 0) {
+      element.scroll({top: 0, left: element.scrollWidth, behavior: 'smooth' });
+    } else {
+      let left = 0;
+      children.forEach(function(v, i) {
+        if(v.offsetLeft < Math.ceil(scrollLeft)) {
+          left = v.offsetLeft;
         }
       });
       element.scroll({top: 0, left: left, behavior: 'smooth' });
@@ -51,7 +68,7 @@ export default function ({match}) {
         <ContentTop>
           <Subject>
             <div className="subject-header">
-              <span className="subject-header-title">생산성 > 길찾기</span>
+              <span className="subject-header-title">생산성 &rt; 길찾기</span>
               <div className="subject-header-btn-wrap">
                 <img className="subejct-header-share" src="/image/iconmonstr-share-8-240.png" onClick={shareBtnHandler}/>
                 <img className="subejct-header-bell" src="/image/bell.png" onClick={bellBtnHandler}/>
@@ -106,11 +123,12 @@ export default function ({match}) {
               <div className="img-wrap" id="service_img_list">
                 {serviceDetail.webfile?.map((contact, i) => {
                   return (
-                    <img src={"http://52.79.57.173/getWebImage/" +  contact.file_name}/>
-                  );
-                })}
+                    <img src={"http://52.79.57.173/getWebImage/" +  contact.file_name} onClick={(e) => e.target.requestFullscreen()}/>
+                    );
+                  })}
               </div>
-              <span className="next-img-btn" onClick={(e) => nextImageHandler(e)}>〈</span>
+              <span className="pre-img-btn" onClick={(e) => preImageHandler(e)}>〈</span>
+              <span className="next-img-btn" onClick={(e) => nextImageHandler(e)}>〉</span>
             </ImageSlider>
           </div>
           <div className="container">
@@ -383,7 +401,7 @@ const ContentMiddle = styled.div`
 
   .slider {
     height: 220px;
-    padding-left: 30px;
+    padding: 0 30px;
   }
   
   .img-wrap>img:not(:last-child) {
@@ -507,6 +525,15 @@ const ImageSlider = styled.div`
   }
 
   .next-img-btn {
+    position: absolute;
+    right: 0px;
+    top: calc(50% + 10px);
+    transform: translate(0, -50%);
+    font-size: 40px;
+    cursor: pointer;
+  }
+  
+  .pre-img-btn {
     position: absolute;
     left: 0px;
     top: calc(50% + 10px);
