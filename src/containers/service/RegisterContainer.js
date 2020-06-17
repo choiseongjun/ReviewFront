@@ -146,7 +146,7 @@ function RegisterContainer({ history }) {
         );
         if (data.code === "1") {
           alert("저장되었습니다.");
-          history.push("/");
+          history.push("/shareFinish");
         }
       } catch (error) {
         console.log("error");
