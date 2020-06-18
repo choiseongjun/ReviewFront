@@ -10,6 +10,7 @@ import GlobalStyles from "../lib/styles/GlobalStyles.js";
 import Responsive from "../lib/styles/responsive";
 import Register from "../pages/Service/Register";
 import "../lib/styles/fontawesome";
+import ShareFinish from "../pages/ShareFinish";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/register" component={Register} />
         <Route exact path="/serviceDetail/:id" component={ServiceDetail} />
         <Route exact path="/share" component={Share} />
+        <Route exact path="/shareFinish" component={ShareFinish} />
       </Switch>
       <Footer />
     </>
