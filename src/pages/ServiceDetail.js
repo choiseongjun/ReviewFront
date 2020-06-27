@@ -2,6 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import ServiceDetail from '../components/service/ServiceDetail';
+import Axios from "axios";
 
 export default function ({match}) {
   const serviceDetail = ServiceDetail(match.params.id);
@@ -43,7 +44,6 @@ export default function ({match}) {
     let element = document.getElementById("service_img_list");
     let children = element.childNodes;
     let scrollLeft = element.scrollLeft;
-    console.log("pre");
     if(scrollLeft == 0) {
       element.scroll({top: 0, left: element.scrollWidth, behavior: 'smooth' });
     } else {
@@ -55,6 +55,86 @@ export default function ({match}) {
       });
       element.scroll({top: 0, left: left, behavior: 'smooth' });
     }
+  }
+
+  function addReview(e) {
+    e.preventDefault();
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let webReplyReq={};
+    webReplyReq.content = document.getElementById("reply_text").value;
+    webReplyReq.weblist_id=match.params.id; 
+    (async (e) => {
+      try {
+        const { data } = await Axios.post(
+          "http://52.79.57.173/web/reply",
+          webReplyReq,
+          config,
+        );
+        alert("등록되었습니다.");
+      } catch (error) {
+      }
+    })();
+    return false;
+  }
+
+  function replyModify(e, id) {
+    e.preventDefault();
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let webReplyReq={};
+    webReplyReq.content = "test2";
+    webReplyReq.weblist_id=match.params.id; 
+    (async (e) => {
+      try {
+        const { data } = await Axios.put(
+          "http://52.79.57.173/web/reply/"+id,
+          webReplyReq,
+          config,
+        );
+        alert("등록되었습니다.");
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
+    })();
+    return false;
+  }
+
+  function replyDelete(e, id) {
+    e.preventDefault();
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let webReplyReq={};
+    webReplyReq.content = "test2";
+    webReplyReq.weblist_id=match.params.id; 
+    (async (e) => {
+      try {
+        const { data } = await Axios.delete(
+          "http://52.79.57.173/web/reply/"+id,
+          webReplyReq,
+          config,
+        );
+        alert("등록되었습니다.");
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
+    })();
+    return false;
+
   }
   return (
     <Contents>
@@ -68,30 +148,38 @@ export default function ({match}) {
         <ContentTop>
           <Subject>
             <div className="subject-header">
-              <span className="subject-header-title">생산성 &rt; 길찾기</span>
-              <div className="subject-header-btn-wrap">
+              <span className="subject-header-title">생산성 &gt; 길찾기</span>
+              {/* <div className="subject-header-btn-wrap">
                 <img className="subejct-header-share" src="/image/iconmonstr-share-8-240.png" onClick={shareBtnHandler}/>
                 <img className="subejct-header-bell" src="/image/bell.png" onClick={bellBtnHandler}/>
-              </div>
+              </div> */}
             </div>
             <div className="content-wrap">
               <div className="image-wrap">
                 <img src={"http://52.79.57.173/getWebImage/" + serviceDetail.file_name}></img>
               </div>
               <div className="container">
-                <h3>{serviceDetail.title}</h3>
+                <div className="content-header">
+                  <h3>{serviceDetail.title}</h3>
+                  <span>with {serviceDetail.user.name}</span>
+                </div>
+                <div className="state">
+                  <img src="/image/iconmonstr-star-3-240.png"></img>
+                  <span>별점 4.5개 (12botes)</span>
+                </div>
                 <hr></hr>
                 <div className="text">
                   <p>{serviceDetail.url}</p>
                 </div>
+                <p>서비스 바로가기▼</p>
                 <div className="btn-wrap">
-                  <span className={serviceDetail.app_yn == "Y" ? "active" : ""} onClick={mobileBtnHandler}>모바일</span>
-                  <span className={serviceDetail.web_yn == "Y" ? "active" : ""} onClick={pcBtnHandler}>PC</span>
+                  <span onClick={mobileBtnHandler}>모바일</span>
+                  <span onClick={pcBtnHandler}>PC</span>
                 </div>
               </div>
             </div>
           </Subject>
-          <Profile>
+          {/* <Profile>
             <div className="profile-content">
               <div className="profile-header">
                 <span className="profile-header-title">메이커</span>
@@ -110,7 +198,7 @@ export default function ({match}) {
             <div className="profile-show-btn">
               <p>프로필 보러가기</p>
             </div>
-          </Profile>
+          </Profile> */}
         </ContentTop>
         <ContentMiddle>
           <div className="content-header">
@@ -137,8 +225,57 @@ export default function ({match}) {
             </div>
           </div>
         </ContentMiddle>
-        {/* <ContentBottom>
-        </ContentBottom> */}
+        <ContentBottom>
+          <div className="header">
+            <h5>내 평점 남기기</h5>
+            <span>
+              <span>
+                <img src="/image/iconmonstr-star-3-240.png"></img>
+                <img src="/image/iconmonstr-star-3-240.png"></img>
+                <img src="/image/iconmonstr-star-3-240.png"></img>
+                <img src="/image/iconmonstr-star-3-240.png"></img>
+                <img src="/image/iconmonstr-star-3-240.png"></img>
+              </span>
+              <form onSubmit={addReview}>
+                <input type="text" id="reply_text" placeholder="한줄평을 남겨보세요!"/>
+                <button>작성</button>
+              </form>
+            </span>
+          </div>
+          <ReplyList>
+            <div className="title">
+              <h4>한줄평 <span className="gray-font">( {serviceDetail.webreply.length} comment )</span></h4>
+            </div>
+            <ul>
+              {serviceDetail.webreply?.map((reply, i) => {
+                return (
+                  <li>
+                    <div>
+                      <span className="user-name">{reply.user.name}</span>
+                      {reply.user.id == 2 &&
+                      // {reply.user.id == serviceDetail.user.id &&
+                        <span className="fr">
+                          <span onClick={(e) => replyModify(e, reply.id)}>수정</span>
+                          <span> / </span>
+                          <span onClick={(e) => replyDelete(e, reply.id)}>삭제</span>
+                        </span>
+                      }
+                    </div>
+                    <div className="content">
+                      <p>{reply.content}</p>
+                    </div>
+                    <br></br>
+                    <div className="date">
+                      <span className="fr">{reply.createdAt.substr(0, 10)}</span>
+                    </div>
+                  </li>
+                  );
+                })
+              }
+            </ul>
+            
+          </ReplyList>
+        </ContentBottom>
       </Container>
       <Footer>
         {/* <div>
@@ -165,6 +302,10 @@ export default function ({match}) {
 const Contents = styled.section`
   padding-top:75px;
   background: #F3F3F3;
+  
+  .fr {
+    float: right;
+  }
 `
 const Container = styled.div`
   width: 900px;
@@ -190,17 +331,44 @@ const ContentTop = styled.div`
 `
 
 const Subject = styled.div`
-  width: 657px;
+  width: 100%;
   height: 232px;
-  padding: 14px 26px 18px 31px;
+  padding: 50px 26px 18px 31px;
   background: #FFFFFF;
   display: flex;
   flex-flow: column;
+  position: relative;
+
+
+  .content-header>h3 {
+    float: left;
+    margin-right: 5px;
+  }
+
+  .content-header>span {
+    color: #282828;
+  }
+
+  .state {
+    font-size: 11px;
+    color: #282828;
+    display: flex;
+  }
+  .state>span {
+    line-height: 19px;
+  }
 
   .subject-header-title {
     font-size: 13px;
     font-weight: bold;
     float: left;
+    height 33px;
+    width: 100%;
+    padding: 7px 22px;
+    background: #ccc;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   .subject-header-btn-wrap {
@@ -258,33 +426,32 @@ const Subject = styled.div`
     margin: 10px 0 8px 0;
   }
 
+
+  .container>p {
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
   .text {
     height: 100%;
     font-size: 12px;
     color: #282828;
   }
 
-  .btn-wrap {
-    text-align: right;
-  }
-
-  .btn-wrap>span.active {
-    background: #1AE1CC;
-    pointer: cursor;
-  }
-
   .btn-wrap>span {
     display: inline-block;
-    width: 88px;
-    height: 28px;
-    line-height: 28px;
+    width: 130px;
+    height: 26px;
+    line-height: 26px;
     text-align center;
     border: 1px solid #D1D1D1;
-    border-radius: 11px;
     font-size: 12px;
     font-weight: bold;
-    color: #282828;
-    margin-left: 6px;
+    background: #484848;
+    color: #fff;
+    margin-right: 6px;
+    pointer: cursor;
   }
 `
 
@@ -368,7 +535,6 @@ const ContentMiddle = styled.div`
     flex: 0 0 60px;
     width: 100%;
     padding: 0 21px 0 0;
-    display: none;
   }
 
   .content-header>span {
@@ -459,9 +625,83 @@ const ContentMiddle = styled.div`
 `
 const ContentBottom = styled.div`
   margin-top: 30px;
-  height: 700px;
   width: 100%;
   background: #fff;
+
+  .header {
+    padding: 18px 29px;
+  }
+  
+  .header>span {
+    display: flex;
+    flex-flow: row;
+    margin-top: 5px;
+  }
+
+  .header>span>span {
+    flex: 150px 0 0;
+  }
+
+  .header>span>form {
+    width: 100%;
+    display: flex;
+  }
+
+  .header>span>form>input {
+    border: none;
+    border-bottom: 1px solid #bababa;
+    width: 100%;
+  }
+  
+  .header>span>input::-webkit-input-placeholder {
+    color: #bababa;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .header>span>form>button {
+    padding: 6px 22px;
+    border: 1px solid #CFCFCF;
+    border-radius: 9px;
+    background: #FFFFFF;
+    margin-left: 20px;
+    color: #8A8A8A;
+  }
+`
+const ReplyList = styled.div`
+  .title {
+    margin: 0 0 9px 29px;
+  }
+
+  .gray-font {
+    color: #8D8D8D;
+    color: 10px;
+    font-size: 10px;
+    font-weight: nomal;
+  }
+
+  ul>li {
+    display: flex;
+    flex-flow: column;
+    padding: 17px 29px;
+    border-top: 1px solid #d1d1d1;
+    font-size: 10px;
+  }
+
+  .user-name {
+    color: #090909;
+    font-size: 11px;
+  }
+
+  .content {
+    color: #202020;
+    margin-top: 5px;
+    font-size: 12px;
+  }
+
+  .date {
+    color: #6E6E6E;
+  }
 `
 
 const Footer = styled.div`
