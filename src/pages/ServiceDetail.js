@@ -6,7 +6,7 @@ import Axios from "axios";
 
 export default function ({match}) {
   const serviceDetail = ServiceDetail(match.params.id);
-  console.log(serviceDetail);
+  const userId = JSON.parse(localStorage.getItem("user")) && JSON.parse(atob(JSON.parse(localStorage.getItem("user")).split(".")[1])).sub;
   function shareBtnHandler() {
     alert("공유하기는 미구현입니다.");
   }
@@ -76,13 +76,24 @@ export default function ({match}) {
           config,
         );
         alert("등록되었습니다.");
+        window.location.reload();
       } catch (error) {
+        console.log(error)
       }
     })();
     return false;
   }
 
   function replyModify(e, id) {
+    let target = e.target.parentNode.parentNode.nextElementSibling.children[0];
+    if(target.tagName == "P") {
+      let input = document.createElement("input")
+      input.type = "text";
+      input.value = target.innerText;
+      target.parentNode.append(input);
+      target.remove();
+      return;
+    }
     e.preventDefault();
     const token = JSON.parse(localStorage.getItem("user"));
     const config = {
@@ -91,17 +102,17 @@ export default function ({match}) {
       },
     };
     let webReplyReq={};
-    webReplyReq.content = "test2";
-    webReplyReq.weblist_id=match.params.id; 
+    webReplyReq.content = target.value;
+    webReplyReq.id=id; 
     (async (e) => {
       try {
         const { data } = await Axios.put(
-          "http://52.79.57.173/web/reply/"+id,
+          "http://52.79.57.173/web/reply/",
           webReplyReq,
           config,
         );
-        alert("등록되었습니다.");
-        console.log(data)
+        alert("수정되었습니다.");
+        window.location.reload();
       } catch (error) {
         console.log(error)
       }
@@ -117,18 +128,14 @@ export default function ({match}) {
         Authorization: `Bearer ${token}`,
       },
     };
-    let webReplyReq={};
-    webReplyReq.content = "test2";
-    webReplyReq.weblist_id=match.params.id; 
     (async (e) => {
       try {
         const { data } = await Axios.delete(
           "http://52.79.57.173/web/reply/"+id,
-          webReplyReq,
           config,
         );
-        alert("등록되었습니다.");
-        console.log(data)
+        alert("삭제되었습니다.");
+        window.location.reload();
       } catch (error) {
         console.log(error)
       }
@@ -149,10 +156,6 @@ export default function ({match}) {
           <Subject>
             <div className="subject-header">
               <span className="subject-header-title">생산성 &gt; 길찾기</span>
-              {/* <div className="subject-header-btn-wrap">
-                <img className="subejct-header-share" src="/image/iconmonstr-share-8-240.png" onClick={shareBtnHandler}/>
-                <img className="subejct-header-bell" src="/image/bell.png" onClick={bellBtnHandler}/>
-              </div> */}
             </div>
             <div className="content-wrap">
               <div className="image-wrap">
@@ -179,26 +182,6 @@ export default function ({match}) {
               </div>
             </div>
           </Subject>
-          {/* <Profile>
-            <div className="profile-content">
-              <div className="profile-header">
-                <span className="profile-header-title">메이커</span>
-                <img className="profile-header-img" src="/image/iconmonstr-user-8-240.png"></img>
-              </div>
-            </div>
-            <div className="container">
-              <div>
-                <img src="/image/heart@2x.png"></img>
-                <h5>{serviceDetail.user.name}님</h5>
-                <p className="intro">안녕하세요 해바라기입니다!<br/>저의 서비스를 보러 와보세요!</p>
-                <hr/>
-                <p className="state"><span className="cyan-font">받은 별 개수</span> 2314개 <span className="cyan-font">팔로우</span> 2210명</p>
-              </div>
-            </div>
-            <div className="profile-show-btn">
-              <p>프로필 보러가기</p>
-            </div>
-          </Profile> */}
         </ContentTop>
         <ContentMiddle>
           <div className="content-header">
@@ -252,8 +235,7 @@ export default function ({match}) {
                   <li>
                     <div>
                       <span className="user-name">{reply.user.name}</span>
-                      {reply.user.id == 2 &&
-                      // {reply.user.id == serviceDetail.user.id &&
+                      {reply.user.userid == userId &&
                         <span className="fr">
                           <span onClick={(e) => replyModify(e, reply.id)}>수정</span>
                           <span> / </span>
@@ -697,6 +679,9 @@ const ReplyList = styled.div`
     color: #202020;
     margin-top: 5px;
     font-size: 12px;
+  }
+  .content>input {
+    width: 100%;
   }
 
   .date {
