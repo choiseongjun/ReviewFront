@@ -8,6 +8,7 @@ import serviceDetail,{ serviceDetailSagaLatest } from "./serviceDetail";
 const rootReducer = combineReducers({
   auth,
   weblist,
+  service,
   serviceDetail
 });
 
