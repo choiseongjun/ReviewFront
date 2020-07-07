@@ -23,6 +23,18 @@ export default function ({match}) {
     alert("PC는 미구현입니다.");
   }
   
+  function startClickHandler() {
+    let target = window.event.target;
+    let idx = window.event.target.dataset.idx;
+    target.parentNode.childNodes.forEach(function(v, i) {
+      if(v.dataset.idx <= idx) {
+        v.className = "active";
+      } else {
+        v.className = "";
+      }
+
+    });
+  }
   function nextImageHandler(e) {
     let element = document.getElementById("service_img_list");
     let children = element.childNodes;
@@ -67,7 +79,8 @@ export default function ({match}) {
     };
     let webReplyReq={};
     webReplyReq.content = document.getElementById("reply_text").value;
-    webReplyReq.weblist_id=match.params.id; 
+    webReplyReq.weblist_id=match.params.id;
+    webReplyReq.star = document.querySelectorAll("#star_wrap>.active").length;
     (async (e) => {
       try {
         const { data } = await Axios.post(
@@ -212,12 +225,12 @@ export default function ({match}) {
           <div className="header">
             <h5>내 평점 남기기</h5>
             <span>
-              <span>
-                <img src="/image/iconmonstr-star-3-240.png"></img>
-                <img src="/image/iconmonstr-star-3-240.png"></img>
-                <img src="/image/iconmonstr-star-3-240.png"></img>
-                <img src="/image/iconmonstr-star-3-240.png"></img>
-                <img src="/image/iconmonstr-star-3-240.png"></img>
+              <span onClick={startClickHandler} id="star_wrap">
+                <span data-idx="1"></span>
+                <span data-idx="2"></span>
+                <span data-idx="3"></span>
+                <span data-idx="4"></span>
+                <span data-idx="5"></span>
               </span>
               <form onSubmit={addReview}>
                 <input type="text" id="reply_text" placeholder="한줄평을 남겨보세요!"/>
@@ -247,8 +260,16 @@ export default function ({match}) {
                       <p>{reply.content}</p>
                     </div>
                     <br></br>
-                    <div className="date">
-                      <span className="fr">{reply.createdAt.substr(0, 10)}</span>
+                    <div>
+                      <span>
+                        <strong style={{"font-size": "12px"}}>별점 {reply.star || 0}</strong>
+                        {[0,1,2,3,4].map((v) => {
+                          if(reply.star > v ) return <img src='/image/iconmonstr-star-4-240.png'/>;
+                          else return <img src='/image/iconmonstr-star-3-240.png'/>;
+                        })}
+
+                      </span>
+                      <span className="date fr">{reply.createdAt.substr(0, 10)}</span>
                     </div>
                   </li>
                   );
@@ -622,6 +643,18 @@ const ContentBottom = styled.div`
 
   .header>span>span {
     flex: 150px 0 0;
+  }
+
+  .header>span>span>span {
+    width: 25px;
+    height: 26px;
+    background-image: url("/image/iconmonstr-star-3-240.png");
+    display: inline-block;
+  }
+
+  .header>span>span>span.active {
+    
+    background-image: url("/image/iconmonstr-star-4-240.png");
   }
 
   .header>span>form {
