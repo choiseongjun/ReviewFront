@@ -17,10 +17,10 @@ function ServiceList() {
   return (
     <ListWrap>
       <div className="inner">
-        <div className="sort-wrap">
+        {/* <div className="sort-wrap">
           <button type="button">분류별</button>
           <button type="button">관심 순으로</button>
-        </div>
+        </div> */}
         {weblist && weblist.length > 0 && (
           <ul>
             {weblist.map((item, index) => (
@@ -66,7 +66,7 @@ const ListWrap = styled.div`
     padding:60px 0;
     background-color:#F3F3F3;
     .inner {
-        max-width:1360px;
+        max-width:1400px;
         margin:0 auto;
     }
     ul {

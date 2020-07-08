@@ -85,12 +85,12 @@ const auth = (state = initialState, action) => {
         authError: action.payload.error,
       };
     case LOGIN_SUCCESS:
-      console.log("login", action);
       return {
         ...state,
         auth: action.payload.accessToken,
       };
     case LOGIN_FAILURE:
+      alert("아이디 또는 비밀번호를 확인해주세요");
       return {
         ...state,
         authError: action.payload.error,

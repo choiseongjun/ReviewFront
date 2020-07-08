@@ -92,7 +92,7 @@ const Modal = ({ type, onChange, onSubmit, onClose, onChangeForm }) => {
             </LoginFormListWrap>
           </LoginForm>
         </Content>
-        {type === "login" && (
+        {/* {type === "login" && (
           <Content>
             <SubTitle>소셜계정으로 로그인</SubTitle>
             <LoginForm onSubmit={onSubmit}>
@@ -104,7 +104,7 @@ const Modal = ({ type, onChange, onSubmit, onClose, onChangeForm }) => {
               </Button>
             </LoginForm>
           </Content>
-        )}
+        )} */}
       </ContentWrap>
     </Container>
   );
