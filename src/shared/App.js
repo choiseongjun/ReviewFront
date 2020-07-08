@@ -19,8 +19,8 @@ function App() {
       <GlobalStyles />
       <Responsive />
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/service" component={Service} />
+        {/* <Route exact path="/" component={Home} /> */}
+        <Route exact path="/" component={Service} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/serviceDetail/:id" component={ServiceDetail} />
         <Route exact path="/share" component={Share} />

@@ -74,7 +74,7 @@ function Navigation({ user, state, onClick, onClose, onLogout }) {
         </Link>
 
         <ul className="menu-list">
-          <Link to="/service">
+          <Link to="/">
             <li className="menu-item">서비스 탐색</li>
           </Link>
           <li className="menu-item">인기 서비스</li>

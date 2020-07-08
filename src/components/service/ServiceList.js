@@ -3,34 +3,38 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { initalizeWebList } from "../../modules/weblist";
 import { Link } from "react-router-dom";
-import Pagination from "react-js-pagination";
+import {Pagination} from '@material-ui/lab';
+
+
 
 function ServiceList() {
+  
   const dispatch = useDispatch();
-  const { weblist,totalElements,totalPages,size } = useSelector(({ weblist }) => ({
+  const { weblist,totalElements,totalPages,size,number } = useSelector(({ weblist }) => ({
     weblist: weblist.weblist,
     totalElements:weblist.totalElements,
     totalPages:weblist.totalPages,
-    size:weblist.size
+    size:weblist.size,
+    number:weblist.number+1,
   }));
-  
-  const [activepage, setActivePage] = useState(1);
+  console.log("weblist",number)
+  const [activepage, setActivePage] = useState({number});
   useEffect(() => {
-    dispatch(initalizeWebList(1));
+    dispatch(initalizeWebList(number));
   }, [dispatch]);
   // handlePageChange(pageNumber) {
   //   console.log(`active page is ${pageNumber}`);
   //   //this.setState({activePage: pageNumber});
   // }
   const handlePageChange = useCallback(
-    (pageNumber) => {
-      console.log(`active page is ${pageNumber}`);
-      console.log('gaza'+pageNumber)
+    (event, pageNumber) => {
+     
       dispatch(initalizeWebList(pageNumber));
       //setActivePage(pageNumber);
     },
     [],
   )
+  
   return (
     <>
     <ListWrap>
@@ -61,10 +65,10 @@ function ServiceList() {
                     <span className="writer"></span>
                     <div className="right">
                       <p className="view">
-                        <span></span> view
+                        <span></span> 9999view
                       </p>
                       <p className="vote">
-                        <span></span> vote
+                        <span></span> 300vote
                       </p>
                     </div>
                   </div>
@@ -76,14 +80,22 @@ function ServiceList() {
       </div>
     </ListWrap>
    
-      <Pagination
-      activePage={setActivePage}
-      itemsCountPerPage={size}
-      totalItemsCount={totalElements}
-      pageRangeDisplayed={totalPages}
-      onChange={handlePageChange.bind(this)}
-    />
+      {/* <Pagination
+        activePage={setActivePage}
+        itemsCountPerPage={size}
+        totalItemsCount={totalElements}
+        pageRangeDisplayed={totalPages}
+        onChange={handlePageChange.bind(this)}
+    /> */}
+    {/* https://material-ui.com/api/pagination/ */}
     
+      <Pagination
+          count={totalPages}
+          color="primary"
+          offset={number}
+          onChange={handlePageChange}
+      />
+   
   </>
   );
 }
@@ -92,10 +104,11 @@ export default ServiceList;
 
 const ListWrap = styled.div`
     padding:60px 0;
+    
     background-color:#F3F3F3;
     .inner {
         max-width:1400px;
-        margin:0 auto;
+        margin:0 0 0 40px;
     }
     ul {
         display:flex;
@@ -109,6 +122,7 @@ const ListWrap = styled.div`
                 flex-wrap:wrap;
                 padding:13px 18px;
                 background-color:#fff;
+                width:320px;
                 .right {
                     margin-left:auto;
                     display:flex;
