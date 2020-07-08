@@ -18,7 +18,10 @@ export function* weblistSaga() {
 }
 const initialState = {
   weblist: null,
+  webpage: null,
   weblistError: "",
+  totalPages: 0,
+  totalElements:0
 };
 //reducer
 const weblist = (state = initialState, action) => {
@@ -30,7 +33,10 @@ const weblist = (state = initialState, action) => {
       console.log("suc", state, action);
       return {
         ...state,
-        weblist: action.payload,
+        weblist: action.payload.weblists.content,
+        totalElements: action.payload.weblists.totalElements,
+        totalPages: action.payload.weblists.totalPages,
+        size: action.payload.weblists.size,
       };
     case WEBLIST_FAILURE:
       return {

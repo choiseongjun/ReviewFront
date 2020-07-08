@@ -1,20 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState,useCallback } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { initalizeWebList } from "../../modules/weblist";
 import { Link } from "react-router-dom";
+import Pagination from "react-js-pagination";
 
 function ServiceList() {
   const dispatch = useDispatch();
-  const { weblist } = useSelector(({ weblist }) => ({
+  const { weblist,totalElements,totalPages,size } = useSelector(({ weblist }) => ({
     weblist: weblist.weblist,
+    totalElements:weblist.totalElements,
+    totalPages:weblist.totalPages,
+    size:weblist.size
   }));
-   console.log(weblist);
+  
+  const [activepage, setActivePage] = useState(1);
   useEffect(() => {
     dispatch(initalizeWebList());
   }, [dispatch]);
-
+  // handlePageChange(pageNumber) {
+  //   console.log(`active page is ${pageNumber}`);
+  //   //this.setState({activePage: pageNumber});
+  // }
+  const handlePageChange = useCallback(
+    (pageNumber) => {
+      console.log(`active page is ${pageNumber}`);
+      
+      setActivePage(pageNumber);
+    },
+    [],
+  )
   return (
+    <>
     <ListWrap>
       <div className="inner">
         {/* <div className="sort-wrap">
@@ -57,6 +74,16 @@ function ServiceList() {
         )}
       </div>
     </ListWrap>
+   
+      <Pagination
+      activePage={setActivePage}
+      itemsCountPerPage={size}
+      totalItemsCount={totalElements}
+      pageRangeDisplayed={totalPages}
+      onChange={handlePageChange.bind(this)}
+    />
+    
+  </>
   );
 }
 
