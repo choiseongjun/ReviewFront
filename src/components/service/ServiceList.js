@@ -16,7 +16,7 @@ function ServiceList() {
   
   const [activepage, setActivePage] = useState(1);
   useEffect(() => {
-    dispatch(initalizeWebList());
+    dispatch(initalizeWebList(1));
   }, [dispatch]);
   // handlePageChange(pageNumber) {
   //   console.log(`active page is ${pageNumber}`);
@@ -25,8 +25,9 @@ function ServiceList() {
   const handlePageChange = useCallback(
     (pageNumber) => {
       console.log(`active page is ${pageNumber}`);
-      
-      setActivePage(pageNumber);
+      console.log('gaza'+pageNumber)
+      dispatch(initalizeWebList(pageNumber));
+      //setActivePage(pageNumber);
     },
     [],
   )

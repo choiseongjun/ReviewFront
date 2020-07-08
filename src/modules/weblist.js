@@ -8,8 +8,9 @@ const [WEBLIST, WEBLIST_SUCCESS, WEBLIST_FAILURE] = createRequestActionTypes(
   "web/WEBLIST",
 );
 //action
-export const initalizeWebList = () => ({
+export const initalizeWebList = (pageNumber) => ({
   type: WEBLIST,
+  pageNumber
 });
 const weblistsaga = createRequestSaga(WEBLIST, weblistAPI.weblist);
 
@@ -17,7 +18,10 @@ export function* weblistSaga() {
   yield takeLatest(WEBLIST, weblistsaga);
 }
 const initialState = {
-  weblist: null,
+  weblist:{
+    pageNumber:0,
+  },
+  
   webpage: null,
   weblistError: "",
   totalPages: 0,
