@@ -18,27 +18,38 @@ function Service() {
         console.log(error);
       });
   }, []);
-  let check = new Boolean(true);
+ 
+  let clickNumber=1;
+  let clickSubNumber=1;
   function activateLasers(item) {
-    console.log();
-
-    console.log(item);
-
-    if (check === true) {
+    
+    if(clickNumber==1){
+      clickNumber++;
       item.active = true;
       setActive("true");
-      check = false;
-    } else {
+    }else{
+      clickNumber--;
       item.active = false;
       setActive("false");
-      check = true;
+    }
+  }
+  function activateSubLasers(item) {
+    
+    if(clickSubNumber==1){
+      clickSubNumber++;
+      item.active = true;
+      setActive("true");
+    }else{
+      clickSubNumber--;
+      item.active = false;
+      setActive("false");
     }
   }
   function smallCategory(item) {
     setSubcategory(item.subCategory);
   }
   function serviceList(item) {
-    console.log(item);
+    
   }
   return (
     <Contents>
@@ -61,7 +72,9 @@ function Service() {
       <HashTag>
         <ul>
           {subcategory.map((item, index) => (
-            <li key={index} className={item.active === true ? "active" : ""}>
+            <li onClick={activateSubLasers.bind(this, item)}
+                key={index} 
+                className={item.active === true ? "active" : ""}>
               <button type="button" onClick={serviceList.bind(this, item)}>
                 {item.name}
               </button>

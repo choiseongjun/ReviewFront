@@ -17,7 +17,7 @@ function ServiceList() {
     size:weblist.size,
     number:weblist.number+1,
   }));
-  console.log("weblist",number)
+  
   const [activepage, setActivePage] = useState({number});
   useEffect(() => {
     dispatch(initalizeWebList(number));
@@ -28,12 +28,8 @@ function ServiceList() {
   // }
   const handlePageChange = useCallback(
     (event, pageNumber) => {
-     
       dispatch(initalizeWebList(pageNumber));
-      //setActivePage(pageNumber);
-    },
-    [],
-  )
+    },[],)
   
   return (
     <>

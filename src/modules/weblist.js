@@ -30,12 +30,10 @@ const initialState = {
 };
 //reducer
 const weblist = (state = initialState, action) => {
-  console.log("action");
-  console.log(action);
+ 
 
   switch (action.type) {
     case WEBLIST_SUCCESS:
-      console.log("suc", action.payload);
       return {
         ...state,
         weblist: action.payload.weblists.content,
