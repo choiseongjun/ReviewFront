@@ -7,7 +7,7 @@ import {Pagination} from '@material-ui/lab';
 
 
 
-function ServiceList() {
+function ServiceList({mCode}) {
   
   const dispatch = useDispatch();
   const { weblist,totalElements,totalPages,size,number } = useSelector(({ weblist }) => ({
@@ -19,9 +19,9 @@ function ServiceList() {
   }));
   
   const [activepage, setActivePage] = useState({number});
-  useEffect(() => {
-    dispatch(initalizeWebList(number));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(initalizeWebList(number));
+  // }, [dispatch]);
   // handlePageChange(pageNumber) {
   //   console.log(`active page is ${pageNumber}`);
   //   //this.setState({activePage: pageNumber});
@@ -61,7 +61,7 @@ function ServiceList() {
                     <span className="writer"></span>
                     <div className="right">
                       <p className="view">
-                        <span></span> 9999view
+                        <span></span> 9999view{mCode}
                       </p>
                       <p className="vote">
                         <span></span> 300vote

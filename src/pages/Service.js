@@ -2,22 +2,38 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Search from "../components/common/Search";
 import ServiceList from "../components/service/ServiceList";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { initalizeWebList } from "../modules/weblist";
 
 function Service() {
   const [category, setCategory] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
   const [active, setActive] = useState("");
+  
+  const dispatch = useDispatch();
+
+  const { weblist,totalElements,totalPages,size,number } = useSelector(({ weblist }) => ({
+    weblist: weblist.weblist,
+    totalElements:weblist.totalElements,
+    totalPages:weblist.totalPages,
+    size:weblist.size,
+    number:weblist.number+1,
+  }));
+  let mCode="All";
   useEffect(() => {
     axios
       .get("http://52.79.57.173/web/category")
       .then(function (data) {
+        console.log(data.data)
         setCategory(data.data);
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+     
+      dispatch(initalizeWebList(number,"All"));
+  }, [dispatch]);
  
   let clickNumber=1;
   let clickSubNumber=1;
@@ -33,8 +49,10 @@ function Service() {
       setActive("false");
     }
   }
-  function activateSubLasers(item) {
-    
+ 
+  function activateSubLasers(e,item) {
+
+  
     if(clickSubNumber==1){
       clickSubNumber++;
       item.active = true;
@@ -46,11 +64,18 @@ function Service() {
     }
   }
   function smallCategory(item) {
+    
     setSubcategory(item.subCategory);
-  }
-  function serviceList(item) {
     
   }
+  
+  //카테고리코드값 들고와서 카테고리별 리스트 뽑아오는 함수
+  function serviceList(item) {
+    mCode=item;
+    console.log("mCode?????"+mCode)
+    dispatch(initalizeWebList(number,item));
+  }
+  
   return (
     <Contents>
       <Search></Search>
@@ -75,14 +100,16 @@ function Service() {
             <li onClick={activateSubLasers.bind(this, item)}
                 key={index} 
                 className={item.active === true ? "active" : ""}>
-              <button type="button" onClick={serviceList.bind(this, item)}>
+              <button type="button" onClick={serviceList.bind(this,item.mcode)}>
                 {item.name}
               </button>
             </li>
           ))}
         </ul>
       </HashTag>
-      <ServiceList></ServiceList>
+      <ServiceList 
+        mCode={mCode}
+      />
     </Contents>
   );
 }
