@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { initalizeWebList } from "../../modules/weblist";
 import { Link } from "react-router-dom";
-import {Pagination} from '@material-ui/lab';
+
 
 
 
@@ -17,7 +17,7 @@ function ServiceList({mCode}) {
     size:weblist.size,
     number:weblist.number+1,
   }));
-  
+  console.log("categoryId==="+weblist[0])
   const [activepage, setActivePage] = useState({number});
   // useEffect(() => {
   //   dispatch(initalizeWebList(number));
@@ -26,10 +26,7 @@ function ServiceList({mCode}) {
   //   console.log(`active page is ${pageNumber}`);
   //   //this.setState({activePage: pageNumber});
   // }
-  const handlePageChange = useCallback(
-    (event, pageNumber) => {
-      dispatch(initalizeWebList(pageNumber));
-    },[],)
+ 
   
   return (
     <>
@@ -61,7 +58,7 @@ function ServiceList({mCode}) {
                     <span className="writer"></span>
                     <div className="right">
                       <p className="view">
-                        <span></span> 9999view{mCode}
+                        <span></span> 9999view
                       </p>
                       <p className="vote">
                         <span></span> 300vote
@@ -85,12 +82,7 @@ function ServiceList({mCode}) {
     /> */}
     {/* https://material-ui.com/api/pagination/ */}
     
-      <Pagination
-          count={totalPages}
-          color="primary"
-          offset={number}
-          onChange={handlePageChange}
-      />
+     
    
   </>
   );

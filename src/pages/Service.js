@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import styled from "styled-components";
 import Search from "../components/common/Search";
 import ServiceList from "../components/service/ServiceList";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { initalizeWebList } from "../modules/weblist";
-
+import {Pagination} from '@material-ui/lab';
 function Service() {
   const [category, setCategory] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
@@ -14,13 +14,14 @@ function Service() {
   const dispatch = useDispatch();
 
   const { weblist,totalElements,totalPages,size,number } = useSelector(({ weblist }) => ({
-    weblist: weblist.weblist,
+    weblist: weblist.weblist.category,
     totalElements:weblist.totalElements,
     totalPages:weblist.totalPages,
     size:weblist.size,
     number:weblist.number+1,
   }));
-  let mCode="All";
+  
+  var mCode="All";
   useEffect(() => {
     axios
       .get("http://52.79.57.173/web/category")
@@ -32,7 +33,7 @@ function Service() {
         console.log(error);
       });
      
-      dispatch(initalizeWebList(number,"All"));
+      dispatch(initalizeWebList(number));
   }, [dispatch]);
  
   let clickNumber=1;
@@ -64,18 +65,19 @@ function Service() {
     }
   }
   function smallCategory(item) {
-    
     setSubcategory(item.subCategory);
-    
   }
   
   //카테고리코드값 들고와서 카테고리별 리스트 뽑아오는 함수
   function serviceList(item) {
     mCode=item;
-    console.log("mCode?????"+mCode)
-    dispatch(initalizeWebList(number,item));
+    dispatch(initalizeWebList(number));  
   }
-  
+  console.log("mCode???!==="+mCode)
+  const handlePageChange = useCallback(
+    (event, pageNumber) => {
+      dispatch(initalizeWebList(pageNumber,""));
+    },[])
   return (
     <Contents>
       <Search></Search>
@@ -100,6 +102,7 @@ function Service() {
             <li onClick={activateSubLasers.bind(this, item)}
                 key={index} 
                 className={item.active === true ? "active" : ""}>
+                  
               <button type="button" onClick={serviceList.bind(this,item.mcode)}>
                 {item.name}
               </button>
@@ -108,7 +111,12 @@ function Service() {
         </ul>
       </HashTag>
       <ServiceList 
-        mCode={mCode}
+      />
+       <Pagination
+          count={totalPages}
+          color="primary"
+          offset={number}
+          onChange={handlePageChange}
       />
     </Contents>
   );
