@@ -112,9 +112,9 @@ function RegisterContainer({ history }) {
           Authorization: `Bearer ${token}`,
         },
       };
-
+      
       const formData = new FormData();
-      console.log("file1", imgFile);
+      
       formData.append("file", imgFile);
       formData.append(
         "webList",

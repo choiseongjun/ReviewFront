@@ -60,7 +60,7 @@ const initialState = {
     content: "",
     url: null,
     companyname: null,
-    categoryname: "여행",
+    categoryname: "M01-01",
     app_yn: "N",
     web_yn: "N",
     file1: "",

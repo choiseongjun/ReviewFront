@@ -1,45 +1,92 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import styled from "styled-components";
 import Search from "../components/common/Search";
 import ServiceList from "../components/service/ServiceList";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-
+import { initalizeWebList } from "../modules/weblist";
+import Pagination from "react-js-pagination";
+import './Services.css';
 function Service() {
   const [category, setCategory] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
   const [active, setActive] = useState("");
+  
+  const dispatch = useDispatch();
+
+  const { weblist,totalElements,totalPages,size,number,mcode } = useSelector(({ weblist }) => ({
+    weblist: weblist.weblist,
+    totalElements:weblist.totalElements,
+    totalPages:weblist.totalPages,
+    size:weblist.size,
+    number:weblist.number+1,
+    mcode:weblist.mcode
+  }));
+  
   useEffect(() => {
     axios
       .get("http://52.79.57.173/web/category")
       .then(function (data) {
+        console.log(data.data)
         setCategory(data.data);
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
-  let check = new Boolean(true);
+     
+      dispatch(initalizeWebList(number,"All"));
+
+  }, [dispatch]);
+ 
+  let clickNumber=1;
+  let clickSubNumber=1;
   function activateLasers(item) {
-    console.log();
-
-    console.log(item);
-
-    if (check === true) {
+    
+    if(clickNumber==1){
+      clickNumber++;
       item.active = true;
       setActive("true");
-      check = false;
-    } else {
+    }else{
+      clickNumber--;
       item.active = false;
       setActive("false");
-      check = true;
+    }
+  }
+ 
+  function activateSubLasers(e,item) {
+
+  
+    if(clickSubNumber==1){
+      clickSubNumber++;
+      item.active = true;
+      setActive("true");
+    }else{
+      clickSubNumber--;
+      item.active = false;
+      setActive("false");
     }
   }
   function smallCategory(item) {
     setSubcategory(item.subCategory);
   }
+  
+  //카테고리코드값 들고와서 카테고리별 리스트 뽑아오는 함수
   function serviceList(item) {
-    console.log(item);
+     
+    dispatch(initalizeWebList(number,item));
+    
   }
+
+  
+  //페이지네이션 버튼누를때마다 바뀌는것
+  const handlePageChange = useCallback(
+    (mcode,pageNumber) => {
+    
+      
+      dispatch(initalizeWebList(pageNumber,mcode));
+    },[])
+
+  
   return (
     <Contents>
       <Search></Search>
@@ -61,20 +108,42 @@ function Service() {
       <HashTag>
         <ul>
           {subcategory.map((item, index) => (
-            <li key={index} className={item.active === true ? "active" : ""}>
-              <button type="button" onClick={serviceList.bind(this, item)}>
+            <li onClick={activateSubLasers.bind(this, item)}
+                key={index} 
+                className={item.active === true ? "active" : ""}>
+                  
+              <button type="button" onClick={serviceList.bind(this,item.mcode)}>
                 {item.name}
               </button>
             </li>
           ))}
         </ul>
       </HashTag>
-      <ServiceList></ServiceList>
+      <ServiceList 
+        weblist={weblist}
+      />
+       {/* <Pagination
+          
+          count={totalPages}
+          color="primary"
+          offset={number}
+          onChange={(number,mcode)=>handlePageChange(number,mcode)}
+      /> */}
+      <div className="paging">
+        <Pagination
+          activePage={number}
+          itemsCountPerPage={size}
+          totalItemsCount={totalElements}
+          pageRangeDisplayed={totalPages}
+          onChange={handlePageChange.bind(this,mcode)}
+        />
+      </div>
     </Contents>
   );
 }
 
 export default Service;
+
 const Contents = styled.section`
   padding-top: 118px;
   .sub-tit {

@@ -3,12 +3,13 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { initalizeWebList } from "../../modules/weblist";
 import { Link } from "react-router-dom";
-import {Pagination} from '@material-ui/lab';
 
 
 
-function ServiceList() {
+
+function ServiceList({servicelist}) {
   
+ 
   const dispatch = useDispatch();
   const { weblist,totalElements,totalPages,size,number } = useSelector(({ weblist }) => ({
     weblist: weblist.weblist,
@@ -17,23 +18,16 @@ function ServiceList() {
     size:weblist.size,
     number:weblist.number+1,
   }));
-  console.log("weblist",number)
+  
   const [activepage, setActivePage] = useState({number});
-  useEffect(() => {
-    dispatch(initalizeWebList(number));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(initalizeWebList(number));
+  // }, [dispatch]);
   // handlePageChange(pageNumber) {
   //   console.log(`active page is ${pageNumber}`);
   //   //this.setState({activePage: pageNumber});
   // }
-  const handlePageChange = useCallback(
-    (event, pageNumber) => {
-     
-      dispatch(initalizeWebList(pageNumber));
-      //setActivePage(pageNumber);
-    },
-    [],
-  )
+ 
   
   return (
     <>
@@ -89,12 +83,7 @@ function ServiceList() {
     /> */}
     {/* https://material-ui.com/api/pagination/ */}
     
-      <Pagination
-          count={totalPages}
-          color="primary"
-          offset={number}
-          onChange={handlePageChange}
-      />
+     
    
   </>
   );
