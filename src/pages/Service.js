@@ -5,7 +5,8 @@ import ServiceList from "../components/service/ServiceList";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { initalizeWebList } from "../modules/weblist";
-import {Pagination} from '@material-ui/lab';
+import Pagination from "react-js-pagination";
+import './Services.css';
 function Service() {
   const [category, setCategory] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
@@ -13,15 +14,15 @@ function Service() {
   
   const dispatch = useDispatch();
 
-  const { weblist,totalElements,totalPages,size,number } = useSelector(({ weblist }) => ({
-    weblist: weblist.weblist.category,
+  const { weblist,totalElements,totalPages,size,number,mcode } = useSelector(({ weblist }) => ({
+    weblist: weblist.weblist,
     totalElements:weblist.totalElements,
     totalPages:weblist.totalPages,
     size:weblist.size,
     number:weblist.number+1,
+    mcode:weblist.mcode
   }));
   
-  var mCode="All";
   useEffect(() => {
     axios
       .get("http://52.79.57.173/web/category")
@@ -33,7 +34,8 @@ function Service() {
         console.log(error);
       });
      
-      dispatch(initalizeWebList(number));
+      dispatch(initalizeWebList(number,"All"));
+
   }, [dispatch]);
  
   let clickNumber=1;
@@ -70,14 +72,21 @@ function Service() {
   
   //카테고리코드값 들고와서 카테고리별 리스트 뽑아오는 함수
   function serviceList(item) {
-    mCode=item;
-    dispatch(initalizeWebList(number));  
+     
+    dispatch(initalizeWebList(number,item));
+    
   }
-  console.log("mCode???!==="+mCode)
+
+  
+  //페이지네이션 버튼누를때마다 바뀌는것
   const handlePageChange = useCallback(
-    (event, pageNumber) => {
-      dispatch(initalizeWebList(pageNumber,""));
+    (mcode,pageNumber) => {
+    
+      
+      dispatch(initalizeWebList(pageNumber,mcode));
     },[])
+
+  
   return (
     <Contents>
       <Search></Search>
@@ -111,18 +120,30 @@ function Service() {
         </ul>
       </HashTag>
       <ServiceList 
+        weblist={weblist}
       />
-       <Pagination
+       {/* <Pagination
+          
           count={totalPages}
           color="primary"
           offset={number}
-          onChange={handlePageChange}
-      />
+          onChange={(number,mcode)=>handlePageChange(number,mcode)}
+      /> */}
+      <div className="paging">
+        <Pagination
+          activePage={number}
+          itemsCountPerPage={size}
+          totalItemsCount={totalElements}
+          pageRangeDisplayed={totalPages}
+          onChange={handlePageChange.bind(this,mcode)}
+        />
+      </div>
     </Contents>
   );
 }
 
 export default Service;
+
 const Contents = styled.section`
   padding-top: 118px;
   .sub-tit {

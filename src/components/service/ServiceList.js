@@ -7,8 +7,9 @@ import { Link } from "react-router-dom";
 
 
 
-function ServiceList({mCode}) {
+function ServiceList({servicelist}) {
   
+ 
   const dispatch = useDispatch();
   const { weblist,totalElements,totalPages,size,number } = useSelector(({ weblist }) => ({
     weblist: weblist.weblist,
@@ -17,7 +18,7 @@ function ServiceList({mCode}) {
     size:weblist.size,
     number:weblist.number+1,
   }));
-  console.log("categoryId==="+weblist[0])
+  
   const [activepage, setActivePage] = useState({number});
   // useEffect(() => {
   //   dispatch(initalizeWebList(number));

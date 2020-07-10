@@ -8,9 +8,10 @@ const [WEBLIST, WEBLIST_SUCCESS, WEBLIST_FAILURE] = createRequestActionTypes(
   "web/WEBLIST",
 );
 //action
-export const initalizeWebList = (pageNumber) => ({
+export const initalizeWebList = (pageNumber,mCode) => ({
   type: WEBLIST,
-  pageNumber
+  pageNumber,
+  mCode
 });
 const weblistsaga = createRequestSaga(WEBLIST, weblistAPI.weblist);
 
@@ -27,6 +28,7 @@ const initialState = {
   totalPages: 0,
   totalElements:0,
   number:0,
+  mCode:"All"
   
 };
 //reducer
@@ -42,6 +44,7 @@ const weblist = (state = initialState, action) => {
         totalPages: action.payload.weblists.totalPages,
         size: action.payload.weblists.size,
         number: action.payload.weblists.number,
+        mcode: action.payload.mCode
       };
     case WEBLIST_FAILURE:
       return {
