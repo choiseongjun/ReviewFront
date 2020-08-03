@@ -4,17 +4,19 @@ import auth, { authSaga } from "./auth";
 import weblist,{ weblistSaga } from "./weblist";
 import service, { serviceSaga } from "./service";
 import serviceDetail,{ serviceDetailSagaLatest } from "./serviceDetail";
+import reply,{ replySagaLatest } from "./reply";
 
 const rootReducer = combineReducers({
   auth,
   weblist,
   service,
-  serviceDetail
+  serviceDetail,
+  reply
 });
 
 
 export function* rootSaga() {
-  yield all([authSaga(), weblistSaga(), serviceSaga(), serviceDetailSagaLatest()]);
+  yield all([authSaga(), weblistSaga(), serviceSaga(), serviceDetailSagaLatest(), replySagaLatest()]);
 }
 
 export default rootReducer;

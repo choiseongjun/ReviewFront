@@ -1,12 +1,20 @@
-import React from 'react';
+import React ,{useState} from 'react'
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import ServiceDetail from '../components/service/ServiceDetail';
+import Reply from '../components/service/Reply';
 import Axios from "axios";
+import Pagination from "react-js-pagination";
 
 export default function ({match}) {
   const serviceDetail = ServiceDetail(match.params.id);
+  const AllReply = Reply(match.params.id);
+  const [activePage, setActivePage] = useState(1);
   const userId = JSON.parse(localStorage.getItem("user")) && JSON.parse(atob(JSON.parse(localStorage.getItem("user")).split(".")[1])).sub;
+  const itemsCountPerPage = 10;
+  let reply = AllReply?.webreply?.slice((activePage - 1) * itemsCountPerPage, (activePage - 1) * itemsCountPerPage + itemsCountPerPage);
+  console.log(reply);
+  
   function shareBtnHandler() {
     alert("공유하기는 미구현입니다.");
   }
@@ -156,6 +164,11 @@ export default function ({match}) {
     return false;
 
   }
+  
+  function handlePageChange(pageNumber) {
+    setActivePage(pageNumber);
+  }
+
   return (
     <Contents>
       <Container>
@@ -181,7 +194,7 @@ export default function ({match}) {
                 </div>
                 <div className="state">
                   <img src="/image/iconmonstr-star-3-240.png"></img>
-                  <span>별점 4.5개 (12botes)</span>
+                  <span>별점 {serviceDetail.avgstar?.toFixed(1)}개 ({serviceDetail.sizeOfstar}botes)</span>
                 </div>
                 <hr></hr>
                 <div className="text">
@@ -240,10 +253,10 @@ export default function ({match}) {
           </div>
           <ReplyList>
             <div className="title">
-              <h4>한줄평 <span className="gray-font">( {serviceDetail.webreply.length} comment )</span></h4>
+              <h4>한줄평 <span className="gray-font">( {reply?.length} comment )</span></h4>
             </div>
             <ul>
-              {serviceDetail.webreply?.map((reply, i) => {
+              {reply?.map((reply, i) => {
                 return (
                   <li>
                     <div>
@@ -278,6 +291,13 @@ export default function ({match}) {
             </ul>
             
           </ReplyList>
+          <Pagination
+            activePage={activePage}
+            itemsCountPerPage={10}
+            totalItemsCount={AllReply?.webreply?.length || 0}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange.bind(this)}
+          />
         </ContentBottom>
       </Container>
       <Footer>
@@ -681,6 +701,22 @@ const ContentBottom = styled.div`
     background: #FFFFFF;
     margin-left: 20px;
     color: #8A8A8A;
+  }
+
+  .pagination {
+    margin-left: calc(50% - 50px);
+    
+    li {
+      float: left;
+      margin: 0 3px;
+      a {
+        color: #333;
+      }
+    }
+
+    li.active a {
+      color: blue;
+    }
   }
 `
 const ReplyList = styled.div`
