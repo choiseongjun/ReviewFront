@@ -87,7 +87,8 @@ const auth = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        auth: action.payload.accessToken,
+        role:action.payload.ROLE,
+        auth: action.payload.jwt,
       };
     case LOGIN_FAILURE:
       alert("아이디 또는 비밀번호를 확인해주세요");

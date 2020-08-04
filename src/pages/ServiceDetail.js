@@ -194,7 +194,7 @@ export default function ({match}) {
                 </div>
                 <div className="state">
                   <img src="/image/iconmonstr-star-3-240.png"></img>
-                  <span>별점 {serviceDetail.avgstar?.toFixed(1)}개 ({serviceDetail.sizeOfstar}botes)</span>
+                  <span>별점 {serviceDetail.avgstar}개 ({serviceDetail.sizeOfstar}botes)</span>
                 </div>
                 <hr></hr>
                 <div className="text">

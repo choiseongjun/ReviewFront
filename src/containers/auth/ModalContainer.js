@@ -12,9 +12,10 @@ import {
 function ModalContainer({ onClose }) {
   const [type, setType] = useState("login");
   const [error, setError] = useState(null);
-  const { form, auth, authError } = useSelector(({ auth }) => ({
+  const { form, auth,role, authError } = useSelector(({ auth }) => ({
     form: auth[type],
     auth: auth.auth,
+    role: auth.role,
     authError: auth.authError,
   }));
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ function ModalContainer({ onClose }) {
 
   useEffect(() => {
     if (auth) {
+      window.localStorage.setItem("role", JSON.stringify(role));
       window.localStorage.setItem("user", JSON.stringify(auth));
       alert("로그인 성공");
       dispatch(modalState(false));
