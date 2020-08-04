@@ -11,6 +11,7 @@ import Responsive from "../lib/styles/responsive";
 import Register from "../pages/Service/Register";
 import "../lib/styles/fontawesome";
 import ShareFinish from "../pages/ShareFinish";
+import GrantService from "../pages/Admin/GrantService";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route exact path="/serviceDetail/:id" component={ServiceDetail} />
         <Route exact path="/share" component={Share} />
         <Route exact path="/shareFinish" component={ShareFinish} />
+        <Route exact path="/grantservice" component={GrantService} />
       </Switch>
       <Footer />
     </>

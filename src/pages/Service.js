@@ -122,22 +122,14 @@ function Service() {
       <ServiceList 
         weblist={weblist}
       />
-       {/* <Pagination
-          
-          count={totalPages}
-          color="primary"
-          offset={number}
-          onChange={(number,mcode)=>handlePageChange(number,mcode)}
-      /> */}
-      <div className="paging">
-        <Pagination
+      <Pagination
           activePage={number}
           itemsCountPerPage={size}
           totalItemsCount={totalElements}
           pageRangeDisplayed={totalPages}
           onChange={handlePageChange.bind(this,mcode)}
         />
-      </div>
+      
     </Contents>
   );
 }
@@ -145,7 +137,7 @@ function Service() {
 export default Service;
 
 const Contents = styled.section`
-  padding-top: 118px;
+  padding-top: 108px;
   .sub-tit {
     display: flex;
     flex-wrap: wrap;
@@ -157,6 +149,21 @@ const Contents = styled.section`
     font-size: 26px;
     line-height: 36px;
     color: #171717;
+  }
+  .pagination {
+    margin-left: calc(50% - 100px);
+    
+    li {
+      display: inline-block;
+      margin: 0 3px;
+      a {
+        color: #333;
+      }
+    }
+
+    li.active a {
+      color: blue;
+    }
   }
 `;
 const CategotyTab = styled.div`

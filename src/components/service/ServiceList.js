@@ -94,7 +94,6 @@ export default ServiceList;
 const ListWrap = styled.div`
     padding:60px 0;
     
-    background-color:#F3F3F3;
     .inner {
         max-width:1400px;
         margin:0 0 0 40px;
