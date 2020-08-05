@@ -19,11 +19,10 @@ const RouteIf = ({ role, component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props => {
-          console.log("role은????"+role)
-          console.log(role=='"[ROLE_ADMIN]"')
+          
         // 권한 체크 
         if (role ==='"[ROLE_ADMIN]"') { 
-          console.log("권한사이")
+          
           return <Component {...props} role={role} />;
         }else{
           if (Component) {
@@ -39,7 +38,7 @@ const RouteIf = ({ role, component: Component, ...rest }) => {
 };
 
 function App() {
-  console.log(localStorage.getItem("role"));
+  
   const myRole = {
     ROLE_USER: localStorage.getItem("role"), //일반유저
     ROLE_ADMIN: localStorage.getItem("role") // 관리자
