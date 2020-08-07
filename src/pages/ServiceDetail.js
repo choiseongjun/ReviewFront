@@ -12,9 +12,7 @@ export default function ({match}) {
   const [activePage, setActivePage] = useState(1);
   const userId = JSON.parse(localStorage.getItem("user")) && JSON.parse(atob(JSON.parse(localStorage.getItem("user")).split(".")[1])).sub;
   const itemsCountPerPage = 10;
-  let reply = AllReply?.webreply?.slice((activePage - 1) * itemsCountPerPage, (activePage - 1) * itemsCountPerPage + itemsCountPerPage);
-  console.log(reply);
-  
+  let reply = [].concat(AllReply?.webreply ?? []).slice((activePage - 1) * itemsCountPerPage, (activePage - 1) * itemsCountPerPage + itemsCountPerPage);
   function shareBtnHandler() {
     alert("공유하기는 미구현입니다.");
   }
@@ -34,6 +32,8 @@ export default function ({match}) {
   function startClickHandler() {
     let target = window.event.target;
     let idx = window.event.target.dataset.idx;
+    console.log(target.closest(".modify"));
+    if(!target.closest(".modify")) return;
     target.parentNode.childNodes.forEach(function(v, i) {
       if(v.dataset.idx <= idx) {
         v.className = "active";
@@ -106,6 +106,7 @@ export default function ({match}) {
   }
 
   function replyModify(e, id) {
+    e.target.parentNode.parentNode.parentNode.className = "modify";
     let target = e.target.parentNode.parentNode.nextElementSibling.children[0];
     if(target.tagName == "P") {
       let input = document.createElement("input")
@@ -125,6 +126,7 @@ export default function ({match}) {
     let webReplyReq={};
     webReplyReq.content = target.value;
     webReplyReq.id=id; 
+    webReplyReq.star = document.querySelectorAll(`#reply_wrap li[data-id='${id}'] .star-wrap span.active`).length;
     (async (e) => {
       try {
         const { data } = await Axios.put(
@@ -194,7 +196,7 @@ export default function ({match}) {
                 </div>
                 <div className="state">
                   <img src="/image/iconmonstr-star-3-240.png"></img>
-                  <span>별점 {serviceDetail.avgstar}개 ({serviceDetail.sizeOfstar}botes)</span>
+                  <span>별점 {serviceDetail.avgstar?.toFixed(1) || 0}개 ({serviceDetail.sizeOfstar}botes)</span>
                 </div>
                 <hr></hr>
                 <div className="text">
@@ -235,30 +237,32 @@ export default function ({match}) {
           </div>
         </ContentMiddle>
         <ContentBottom>
-          <div className="header">
-            <h5>내 평점 남기기</h5>
-            <span>
-              <span onClick={startClickHandler} id="star_wrap">
-                <span data-idx="1"></span>
-                <span data-idx="2"></span>
-                <span data-idx="3"></span>
-                <span data-idx="4"></span>
-                <span data-idx="5"></span>
+          {userId &&
+            <div className="header modify">
+              <h5>내 평점 남기기</h5>
+              <span>
+                <span onClick={startClickHandler} id="star_wrap">
+                  <span data-idx="1"></span>
+                  <span data-idx="2"></span>
+                  <span data-idx="3"></span>
+                  <span data-idx="4"></span>
+                  <span data-idx="5"></span>
+                </span>
+                <form onSubmit={addReview}>
+                  <input type="text" id="reply_text" placeholder="한줄평을 남겨보세요!"/>
+                  <button>작성</button>
+                </form>
               </span>
-              <form onSubmit={addReview}>
-                <input type="text" id="reply_text" placeholder="한줄평을 남겨보세요!"/>
-                <button>작성</button>
-              </form>
-            </span>
-          </div>
+            </div>
+          }
           <ReplyList>
             <div className="title">
               <h4>한줄평 <span className="gray-font">( {reply?.length} comment )</span></h4>
             </div>
-            <ul>
+            <ul id="reply_wrap">
               {reply?.map((reply, i) => {
                 return (
-                  <li>
+                  <li data-id={reply.id}>
                     <div>
                       <span className="user-name">{reply.user.name}</span>
                       {reply.user.userid == userId &&
@@ -274,11 +278,12 @@ export default function ({match}) {
                     </div>
                     <br></br>
                     <div>
-                      <span>
-                        <strong style={{"font-size": "12px"}}>별점 {reply.star || 0}</strong>
+                      <span className="star-wrap">
+                        <strong>별점 {reply.star || 0}</strong>
                         {[0,1,2,3,4].map((v) => {
-                          if(reply.star > v ) return <img src='/image/iconmonstr-star-4-240.png'/>;
-                          else return <img src='/image/iconmonstr-star-3-240.png'/>;
+                          let idx = v + 1;
+                          if(reply.star > v ) return <span data-idx={idx} className="active" onClick={startClickHandler}></span>;
+                          else return <span data-idx={idx} onClick={startClickHandler}></span>;
                         })}
 
                       </span>
@@ -650,6 +655,8 @@ const ContentBottom = styled.div`
   margin-top: 30px;
   width: 100%;
   background: #fff;
+  padding: 5px;
+  border: 1px solid #eee;
 
   .header {
     padding: 18px 29px;
@@ -756,6 +763,25 @@ const ReplyList = styled.div`
   .date {
     color: #6E6E6E;
   }
+  
+  .star-wrap>strong {
+    font-size: 12px;
+    position: relative;
+    top: -7px;
+    margin-right: 5px;
+  }
+
+  .star-wrap>span {
+    width: 25px;
+    height: 26px;
+    background-image: url("/image/iconmonstr-star-3-240.png");
+    display: inline-block;
+  }
+
+  .star-wrap>span.active {
+    background-image: url("/image/iconmonstr-star-4-240.png");
+  }
+
 `
 
 const Footer = styled.div`
