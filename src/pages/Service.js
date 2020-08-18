@@ -11,7 +11,8 @@ function Service() {
   const [category, setCategory] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
   const [active, setActive] = useState("");
-  
+  const [selectedSubCategory, setSelectedSubCategory] = useState('');
+
   const dispatch = useDispatch();
 
   const { weblist,totalElements,totalPages,size,number,mcode } = useSelector(({ weblist }) => ({
@@ -25,18 +26,17 @@ function Service() {
   
   useEffect(() => {
     axios
-      .get("http://52.79.57.173/web/category")
+      .get("http://localhost:8080/web/category")
       .then(function (data) {
-        console.log(data.data)
         setCategory(data.data);
       })
       .catch(function (error) {
         console.log(error);
       });
      
-      dispatch(initalizeWebList(number,"All"));
+      dispatch(initalizeWebList(number,"All",""));
 
-  }, [dispatch]);
+  }, []);
  
   let clickNumber=1;
   let clickSubNumber=1;
@@ -53,43 +53,37 @@ function Service() {
     }
   }
  
-  function activateSubLasers(e,item) {
-
-  
-    if(clickSubNumber==1){
-      clickSubNumber++;
-      item.active = true;
-      setActive("true");
-    }else{
-      clickSubNumber--;
-      item.active = false;
-      setActive("false");
-    }
+  function activateSubLasers(index, item) {
+    setSelectedSubCategory(index)
   }
   function smallCategory(item) {
     setSubcategory(item.subCategory);
   }
   
   //카테고리코드값 들고와서 카테고리별 리스트 뽑아오는 함수
-  function serviceList(item) {
-     
-    dispatch(initalizeWebList(number,item));
+  // function serviceList(item) {
+   
+  //   dispatch(initalizeWebList(number,item));
     
-  }
+  // }
+  const serviceList = useCallback(
+    (item) => {
+      console.log(item)
+      dispatch(initalizeWebList(1,item,""));
+      //dispatch(initalizeWebList(number,"All"));
+    },[])
 
   
   //페이지네이션 버튼누를때마다 바뀌는것
   const handlePageChange = useCallback(
     (mcode,pageNumber) => {
-    
-      
-      dispatch(initalizeWebList(pageNumber,mcode));
+      dispatch(initalizeWebList(pageNumber,mcode,""));
     },[])
 
   
   return (
     <Contents>
-      <Search></Search>
+      <Search number={number}></Search>
       <CategotyTab>
         <ul>
           {category.map((item, index) => (
@@ -108,10 +102,10 @@ function Service() {
       <HashTag>
         <ul>
           {subcategory.map((item, index) => (
-            <li onClick={activateSubLasers.bind(this, item)}
-                key={index} 
-                className={item.active === true ? "active" : ""}>
-                  
+            <li 
+                onClick={() => activateSubLasers(index, item)} 
+                key={item.id} 
+                className={index === selectedSubCategory ? "active" : ""}>
               <button type="button" onClick={serviceList.bind(this,item.mcode)}>
                 {item.name}
               </button>

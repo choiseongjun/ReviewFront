@@ -13,11 +13,13 @@ export default function createRequestSaga(type, request) {
     try {
       console.log("action", action);
       const response = yield call(request, action);
+      console.log("actionstest",response.data)
       yield put({
         type: SUCCESS,
-        payload: Array.isArray(response.data.content) ? response.data.content : response.data,
+        payload: Array.isArray(response.data) ? response.data : response.data,
       });
     } catch (error) {
+      
       yield put({
         type: FAILURE,
         payload: error,

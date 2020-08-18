@@ -1,20 +1,25 @@
 import React ,{useState} from 'react'
 import styled from "styled-components";
+import { initalizeWebList } from "../../modules/weblist";
+import { useDispatch } from "react-redux";
+function Search(props) {
+    
+    const number=props.number;
+    const dispatch = useDispatch();
 
-function Search() {
     const category = [
         {
             value: 0,
-            label : '모두검색'
-        },
-        {
-            value: 1,
-            label : '모두검색2'
+            label : '제목'
         }
     ]
     const [text , setText] = useState("");
     const onChange = (e) => {
         setText(e.target.value);
+    }
+    function search(text){
+      console.log(text)
+      dispatch(initalizeWebList(number,"All",text));
     }
     return (
         <SearchWrap>
@@ -31,7 +36,7 @@ function Search() {
             </div>
             <div className="input-wrap">
                 <input type="text" onChange={onChange} vlaue="text" placeholder="검색어를 넣어서 직접 서비스를 만나보세요!"/>
-                <button type="button">검색</button>
+                <button type="button" onClick={() => search(text)}>검색</button>
             </div>
             </div>
         </SearchWrap>

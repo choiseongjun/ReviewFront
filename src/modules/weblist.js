@@ -8,10 +8,11 @@ const [WEBLIST, WEBLIST_SUCCESS, WEBLIST_FAILURE] = createRequestActionTypes(
   "web/WEBLIST",
 );
 //action
-export const initalizeWebList = (pageNumber,mCode) => ({
+export const initalizeWebList = (pageNumber,mCode,searchParam) => ({
   type: WEBLIST,
   pageNumber,
-  mCode
+  mCode,
+  searchParam
 });
 const weblistsaga = createRequestSaga(WEBLIST, weblistAPI.weblist);
 
