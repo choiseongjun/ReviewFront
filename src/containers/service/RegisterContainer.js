@@ -140,7 +140,7 @@ function RegisterContainer({ history }) {
       });
       try {
         const { data } = await Axios.post(
-          "http://52.79.57.173/web/service",
+          "http://49.50.173.236:8080/web/service",
           formData,
           config,
         );
@@ -181,7 +181,7 @@ function RegisterContainer({ history }) {
     console.log("form", form);
     async function getCategory() {
       const { data: category } = await Axios.get(
-        "http://52.79.57.173/web/category",
+        "http://49.50.173.236:8080/web/category",
       );
       setCategory(category);
       setSubCategory(category[0].subCategory);

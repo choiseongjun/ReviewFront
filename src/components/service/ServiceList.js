@@ -47,7 +47,7 @@ function ServiceList({servicelist}) {
                       src={
                         item.file_name == null
                           ? require("../../asset/img/img_test.png")
-                          : "http://52.79.57.173/getWebImage/" + item.file_name
+                          : "http://49.50.173.236:8080/getWebImage/" + item.file_name
                       }
                       width="320"
                       height="200"
