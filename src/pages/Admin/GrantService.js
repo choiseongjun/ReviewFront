@@ -17,7 +17,7 @@ function GrantService() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-      axios.get("http://localhost:8080/web/serviceList/All")
+      axios.get("http://49.50.173.236:8080/web/serviceList/All")
       .then(({ data }) => {
         setWeblist(data.weblists.content);
        
@@ -30,7 +30,7 @@ function GrantService() {
     },[]);
 
     function waitGrant(){
-      axios.get("http://localhost:8080/web/serviceList/All")
+      axios.get("http://49.50.173.236:8080/web/serviceList/All")
       .then(({ data }) => {
         setWeblist(data.weblists.content);
         setTotalElements(data.weblists.totalElements)
@@ -41,7 +41,7 @@ function GrantService() {
       })
     };
     function completeGrant(){
-      axios.get("http://localhost:8080/web/serviceList/All?appYn=Y")
+      axios.get("http://49.50.173.236:8080/web/serviceList/All?appYn=Y")
       .then(({ data }) => {
         setWeblist(data.weblists.content);
         setTotalElements(data.weblists.totalElements)
@@ -56,7 +56,7 @@ function GrantService() {
       (mcode,appYn,pageNumber) => {
         console.log(appYn)
         if(appYn===true){
-          axios.get("http://localhost:8080/web/serviceList/All?page="+pageNumber+"&appYn=Y")
+          axios.get("http://49.50.173.236:8080/web/serviceList/All?page="+pageNumber+"&appYn=Y")
           .then(({ data }) => {
             setWeblist(data.weblists.content);
             setTotalElements(data.weblists.totalElements)
@@ -65,7 +65,7 @@ function GrantService() {
             setNumber(data.weblists.number+1);
           })
         }else{
-          axios.get("http://localhost:8080/web/serviceList/All?page="+pageNumber)
+          axios.get("http://49.50.173.236:8080/web/serviceList/All?page="+pageNumber)
           .then(({ data }) => {
             console.log(data.weblists)
             setWeblist(data.weblists.content);
@@ -106,7 +106,7 @@ function GrantService() {
             Authorization: `Bearer ${token}`,
           },
         };
-        axios.delete("http://localhost:8080/web/appyn/"+id,
+        axios.delete("http://49.50.173.236:8080/web/appyn/"+id,
           config)
         .then(({ data }) => {
           
@@ -149,7 +149,7 @@ function GrantService() {
                             src={
                               item.file_name == null
                                 ? require("../../asset/img/img_test.png")
-                                : "http://52.79.57.173/getWebImage/" + item.file_name
+                                : "http://49.50.173.236:8080/getWebImage/" + item.file_name
                             }
                             width="50"
                             height="50"

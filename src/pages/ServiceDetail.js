@@ -92,7 +92,7 @@ export default function ({match}) {
     (async (e) => {
       try {
         const { data } = await Axios.post(
-          "http://52.79.57.173/web/reply",
+          "http://49.50.173.236:8080/web/reply",
           webReplyReq,
           config,
         );
@@ -130,7 +130,7 @@ export default function ({match}) {
     (async (e) => {
       try {
         const { data } = await Axios.put(
-          "http://52.79.57.173/web/reply/",
+          "http://49.50.173.236:8080/web/reply/",
           webReplyReq,
           config,
         );
@@ -154,7 +154,7 @@ export default function ({match}) {
     (async (e) => {
       try {
         const { data } = await Axios.delete(
-          "http://52.79.57.173/web/reply/"+id,
+          "http://49.50.173.236:8080/web/reply/"+id,
           config,
         );
         alert("삭제되었습니다.");
@@ -187,7 +187,7 @@ export default function ({match}) {
             </div>
             <div className="content-wrap">
               <div className="image-wrap">
-                <img src={"http://52.79.57.173/getWebImage/" + serviceDetail.file_name}></img>
+                <img src={"http://49.50.173.236:8080/getWebImage/" + serviceDetail.file_name}></img>
               </div>
               <div className="container">
                 <div className="content-header">
@@ -222,7 +222,7 @@ export default function ({match}) {
               <div className="img-wrap" id="service_img_list">
                 {serviceDetail.webfile?.map((contact, i) => {
                   return (
-                    <img src={"http://52.79.57.173/getWebImage/" +  contact.file_name} onClick={(e) => e.target.requestFullscreen()}/>
+                    <img src={"http://49.50.173.236:8080/getWebImage/" +  contact.file_name} onClick={(e) => e.target.requestFullscreen()}/>
                     );
                   })}
               </div>
