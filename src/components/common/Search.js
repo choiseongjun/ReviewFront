@@ -18,9 +18,16 @@ function Search(props) {
         setText(e.target.value);
     }
     function search(text){
-      console.log(text)
+      
+      
       dispatch(initalizeWebList(number,"All",text));
+      
     }
+    const handleKeyPress = (e,text) => {
+      if (e.key === "Enter") {
+        search(text);
+      }
+    };
     return (
         <SearchWrap>
             <div className="inner">
@@ -35,7 +42,7 @@ function Search(props) {
                 </select>
             </div>
             <div className="input-wrap">
-                <input type="text" onChange={onChange} vlaue="text" placeholder="검색어를 넣어서 직접 서비스를 만나보세요!"/>
+                <input type="text" onKeyPress={(e)=>handleKeyPress(e,text)} onChange={onChange} vlaue="text" placeholder="검색어를 넣어서 직접 서비스를 만나보세요!"/>
                 <button type="button" onClick={() => search(text)}>검색</button>
             </div>
             </div>

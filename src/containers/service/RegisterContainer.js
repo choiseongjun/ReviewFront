@@ -60,6 +60,9 @@ function RegisterContainer({ history }) {
   const handleSelect = (e) => {
     if (e.target.id === "category") {
       const code = e.target.value;
+      
+      // form.mcode=subCategory[0]
+      
       category.filter(
         (item) => item.mcode === code && setSubCategory(item.subCategory),
       );
@@ -83,11 +86,11 @@ function RegisterContainer({ history }) {
     (e) => {
       e.preventDefault();
       if (e.target.id === "mobile") {
-        if (form.app_yn === "N") {
-          dispatch(changeInput({ key: "app_yn", value: "Y" }));
+        if (form.mobile_yn === "N") {
+          dispatch(changeInput({ key: "mobile_yn", value: "Y" }));
           e.target.style.backgroundColor = "#1ae1cc";
         } else {
-          dispatch(changeInput({ key: "app_yn", value: "N" }));
+          dispatch(changeInput({ key: "mobile_yn", value: "N" }));
           e.target.style.backgroundColor = "white";
         }
       } else {
@@ -100,13 +103,13 @@ function RegisterContainer({ history }) {
         }
       }
     },
-    [dispatch, form.app_yn, form.web_yn],
+    [dispatch, form.mobile_yn, form.web_yn],
   );
 
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
-      const token = JSON.parse(localStorage.getItem("user"));
+      const token = JSON.parse(sessionStorage.getItem("user"));
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -125,9 +128,9 @@ function RegisterContainer({ history }) {
               content: form.content,
               url: form.url,
               companyname: form.companyname,
-              categoryname: form.categoryname,
-              app_yn: form.app_yn,
-              web_yn: form.web_yn,
+              mcode: form.categoryname,
+              mobileyn: form.mobile_yn,
+              webyn: form.web_yn,
             }),
           ],
           {
@@ -153,7 +156,7 @@ function RegisterContainer({ history }) {
       }
     },
     [
-      form.app_yn,
+      form.mobile_yn,
       form.categoryname,
       form.companyname,
       form.content,
@@ -184,11 +187,13 @@ function RegisterContainer({ history }) {
         "http://49.50.173.236:8080/web/category",
       );
       setCategory(category);
-      setSubCategory(category[0].subCategory);
+      
     }
     getCategory();
   }, [form]);
-
+  function smallCategory(item) {
+    setSubCategory(item.subCategory);
+  }
   return (
     <RegisterPresenter
       onChange={handleChangeFile}
@@ -202,6 +207,7 @@ function RegisterContainer({ history }) {
       subCategory={subCategory}
       form={form}
       error={error}
+      smallCategory={smallCategory}
     />
   );
 }

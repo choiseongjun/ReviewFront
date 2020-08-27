@@ -80,9 +80,11 @@ const auth = (state = initialState, action) => {
         auth: action.payload.accessToken,
       };
     case REGISTER_FAILURE:
+      alert(action.payload.response.data)
       return {
         ...state,
-        authError: action.payload.error,
+        authError: action.payload.response.data,
+        
       };
     case LOGIN_SUCCESS:
       return {

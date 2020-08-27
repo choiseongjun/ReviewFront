@@ -85,7 +85,7 @@ const Modal = ({ type, onChange, onSubmit, onClose, onChangeForm }) => {
                   <InlineButton>아이디 찾기</InlineButton>
                   <InlineButton>비밀번호 찾기</InlineButton>
                   <InlineButton primary onClick={onChangeForm}>
-                    회원가입하기
+                    회원가입 
                   </InlineButton>
                 </LoginFormList>
               )}

@@ -17,11 +17,11 @@ const store = createStore(
 
 function loadUser() {
   try {
-    const user = localStorage.getItem("user");
+    const user = sessionStorage.getItem("user");
     if (!user) return;
     store.dispatch(setUser(user));
   } catch (error) {
-    console.log("localStorage is not working");
+    console.log("sessionStorage is not working");
   }
 }
 

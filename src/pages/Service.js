@@ -10,7 +10,7 @@ import './Services.css';
 function Service() {
   const [category, setCategory] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
-  const [active, setActive] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSubCategory, setSelectedSubCategory] = useState('');
 
   const dispatch = useDispatch();
@@ -23,7 +23,6 @@ function Service() {
     number:weblist.number+1,
     mcode:weblist.mcode
   }));
-  
   useEffect(() => {
     axios
       .get("http://49.50.173.236:8080/web/category")
@@ -33,47 +32,28 @@ function Service() {
       .catch(function (error) {
         console.log(error);
       });
-     
+    
       dispatch(initalizeWebList(number,"All",""));
-
+      
   }, []);
  
-  let clickNumber=1;
-  let clickSubNumber=1;
   function activateLasers(item) {
-    
-    if(clickNumber==1){
-      clickNumber++;
-      item.active = true;
-      setActive("true");
-    }else{
-      clickNumber--;
-      item.active = false;
-      setActive("false");
-    }
+    setSelectedCategory(item.id)
+    setSelectedSubCategory('')//메뉴 바꿀때마다 초기화
   }
  
-  function activateSubLasers(index, item) {
+  function activateSubLasers(index, item) {//하위카테고리 hover 작동
     setSelectedSubCategory(index)
   }
   function smallCategory(item) {
     setSubcategory(item.subCategory);
   }
   
-  //카테고리코드값 들고와서 카테고리별 리스트 뽑아오는 함수
-  // function serviceList(item) {
-   
-  //   dispatch(initalizeWebList(number,item));
-    
-  // }
   const serviceList = useCallback(
     (item) => {
-      console.log(item)
       dispatch(initalizeWebList(1,item,""));
       //dispatch(initalizeWebList(number,"All"));
-    },[])
-
-  
+  },[])
   //페이지네이션 버튼누를때마다 바뀌는것
   const handlePageChange = useCallback(
     (mcode,pageNumber) => {
@@ -90,7 +70,7 @@ function Service() {
             <li
               onClick={activateLasers.bind(this, item)}
               key={index}
-              className={item.active === true ? "active" : ""}
+              className={item.id === selectedCategory ? "active" : ""}
             >
               <button type="button" onClick={smallCategory.bind(this, item)}>
                 {item.name}
@@ -113,9 +93,9 @@ function Service() {
           ))}
         </ul>
       </HashTag>
-      <ServiceList 
-        weblist={weblist}
-      />
+        <ServiceList 
+          weblist={weblist}
+        />
       <Pagination
           activePage={number}
           itemsCountPerPage={size}

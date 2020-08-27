@@ -10,7 +10,7 @@ export default function ({match}) {
   const serviceDetail = ServiceDetail(match.params.id);
   const AllReply = Reply(match.params.id);
   const [activePage, setActivePage] = useState(1);
-  const userId = JSON.parse(localStorage.getItem("user")) && JSON.parse(atob(JSON.parse(localStorage.getItem("user")).split(".")[1])).sub;
+  const userId = JSON.parse(sessionStorage.getItem("user")) && JSON.parse(atob(JSON.parse(sessionStorage.getItem("user")).split(".")[1])).sub;
   const itemsCountPerPage = 10;
   let reply = [].concat(AllReply?.webreply ?? []).slice((activePage - 1) * itemsCountPerPage, (activePage - 1) * itemsCountPerPage + itemsCountPerPage);
   function shareBtnHandler() {
@@ -79,7 +79,7 @@ export default function ({match}) {
 
   function addReview(e) {
     e.preventDefault();
-    const token = JSON.parse(localStorage.getItem("user"));
+    const token = JSON.parse(sessionStorage.getItem("user"));
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -117,7 +117,7 @@ export default function ({match}) {
       return;
     }
     e.preventDefault();
-    const token = JSON.parse(localStorage.getItem("user"));
+    const token = JSON.parse(sessionStorage.getItem("user"));
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -145,7 +145,7 @@ export default function ({match}) {
 
   function replyDelete(e, id) {
     e.preventDefault();
-    const token = JSON.parse(localStorage.getItem("user"));
+    const token = JSON.parse(sessionStorage.getItem("user"));
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,

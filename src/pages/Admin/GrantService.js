@@ -100,7 +100,7 @@ function GrantService() {
         // var element = document.getElementById("tablelist");
         // console.log(element.childNodes)
         //     element.parentNode.removeChild(element);
-        const token = JSON.parse(localStorage.getItem("user"));
+        const token = JSON.parse(sessionStorage.getItem("user"));
         const config = {
           headers: {
             Authorization: `Bearer ${token}`,

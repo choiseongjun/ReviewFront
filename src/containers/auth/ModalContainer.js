@@ -40,7 +40,12 @@ function ModalContainer({ onClose }) {
           alert("비밀번호를 다시 확인해주세요.");
           return;
         } else {
-          dispatch(register({ userid, email, name, password }));
+          try {
+            dispatch(register({ userid, email, name, password }));
+            console.log(form)
+          } catch (error) {
+            console.log(error)
+          }
         }
       }
     },
@@ -50,6 +55,7 @@ function ModalContainer({ onClose }) {
   const onChangeForm = useCallback(() => {
     setType("register");
     dispatch(initalizeForm(type));
+    
   }, [dispatch, type]);
 
   useEffect(() => {
@@ -58,8 +64,8 @@ function ModalContainer({ onClose }) {
 
   useEffect(() => {
     if (auth) {
-      window.localStorage.setItem("role", JSON.stringify(role));
-      window.localStorage.setItem("user", JSON.stringify(auth));
+      window.sessionStorage.setItem("role", JSON.stringify(role));
+      window.sessionStorage.setItem("user", JSON.stringify(auth));
       alert("로그인 성공");
       dispatch(modalState(false));
     }

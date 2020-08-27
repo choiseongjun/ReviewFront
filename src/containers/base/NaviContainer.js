@@ -20,14 +20,14 @@ function NaviContainer() {
   }, [dispatch]);
 
   const onLogout = useCallback(() => {
-    window.localStorage.clear();
+    window.sessionStorage.clear();
     setUser(false);
     dispatch(logout());
   }, [dispatch]);
 
   useEffect(() => {
     if (auth) {
-      const userCheck = window.localStorage.getItem("user");
+      const userCheck = window.sessionStorage.getItem("user");
       console.log("userCheck", userCheck);
       setUser(true);
     }

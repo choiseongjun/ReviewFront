@@ -53,10 +53,13 @@ const TopNav = styled.nav`
 `;
 
 function Navigation({ user, state, onClick, onClose, onLogout }) {
+  const logoClick = (e) =>{
+    window.location.reload();
+  }
   return (
     <TopNav>
       <CenterWrapper>
-        <Link to="/">
+        
           <div className="logo">
             <div className="logo-img">
               <span
@@ -66,22 +69,23 @@ function Navigation({ user, state, onClick, onClose, onLogout }) {
                 aria-hidden="false"
                 value="balloon"
               >
-                🎈
               </span>
             </div>
-            <span className="logo-title">WOOZUWEB</span>
+            <span className="logo-title" ><a href="/">WOOZUWEB</a></span>
           </div>
-        </Link>
-
         <ul className="menu-list">
+          
           <Link to="/">
             <li className="menu-item">서비스 탐색</li>
           </Link>
-          <li className="menu-item">인기 서비스</li>
+          {/* <li className="menu-item">인기 서비스</li> */}
+          {user?(
           <Link to="/share">
             <li className="menu-item">공유하기</li>
           </Link>
-          <li className="menu-item">내 서비스 보기</li>
+          ):('')}
+          {/* <li className="menu-item">내 서비스 보기</li> */}
+       
         </ul>
 
         <ul>

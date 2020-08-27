@@ -40,8 +40,8 @@ const RouteIf = ({ role, component: Component, ...rest }) => {
 function App() {
   
   const myRole = {
-    ROLE_USER: localStorage.getItem("role"), //일반유저
-    ROLE_ADMIN: localStorage.getItem("role") // 관리자
+    ROLE_USER: sessionStorage.getItem("role"), //일반유저
+    ROLE_ADMIN: sessionStorage.getItem("role") // 관리자
   };
   return (
     <>

@@ -18,6 +18,7 @@ function RegisterPresenter({
   subCategory,
   form,
   error,
+  smallCategory,
 }) {
   console.log("img", imgBase64);
   console.log("img2", img2Base64.length);
@@ -110,7 +111,7 @@ function RegisterPresenter({
                       {category &&
                         category.length > 0 &&
                         category.map((item, index) => (
-                          <Option key={index} value={item.mcode}>
+                          <Option key={index} value={item.mcode} onClick={smallCategory.bind(this, item)}>
                             {item.name}
                           </Option>
                         ))}

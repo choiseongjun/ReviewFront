@@ -96,7 +96,7 @@ const ListWrap = styled.div`
     
     .inner {
         max-width:1400px;
-        margin:0 0 0 40px;
+        margin:0 auto;
     }
     ul {
         display:flex;
