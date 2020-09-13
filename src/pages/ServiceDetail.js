@@ -9,10 +9,16 @@ import Pagination from "react-js-pagination";
 export default function ({match}) {
   const serviceDetail = ServiceDetail(match.params.id);
   const AllReply = Reply(match.params.id);
+  
+  let sortReply = [].concat(AllReply?.webreply ?? []).sort(function(a,b) {
+    if(b['parent'] == a['parent']) return a['id'] - b['id'];
+    else return b['parent'] - a['parent']; 
+  });
   const [activePage, setActivePage] = useState(1);
   const userId = JSON.parse(sessionStorage.getItem("user")) && JSON.parse(atob(JSON.parse(sessionStorage.getItem("user")).split(".")[1])).sub;
   const itemsCountPerPage = 10;
-  let reply = [].concat(AllReply?.webreply ?? []).slice((activePage - 1) * itemsCountPerPage, (activePage - 1) * itemsCountPerPage + itemsCountPerPage);
+  let reply = sortReply.slice((activePage - 1) * itemsCountPerPage, (activePage - 1) * itemsCountPerPage + itemsCountPerPage);
+  console.log(reply);
   function shareBtnHandler() {
     alert("공유하기는 미구현입니다.");
   }
@@ -32,8 +38,9 @@ export default function ({match}) {
   function startClickHandler() {
     let target = window.event.target;
     let idx = window.event.target.dataset.idx;
-    console.log(target.closest(".modify"));
-    if(!target.closest(".modify")) return;
+    console.log("in!")
+    if(!target.closest(".modify") && !target.closest("#re_reply") ) return;
+    console.log("in")
     target.parentNode.childNodes.forEach(function(v, i) {
       if(v.dataset.idx <= idx) {
         v.className = "active";
@@ -164,9 +171,48 @@ export default function ({match}) {
       }
     })();
     return false;
+  }
 
+  function reReply(e, id) {
+    let html = document.querySelectorAll('#replyContent')[0].innerHTML;
+    let div = document.createElement("DIV");
+    e.target.closest("li").append(div);
+    div.id = "re_reply";
+    div.innerHTML = html;
+    div.getElementsByTagName("h5")[0].innerText = "댓글 달기";
+    div.querySelectorAll("#star_wrap")[0].addEventListener("click", startClickHandler);
+    div.getElementsByTagName("button")[0].addEventListener("click", function() {
+      addReReply(id, div.querySelectorAll("#reply_text")[0].value, div.querySelectorAll(`#star_wrap span.active`).length)
+    }, false);
   }
   
+  function addReReply(id, content, star) {
+    const token = JSON.parse(sessionStorage.getItem("user"));
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let webReplyReq={};
+    webReplyReq.content = content;
+    webReplyReq.weblist_id=match.params.id;
+    webReplyReq.star = star;
+    (async (e) => {
+      try {
+        const { data } = await Axios.post(
+          "http://49.50.173.236:8080/web/webreply/" + id,
+          webReplyReq,
+          config,
+        );
+        alert("등록되었습니다.");
+        window.location.reload();
+      } catch (error) {
+        console.log(error)
+      }
+    })();
+    return false;
+  }
+
   function handlePageChange(pageNumber) {
     setActivePage(pageNumber);
   }
@@ -238,7 +284,7 @@ export default function ({match}) {
         </ContentMiddle>
         <ContentBottom>
           {userId &&
-            <div className="header modify">
+            <div className="header modify" id="replyContent">
               <h5>내 평점 남기기</h5>
               <span>
                 <span onClick={startClickHandler} id="star_wrap">
@@ -250,7 +296,7 @@ export default function ({match}) {
                 </span>
                 <form onSubmit={addReview}>
                   <input type="text" id="reply_text" placeholder="한줄평을 남겨보세요!"/>
-                  <button>작성</button>
+                  <button type="button">작성</button>
                 </form>
               </span>
             </div>
@@ -260,34 +306,36 @@ export default function ({match}) {
               <h4>한줄평 <span className="gray-font">( {reply?.length} comment )</span></h4>
             </div>
             <ul id="reply_wrap">
-              {reply?.map((reply, i) => {
+              {reply?.map((v, i) => {
                 return (
-                  <li data-id={reply.id}>
+                  <li data-id={v.id} className={v.id !== v.parent ? "re-reply" : ""}>
                     <div>
-                      <span className="user-name">{reply.user.name}</span>
-                      {reply.user.userid == userId &&
+                      <span className="user-name">{v.user.name}</span>
+                      {v.user.userid == userId &&
                         <span className="fr">
-                          <span onClick={(e) => replyModify(e, reply.id)}>수정</span>
+                          <span onClick={(e) => replyModify(e, v.id)}>수정</span>
                           <span> / </span>
-                          <span onClick={(e) => replyDelete(e, reply.id)}>삭제</span>
+                          <span onClick={(e) => replyDelete(e, v.id)}>삭제</span>
+                          <span> / </span>
+                          <span onClick={(e) => reReply(e, v.id)}>댓글</span>
                         </span>
                       }
                     </div>
                     <div className="content">
-                      <p>{reply.content}</p>
+                      <p>{v.content}</p>
                     </div>
                     <br></br>
                     <div>
                       <span className="star-wrap">
-                        <strong>별점 {reply.star || 0}</strong>
+                        <strong>별점 {v.star || 0}</strong>
                         {[0,1,2,3,4].map((v) => {
                           let idx = v + 1;
-                          if(reply.star > v ) return <span data-idx={idx} className="active" onClick={startClickHandler}></span>;
+                          if(v.star > v ) return <span data-idx={idx} className="active" onClick={startClickHandler}></span>;
                           else return <span data-idx={idx} onClick={startClickHandler}></span>;
                         })}
 
                       </span>
-                      <span className="date fr">{reply.createdAt.substr(0, 10)}</span>
+                      <span className="date fr">{v.createdAt.substr(0, 10)}</span>
                     </div>
                   </li>
                   );
@@ -746,6 +794,14 @@ const ReplyList = styled.div`
     font-size: 10px;
   }
 
+  ul>li.re-reply {
+    display: flex;
+    flex-flow: column;
+    padding: 17px 29px 17px 59px;
+    border-top: 1px solid #d1d1d1;
+    font-size: 10px;
+  }
+
   .user-name {
     color: #090909;
     font-size: 11px;
@@ -780,6 +836,82 @@ const ReplyList = styled.div`
 
   .star-wrap>span.active {
     background-image: url("/image/iconmonstr-star-4-240.png");
+  }
+
+  #re_reply {
+    margin-top: 30px;
+    width: 100%;
+    background: #fff;
+    padding: 5px;
+    border-top: 1px solid #eee;
+  }
+  
+  #re_reply>h5 {
+    font-size: 10px;
+  }
+
+  #re_reply>span {
+    display: flex;
+    flex-flow: row;
+    margin-top: 5px;
+  }
+
+  #re_reply>span>span {
+    flex: 150px 0 0;
+  }
+
+  #re_reply>span>span>span {
+    width: 25px;
+    height: 26px;
+    background-image: url("/image/iconmonstr-star-3-240.png");
+    display: inline-block;
+  }
+
+  #re_reply>span>span>span.active {
+    
+    background-image: url("/image/iconmonstr-star-4-240.png");
+  }
+
+  #re_reply>span>form {
+    width: 100%;
+    display: flex;
+  }
+
+  #re_reply>span>form>input {
+    border: none;
+    border-bottom: 1px solid #bababa;
+    width: 100%;
+  }
+  
+  #re_reply>span>input::-webkit-input-placeholder {
+    color: #bababa;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  #re_reply>span>form>button {
+    padding: 6px 22px;
+    border: 1px solid #CFCFCF;
+    border-radius: 9px;
+    background: #FFFFFF;
+    margin-left: 20px;
+    color: #8A8A8A;
+  }
+
+  .pagination {
+    margin-left: calc(50% - 50px);
+    
+    li {
+      float: left;
+      margin: 0 3px;
+      a {
+        color: #333;
+      }
+    }
+
+    li.active a {
+      color: blue;
+    }
   }
 
 `
