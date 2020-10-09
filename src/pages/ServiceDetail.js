@@ -328,9 +328,9 @@ export default function ({match}) {
                     <div>
                       <span className="star-wrap">
                         <strong>별점 {v.star || 0}</strong>
-                        {[0,1,2,3,4].map((v) => {
-                          let idx = v + 1;
-                          if(v.star > v ) return <span data-idx={idx} className="active" onClick={startClickHandler}></span>;
+                        {[0,1,2,3,4].map((value) => {
+                          let idx = value + 1;
+                          if(v.star > value ) return <span data-idx={idx} className="active" onClick={startClickHandler}></span>;
                           else return <span data-idx={idx} onClick={startClickHandler}></span>;
                         })}
 
