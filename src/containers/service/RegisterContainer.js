@@ -75,9 +75,10 @@ function RegisterContainer({ history }) {
   const handleInput = useCallback(
     (e) => {
       const { name, value } = e.target;
-      checkExp(value)
-        ? dispatch(changeInput({ key: name, value }))
-        : setError(true);
+      dispatch(changeInput({ key: name, value }))
+      // checkExp(value)
+      //   ? dispatch(changeInput({ key: name, value }))
+      //   : setError(true);
     },
     [dispatch],
   );
