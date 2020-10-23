@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import palette from "../../lib/styles/palette";
@@ -7,6 +7,92 @@ import CenterWrapper from "../../components/common/CenterWrapper";
 import ModalPortal from "../../ModalPortal";
 import Modal from "../../containers/auth/ModalContainer";
 
+import mainLogo from '../../asset/img/webplace_logo.png';
+
+function Navigation({ user, state, onClick, onClose, onLogout }) {
+  const logoClick = (e) =>{
+    window.location.reload();
+  }
+  const role = sessionStorage.getItem('role');
+  useEffect(() => {
+    
+  },[])
+  return (
+    <TopNav>
+      <CenterWrapper>
+        
+          <div className="logo">
+            <div className="logo-img">
+              <span
+                className="emoji"
+                role="img"
+                aria-label="balloon"
+                aria-hidden="false"
+                value="balloon"
+              >
+              </span>
+            </div>
+            <span className="logo-title" ><a href="/"><img src={mainLogo} /></a></span>
+          </div>
+        <ul className="menu-list">
+          
+          <Link to="/">
+            <li className="menu-item">서비스 탐색</li>
+          </Link>
+          <Link to="/">
+            <li className="menu-item">인기서비스</li>
+          </Link>
+          <Link to="/">
+            <li className="menu-item">공유하기</li>
+          </Link>
+          <Link to="/">
+            <li className="menu-item">커뮤니티</li>
+          </Link>
+          {/* <li className="menu-item">인기 서비스</li> */}
+          {user?(
+          <Link to="/share">
+            <li className="menu-item">공유하기</li>
+          </Link>
+          ):('')}
+          {role=='"[ROLE_ADMIN]"'?(
+            <Link to="/grantservice">
+            <li className="menu-item">승인하기</li>
+          </Link>
+          ):('')}
+          {/* <li className="menu-item">내 서비스 보기</li> */}
+       
+        </ul>
+
+        <ul className="login_menu">
+          {user ? (
+            <li
+              className="menu-item"
+              style={{ cursor: "pointer" }}
+              onClick={onLogout}
+            >
+              로그아웃
+            </li>
+          ) : (
+            <li
+              className="menu-item"
+              style={{ cursor: "pointer" }}
+              onClick={onClick}
+            >
+              로그인
+            </li>
+          )}
+        </ul>
+      </CenterWrapper>
+      {state && (
+        <ModalPortal>
+          <Modal onClose={onClose} />
+        </ModalPortal>
+      )}
+    </TopNav>
+  );
+}
+
+export default Navigation;
 const TopNav = styled.nav`
   position: fixed;
   z-index: 10000;
@@ -15,7 +101,7 @@ const TopNav = styled.nav`
 
   & > div {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
   }
 
@@ -50,71 +136,7 @@ const TopNav = styled.nav`
   .menu-item {
     cursor: pointer;
   }
-`;
-
-function Navigation({ user, state, onClick, onClose, onLogout }) {
-  const logoClick = (e) =>{
-    window.location.reload();
+  .login_menu{
+    margin-left:650px;
   }
-  return (
-    <TopNav>
-      <CenterWrapper>
-        
-          <div className="logo">
-            <div className="logo-img">
-              <span
-                className="emoji"
-                role="img"
-                aria-label="balloon"
-                aria-hidden="false"
-                value="balloon"
-              >
-              </span>
-            </div>
-            <span className="logo-title" ><a href="/">WOOZUWEB</a></span>
-          </div>
-        <ul className="menu-list">
-          
-          <Link to="/">
-            <li className="menu-item">서비스 탐색</li>
-          </Link>
-          {/* <li className="menu-item">인기 서비스</li> */}
-          {user?(
-          <Link to="/share">
-            <li className="menu-item">공유하기</li>
-          </Link>
-          ):('')}
-          {/* <li className="menu-item">내 서비스 보기</li> */}
-       
-        </ul>
-
-        <ul>
-          {user ? (
-            <li
-              className="menu-item"
-              style={{ cursor: "pointer" }}
-              onClick={onLogout}
-            >
-              로그아웃
-            </li>
-          ) : (
-            <li
-              className="menu-item"
-              style={{ cursor: "pointer" }}
-              onClick={onClick}
-            >
-              로그인
-            </li>
-          )}
-        </ul>
-      </CenterWrapper>
-      {state && (
-        <ModalPortal>
-          <Modal onClose={onClose} />
-        </ModalPortal>
-      )}
-    </TopNav>
-  );
-}
-
-export default Navigation;
+`;

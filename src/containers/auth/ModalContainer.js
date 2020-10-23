@@ -12,11 +12,12 @@ import {
 function ModalContainer({ onClose }) {
   const [type, setType] = useState("login");
   const [error, setError] = useState(null);
-  const { form, auth,role, authError } = useSelector(({ auth }) => ({
+  const { form, auth,role, authError,register_success } = useSelector(({ auth }) => ({
     form: auth[type],
     auth: auth.auth,
     role: auth.role,
     authError: auth.authError,
+    register_success:auth.register_success,
   }));
   const dispatch = useDispatch();
   const onChange = useCallback(
@@ -71,6 +72,10 @@ function ModalContainer({ onClose }) {
     }
     if (authError) {
       setError("다시 시도해주세요.");
+    }
+    if(register_success){
+      alert("회원가입을 성공하였습니다");
+      dispatch(modalState(false));
     }
   }, [auth, dispatch]);
 

@@ -1,4 +1,4 @@
-import React ,{useState} from 'react'
+import React ,{useState,useSelector} from 'react'
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import ServiceDetail from '../components/service/ServiceDetail';
@@ -7,6 +7,7 @@ import Axios from "axios";
 import Pagination from "react-js-pagination";
 
 export default function ({match}) {
+
   const serviceDetail = ServiceDetail(match.params.id);
   const AllReply = Reply(match.params.id);
   
@@ -85,7 +86,11 @@ export default function ({match}) {
   }
 
   function addReview(e) {
-    e.preventDefault();
+    e.preventDefault(); 
+    if(document.querySelectorAll("#star_wrap>.active").length === 0){
+      alert('별점을 체크해주세요!');
+      return;
+    }
     const token = JSON.parse(sessionStorage.getItem("user"));
     const config = {
       headers: {
@@ -222,8 +227,8 @@ export default function ({match}) {
       <Container>
         <ContentHeader>
           <span className="title">서비스 소개</span>
-          <Link to="/service">
-            <span className="back-btn">목록으로 〉</span>
+          <Link to={"/"}>
+            <span className="back-btn">목록으로</span>
           </Link>
         </ContentHeader>
         <ContentTop>
@@ -296,7 +301,7 @@ export default function ({match}) {
                 </span>
                 <form onSubmit={addReview}>
                   <input type="text" id="reply_text" placeholder="한줄평을 남겨보세요!"/>
-                  <button type="button">작성</button>
+                  <button type="submit">작성</button>
                 </form>
               </span>
             </div>

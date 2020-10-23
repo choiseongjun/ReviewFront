@@ -7,6 +7,8 @@ import axios from "axios";
 import { initalizeWebList } from "../modules/weblist";
 import Pagination from "react-js-pagination";
 import './Services.css';
+ 
+import servicelistBanner from '../asset/servicelist/service_banner.jpeg';
 function Service() {
   const [category, setCategory] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
@@ -23,6 +25,7 @@ function Service() {
     number:weblist.number+1,
     mcode:weblist.mcode
   }));
+  console.log(mcode);
   useEffect(() => {
     axios
       .get("http://49.50.173.236:8080/web/category")
@@ -32,8 +35,12 @@ function Service() {
       .catch(function (error) {
         console.log(error);
       });
-    
-      dispatch(initalizeWebList(number,"All",""));
+      if(mcode==="All" || mcode===undefined){
+        dispatch(initalizeWebList(number,"All",""));
+      }else{
+        dispatch(initalizeWebList(number,mcode,""));
+      }
+      
       
   }, []);
  
@@ -63,6 +70,14 @@ function Service() {
   
   return (
     <Contents>
+      <Banner> 
+        <div className="service_img" >
+          <div className="content">
+            웹플레이스는 자신의 서비스를 공유하고 다른사람의 서비스를 볼 수 있는 공간입니다.
+          </div>
+        </div>
+        
+      </Banner>
       <Search number={number}></Search>
       <CategotyTab>
         <ul>
@@ -110,8 +125,9 @@ function Service() {
 
 export default Service;
 
+
 const Contents = styled.section`
-  padding-top: 108px;
+  padding-top: 58px;
   .sub-tit {
     display: flex;
     flex-wrap: wrap;
@@ -140,6 +156,26 @@ const Contents = styled.section`
     }
   }
 `;
+const Banner = styled.div`
+  padding-top: 28px;
+  padding-left:30px;
+  position: relative;
+  .service_img{
+    width:100%;
+    height:470px;
+    background-color:green;
+    background-image: url(${servicelistBanner});
+  }
+  .content{
+    padding: 5px 10px;
+    top:50%;
+    text-align:center;
+    color:white;
+    text-shadow:1px 1px 2px #666666;
+    padding-top:15%;
+    font-size:24px;
+  }
+`
 const CategotyTab = styled.div`
   padding: 10px 0;
   border-bottom: 1px solid #d1d1d1;

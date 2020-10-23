@@ -68,6 +68,7 @@ const initialState = {
   },
   auth: "",
   authError: "",
+  register_success:false,
   modal_state: false,
 };
 
@@ -77,6 +78,7 @@ const auth = (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         ...state,
+        register_success:true,
         auth: action.payload.accessToken,
       };
     case REGISTER_FAILURE:

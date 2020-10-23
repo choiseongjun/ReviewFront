@@ -53,6 +53,7 @@ function Search(props) {
 export default Search
 
 const SearchWrap = styled.div`
+padding-top:48px;
 padding-bottom:22px;
 border-bottom:1px solid #D1D1D1;
 .inner {

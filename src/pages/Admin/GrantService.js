@@ -30,7 +30,7 @@ function GrantService() {
     },[]);
 
     function waitGrant(){
-      axios.get("http://49.50.173.236:8080/web/serviceList/All")
+      axios.get("http://localhost:8080/web/serviceList/All?appYn=N")
       .then(({ data }) => {
         setWeblist(data.weblists.content);
         setTotalElements(data.weblists.totalElements)
