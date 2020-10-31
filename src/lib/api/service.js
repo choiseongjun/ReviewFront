@@ -1,4 +1,4 @@
-import client from "./client";
+import axios from 'axios';
 
 const config = {
   headers: {
@@ -28,7 +28,7 @@ export const register = ({
   file1,
   file2,
 }) =>
-  client.post(
+axios.post(
     `/web/service`,
     {
       title,

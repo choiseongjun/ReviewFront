@@ -45,7 +45,7 @@ function Navigation({ user, state, onClick, onClose, onLogout }) {
           <Link to="/">
             <li className="menu-item">공유하기</li>
           </Link>
-          <Link to="/">
+          <Link to="/community">
             <li className="menu-item">커뮤니티</li>
           </Link>
           {/* <li className="menu-item">인기 서비스</li> */}

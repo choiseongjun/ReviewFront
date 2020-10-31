@@ -1,0 +1,372 @@
+@charset 'utf-8';
+
+#wrap{
+    width: 100%;
+    height: auto;
+}
+.header{
+    width: 100%;
+    height: auto;
+}
+.container{
+    width: 100%;
+    padding:60px 0;
+    height: auto;
+}
+.footer{
+    width: 100%;
+    height: auto;
+}
+
+
+
+/*header 시작*/
+
+.header .gnb{
+    width:100%;
+    max-width: 1920px;
+    height:72px;
+    background: #222;
+}
+
+/*
+.header .gnb::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.header .gnb .lnb{
+    float: left;
+}
+
+.header .gnb .lnb ul>li{
+    float: left;
+}
+.header .gnb .rMenu{
+    float: right;
+}
+*/
+
+/*container 시작*/
+
+.container .inner-sec{
+    width: 100%;
+    max-width: 1920px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.container .inner-sec .commu{
+    width: 882px;
+    height: auto;
+    border: 0px solid #B4B4B4;
+    margin: 0 auto;
+    
+}
+
+
+/*커뮤니티 -자유게시판*/
+
+
+.container .inner-sec .commu .freeBoard{
+    width: 100%;
+    height: auto;
+    border: 1px solid #d2d2d2;
+}
+
+
+
+/*커뮤니티-자유게시판 상단*/
+
+.container .inner-sec .commu .freeBoard ul>li::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.container .inner-sec .commu .freeBoard ul>li{
+    width: 100%;
+    height: 55px;
+    border-bottom: 0px solid;
+    background: ##FFA164;
+}
+.container .inner-sec .commu .freeBoard ul>li span.color{
+    width: 5px;
+    height: 55px;
+    background: #FFA164;
+    display: block;
+    float: left;
+}
+.container .inner-sec .commu .freeBoard ul>li span.infoTxt{
+    font-size: 15px;
+    border: 0px solid;
+    line-height: 55px;
+    margin-left: 15px;
+    font-weight: 600;
+}
+.container .inner-sec .commu .freeBoard ul>li span.arrowBtn{
+    width: 8px;
+    height: 14px;
+    background: url(./img/rightBtn.png) 50% no-repeat;
+    float: right;
+    margin-top: 21px;
+    margin-right: 20px;
+}
+
+/*커뮤니티- 자유게시판- 테이블*/
+
+.container .inner-sec .commu .freeBoard table{
+    width: 100%;
+    height: auto;
+    margin-top: -16px;
+}
+
+.container .inner-sec .commu .freeBoard table>thead{
+    line-height: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.container .inner-sec .commu .freeBoard table>thead tr>th.num{
+    width: 7%;
+    text-align: center;
+}
+.container .inner-sec .commu .freeBoard table>thead tr>th.title{
+    width: 60%;
+}
+.container .inner-sec .commu .freeBoard table>thead tr>th.user{
+    width: 10%;
+}
+.container .inner-sec .commu .freeBoard table>thead tr>th.date{
+    width: 10%;
+    
+}
+.container .inner-sec .commu .freeBoard table>thead tr>th.view{
+    width: 7%;
+    text-align: center;
+    
+}
+
+.container .inner-sec .commu .freeBoard table>tbody{
+    line-height: 14px;
+}
+
+.container .inner-sec .commu .freeBoard table>tbody>tr>td{
+    height: 20px;
+    font-size: 12px; 
+}
+.container .inner-sec .commu .freeBoard table>tbody>tr>td.num2{
+text-align:center;
+}
+.container .inner-sec .commu .freeBoard table>tbody>tr>td.view2{
+    text-align: center;
+}
+
+
+
+
+
+/*커뮤니티 -유용한 사이트 추천게시판*/
+
+
+.container .inner-sec .commu .siteBoard{
+    width: 100%;
+    height: auto;
+    border: 1px solid #d2d2d2;
+}
+
+/*커뮤니티-유용한 사이트 추천게시판 상단*/
+
+.container .inner-sec .commu .siteBoard ul>li::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+.container .inner-sec .commu .siteBoard ul>li{
+    width: 100%;
+    height: 55px;
+}
+.container .inner-sec .commu .siteBoard ul>li span.color{
+    width: 5px;
+    height: 55px;
+    background: #7AB3FF;
+    display: block;
+    float: left;
+}
+.container .inner-sec .commu .siteBoard ul>li span.infoTxt{
+    font-size: 16px;
+    border: 0px solid;
+    line-height: 55px;
+    margin-left: 15px;
+    font-weight: 600;
+}
+.container .inner-sec .commu .siteBoard ul>li span.arrowBtn{
+    width: 8px;
+    height: 14px;
+    background: url(./img/rightBtn.png) 50% no-repeat;
+    float: right;
+    margin-top: 21px;
+    margin-right: 20px;
+}
+
+/*커뮤니티- 유용한 사이트 추천 게시판- 테이블*/
+
+.container .inner-sec .commu .siteBoard table{
+    width: 100%;
+    height: auto;
+    margin-top: -16px;
+}
+
+.container .inner-sec .commu .siteBoard table thead{
+    line-height: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    
+}
+
+.container .inner-sec .commu .siteBoard table>thead tr>th.num{
+    width: 7%;
+    text-align: center;
+}
+.container .inner-sec .commu .siteBoard table>thead tr>th.title{
+    width: 63%;
+}
+.container .inner-sec .commu .siteBoard table>thead tr>th.user{
+    width: 10%;
+}
+.container .inner-sec .commu .siteBoard table>thead tr>th.date{
+    width: 10%;
+    
+}
+.container .inner-sec .commu .siteBoard table>thead tr>th.view{
+    width: 7%;
+    text-align: center;
+    
+}
+
+
+
+.container .inner-sec .commu .siteBoard table tbody{
+    line-height: 14px;
+    font-size: 14px;
+}
+
+.container .inner-sec .commu .siteBoard table tbody>tr>td{
+    line-height: 14px;
+    font-size: 12px;
+}
+
+.container .inner-sec .commu .siteBoard table>tbody>tr>td.num2{
+text-align:center;
+}
+.container .inner-sec .commu .siteBoard table>tbody>tr>td.view2{
+    text-align: center;
+}
+
+
+
+
+
+
+/*커뮤니티 -건의게시판*/
+
+
+.container .inner-sec .commu .proposeBoard{
+    width: 100%;
+    height: auto;
+    border: 1px solid #d2d2d2;
+
+}
+
+
+
+/*커뮤니티-건의게시판 상단*/
+
+.container .inner-sec .commu .proposeBoard ul>li::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+.container .inner-sec .commu .proposeBoard ul>li{
+    width: 100%;
+    height: 55px;
+}
+
+.container .inner-sec .commu .proposeBoard ul>li span.color{
+    width: 5px;
+    height: 55px;
+    background:#BABABA;
+    display: block;
+    float: left;
+}
+.container .inner-sec .commu .proposeBoard ul>li span.infoTxt{
+    font-size: 15px;
+    border: 0px solid;
+    line-height: 55px;
+    margin-left: 15px;
+    font-weight: 600;
+}
+.container .inner-sec .commu .proposeBoard ul>li span.arrowBtn{
+    width: 8px;
+    height: 14px;
+    background: url(./img/rightBtn.png) 50% no-repeat;
+    float: right;
+    margin-top: 21px;
+    margin-right: 20px;
+}
+
+
+
+/*커뮤니티- 건의 게시판- 테이블*/
+
+.container .inner-sec .commu .proposeBoard table{
+    width: 100%;
+    height: auto;
+    margin-top: -16px;
+}
+
+.container .inner-sec .commu .proposeBoard table thead{
+    line-height: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.container .inner-sec .commu .proposeBoard table>thead tr>th.num{
+    width: 7%;
+    text-align: center;
+}
+.container .inner-sec .commu .proposeBoard table>thead tr>th.title{
+    width: 63%;
+}
+.container .inner-sec .commu .proposeBoard table>thead tr>th.user{
+    width: 10%;
+}
+.container .inner-sec .commu .proposeBoard table>thead tr>th.date{
+    width: 10%;
+    
+}
+
+.container .inner-sec .commu .proposeBoard table>thead tr>th.view{
+    width: 7%;
+    text-align: center;
+    
+}
+
+
+.container .inner-sec .commu .proposeBoard table tbody{
+    line-height: 14px;
+    font-size: 14px;
+}
+.container .inner-sec .commu .proposeBoard table tbody>tr>td{
+    line-height: 14px;
+    font-size: 12px;
+}
+
+.container .inner-sec .commu .proposeBoard table>tbody>tr>td.num2{
+text-align:center;
+}
+.container .inner-sec .commu .proposeBoard table>tbody>tr>td.view2{
+    text-align: center;
+}
+
+/*footer 시작*/

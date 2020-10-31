@@ -11,6 +11,7 @@ import Responsive from "../lib/styles/responsive";
 import Register from "../pages/Service/Register";
 import "../lib/styles/fontawesome";
 import ShareFinish from "../pages/ShareFinish";
+import Community from "../pages/Community/Main";
 import GrantService from "../pages/Admin/GrantService";
 import Forbidden from './Forbidden';
 
@@ -55,6 +56,7 @@ function App() {
         <Route exact path="/serviceDetail/:id" component={ServiceDetail} />
         <Route exact path="/share" component={Share} />
         <Route exact path="/shareFinish" component={ShareFinish} />
+        <Route exact path="/community" component={Community} />
         <RouteIf exact path="/grantservice" role={myRole.ROLE_ADMIN} component={GrantService} />
       </Switch>
       <Footer />

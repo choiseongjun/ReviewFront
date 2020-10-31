@@ -25,10 +25,10 @@ function Service() {
     number:weblist.number+1,
     mcode:weblist.mcode
   }));
-  console.log(mcode);
+
   useEffect(() => {
     axios
-      .get("http://49.50.173.236:8080/web/category")
+      .get("/web/category")
       .then(function (data) {
         setCategory(data.data);
       })

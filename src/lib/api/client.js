@@ -1,4 +1,3 @@
-import axios from "axios";
 
 // axios.interceptors.request.use(function (config) {
 //     console.log('interceptors')
@@ -10,6 +9,7 @@ import axios from "axios";
 //     return config;
 // });
 //http://172.30.1.44:8080
-const client = axios.create({ baseURL: "http://49.50.173.236:8080" });
 
-export default client;
+// const client = axios.create({ baseURL: "http://49.50.173.236:8080" });
+
+// export default client;
