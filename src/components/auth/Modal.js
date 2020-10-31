@@ -17,7 +17,7 @@ const Modal = ({ type, onChange, onSubmit, onClose, onChangeForm }) => {
           </Button>
           <LogoWrap>
             <LogoImg src="https://image.flaticon.com/icons/svg/2240/2240764.svg"></LogoImg>
-            <LogoText>WOOZOOWeb</LogoText>
+            <LogoText>WebPlace</LogoText>
           </LogoWrap>
           <LoginForm onSubmit={onSubmit}>
             <LoginFormListWrap>

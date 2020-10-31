@@ -7,7 +7,7 @@ import CenterWrapper from "../../components/common/CenterWrapper";
 import ModalPortal from "../../ModalPortal";
 import Modal from "../../containers/auth/ModalContainer";
 
-import mainLogo from '../../asset/img/webplace_logo.png';
+import mainLogo from '../../asset/servicelist/webplacelogo.png';
 
 function Navigation({ user, state, onClick, onClose, onLogout }) {
   const logoClick = (e) =>{

@@ -8,7 +8,7 @@ import { initalizeWebList } from "../modules/weblist";
 import Pagination from "react-js-pagination";
 import './Services.css';
  
-import servicelistBanner from '../asset/servicelist/service_banner.jpeg';
+import servicelistBanner from '../asset/servicelist/home_banner.png';
 function Service() {
   const [category, setCategory] = useState([]);
   const [subcategory, setSubcategory] = useState([]);

@@ -108,7 +108,7 @@ function Share() {
             <DecoText>
               <Word>창작자</Word>
               <Line />
-              <Word>WOOZOOWEB</Word>
+              <Word>Webplace</Word>
               <Line />
               <Word>사용자</Word>
             </DecoText>
