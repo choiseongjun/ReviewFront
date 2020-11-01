@@ -3,10 +3,13 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { initalizeWebList } from "../../modules/weblist";
 import { Link } from "react-router-dom";
+import {BeatLoader} from 'react-spinners';
+import { css } from "@emotion/core";
 
-
-
-
+const override = css`
+  display: flex;
+  padding-left:50%;
+`;
 function ServiceList({servicelist}) {
   
  
@@ -37,11 +40,11 @@ function ServiceList({servicelist}) {
           <button type="button">분류별</button>
           <button type="button">관심 순으로</button>
         </div> */}
-        {weblist && weblist.length > 0 && (
+        {weblist && weblist.length > 0 ? (
           <ul>
             {weblist.map((item, index) => (
-              <Link to={"/serviceDetail/" + item.id}>
                 <li>
+                  <Link to={"/serviceDetail/" + item.id}>
                   <span className="pic">
                     <img
                       src={
@@ -57,20 +60,20 @@ function ServiceList({servicelist}) {
                   <div className="info">
                     <strong className="title">{item.title}</strong>
                     <span className="writer"></span>
-                    <div className="right">
+                    {/* <div className="right">
                       <p className="view">
                         <span></span> 9999view
                       </p>
                       <p className="vote">
                         <span></span> 300vote
                       </p>
-                    </div>
+                    </div> */}
                   </div>
+                  </Link>
                 </li>
-              </Link>
             ))}
           </ul>
-        )}
+        ):<BeatLoader css={override} size={20} color="#3F51F5" loading  />}
       </div>
     </ListWrap>
    

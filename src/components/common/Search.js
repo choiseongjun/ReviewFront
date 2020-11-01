@@ -117,7 +117,7 @@ border-bottom:1px solid #D1D1D1;
       color:#fff;
       font-size:17px;
       line-height:56px;
-      background-color:#1AE1CC;
+      background-color:#3F51F5;
       border:none;
     }
   }

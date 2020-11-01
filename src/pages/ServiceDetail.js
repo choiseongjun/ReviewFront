@@ -33,7 +33,13 @@ export default function ({match}) {
   }
 
   function pcBtnHandler() {
-    alert("PC는 미구현입니다.");
+    
+    if(serviceDetail.url){
+      window.open(serviceDetail.url)
+    }else{
+      alert("PC는 미구현입니다.");
+    }
+    
   }
   
   function startClickHandler() {

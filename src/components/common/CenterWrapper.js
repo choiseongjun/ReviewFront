@@ -6,7 +6,6 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 1360px;
   margin: 0 auto;
-  padding: 0 20px;
 
   ${(props) =>
     props.flex &&

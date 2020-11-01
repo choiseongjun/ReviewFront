@@ -17,7 +17,7 @@ function GrantService() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-      axios.get("http://49.50.173.236:8080/web/serviceList/All")
+      axios.get("/web/serviceList/All")
       .then(({ data }) => {
         setWeblist(data.weblists.content);
        
@@ -41,7 +41,7 @@ function GrantService() {
       })
     };
     function completeGrant(){
-      axios.get("http://49.50.173.236:8080/web/serviceList/All?appYn=Y")
+      axios.get("/web/serviceList/All?appYn=Y")
       .then(({ data }) => {
         setWeblist(data.weblists.content);
         setTotalElements(data.weblists.totalElements)
@@ -56,7 +56,7 @@ function GrantService() {
       (mcode,appYn,pageNumber) => {
         console.log(appYn)
         if(appYn===true){
-          axios.get("http://49.50.173.236:8080/web/serviceList/All?page="+pageNumber+"&appYn=Y")
+          axios.get("/web/serviceList/All?page="+pageNumber+"&appYn=Y")
           .then(({ data }) => {
             setWeblist(data.weblists.content);
             setTotalElements(data.weblists.totalElements)
@@ -65,7 +65,7 @@ function GrantService() {
             setNumber(data.weblists.number+1);
           })
         }else{
-          axios.get("http://49.50.173.236:8080/web/serviceList/All?page="+pageNumber)
+          axios.get("/web/serviceList/All?page="+pageNumber)
           .then(({ data }) => {
             console.log(data.weblists)
             setWeblist(data.weblists.content);
@@ -106,7 +106,7 @@ function GrantService() {
             Authorization: `Bearer ${token}`,
           },
         };
-        axios.delete("http://49.50.173.236:8080/web/appyn/"+id,
+        axios.delete("/web/appyn/"+id,
           config)
         .then(({ data }) => {
           

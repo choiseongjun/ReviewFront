@@ -7,7 +7,7 @@ import axios from "axios";
 import { initalizeWebList } from "../modules/weblist";
 import Pagination from "react-js-pagination";
 import './Services.css';
- 
+
 import servicelistBanner from '../asset/servicelist/home_banner.png';
 function Service() {
   const [category, setCategory] = useState([]);
@@ -71,12 +71,7 @@ function Service() {
   return (
     <Contents>
       <Banner> 
-        <div className="service_img" >
-          <div className="content">
-            웹플레이스는 자신의 서비스를 공유하고 다른사람의 서비스를 볼 수 있는 공간입니다.
-          </div>
-        </div>
-        
+        <div className="service_img" />
       </Banner>
       <Search number={number}></Search>
       <CategotyTab>
@@ -127,7 +122,6 @@ export default Service;
 
 
 const Contents = styled.section`
-  padding-top: 58px;
   .sub-tit {
     display: flex;
     flex-wrap: wrap;
@@ -157,23 +151,16 @@ const Contents = styled.section`
   }
 `;
 const Banner = styled.div`
-  padding-top: 28px;
+  padding-top: 80px;
   padding-left:30px;
   position: relative;
   .service_img{
     width:100%;
-    height:470px;
-    background-color:green;
-    background-image: url(${servicelistBanner});
-  }
-  .content{
-    padding: 5px 10px;
-    top:50%;
-    text-align:center;
-    color:white;
-    text-shadow:1px 1px 2px #666666;
-    padding-top:15%;
-    font-size:24px;
+    height:475px;
+    background: #ddd url(${servicelistBanner}) no-repeat center/cover;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
 `
 const CategotyTab = styled.div`
@@ -199,11 +186,11 @@ const CategotyTab = styled.div`
       }
       &.active {
         padding: 6px 17px;
-        background-color: #1ae1cc;
+        background-color: #3F51F5;
         border-radius: 14px;
         button {
           font-size: 19px;
-          color: #171717;
+          color: #fff;
           font-weight: bold;
         }
       }
@@ -235,7 +222,7 @@ const HashTag = styled.div`
       }
       &.active {
         button {
-          color: #06c4b0;
+          color: #3F51F5;
           font-weight: 600;
           background-color: #fff;
         }

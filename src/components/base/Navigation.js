@@ -36,28 +36,18 @@ function Navigation({ user, state, onClick, onClose, onLogout }) {
           </div>
         <ul className="menu-list">
           
-          <Link to="/">
-            <li className="menu-item">서비스 탐색</li>
-          </Link>
-          <Link to="/">
+          
+            <li className="menu-item"><Link to="/">서비스 탐색</Link></li>
+          {/* <Link to="/">
             <li className="menu-item">인기서비스</li>
-          </Link>
-          <Link to="/">
-            <li className="menu-item">공유하기</li>
-          </Link>
-          <Link to="/community">
-            <li className="menu-item">커뮤니티</li>
-          </Link>
+          </Link> */}
+            <li className="menu-item"><Link to="/community">커뮤니티</Link></li>
           {/* <li className="menu-item">인기 서비스</li> */}
           {user?(
-          <Link to="/share">
-            <li className="menu-item">공유하기</li>
-          </Link>
+            <li className="menu-item"><Link to="/share">공유하기</Link></li>
           ):('')}
           {role=='"[ROLE_ADMIN]"'?(
-            <Link to="/grantservice">
-            <li className="menu-item">승인하기</li>
-          </Link>
+            <li className="menu-item"><Link to="/grantservice">승인하기</Link></li>
           ):('')}
           {/* <li className="menu-item">내 서비스 보기</li> */}
        
@@ -98,10 +88,11 @@ const TopNav = styled.nav`
   z-index: 10000;
   width: 100%;
   background-color: white;
+  height:80px;
 
   & > div {
     display: flex;
-    justify-content: flex-start;
+    height:100%;
     align-items: center;
   }
 
@@ -117,15 +108,23 @@ const TopNav = styled.nav`
       color: ${palette.teal3};
     }
   }
-
+  .logo{
+    width:138px;
+  }
   .logo-title {
     color: ${palette.teal2};
     font-weight: bold;
     font-size: ${remcalc(22)};
+    img{
+      vertical-align:middle;
+    }
   }
 
   .menu-list {
     font-weight: bold;
+    width:calc(100% - 198px);
+    padding-left:20px;
+    box-sizing:border-box;
 
     li {
       padding: ${remcalc(27)} ${remcalc(20)};
@@ -135,8 +134,13 @@ const TopNav = styled.nav`
 
   .menu-item {
     cursor: pointer;
+    a {
+      color:#555;
+    }
   }
   .login_menu{
-    margin-left:650px;
+    width:60px;
+    display:flex;
+    justify-content:flex-end;
   }
 `;

@@ -97,9 +97,9 @@ function Footer() {
         <RightArea>
           <Slogan>나에게 맞는 서비스를 찾다.</Slogan>
           <Address>
-            woozooweb
+            Webplace
             <br />
-            우주웹
+            웹플레이스
           </Address>
         </RightArea>
       </CenterWrapper>

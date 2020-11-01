@@ -58,6 +58,7 @@ function RegisterContainer({ history }) {
   );
 
   const handleSelect = (e) => {
+    console.log(e.target.value)
     if (e.target.id === "category") {
       const code = e.target.value;
       
@@ -182,7 +183,6 @@ function RegisterContainer({ history }) {
   };
 
   useEffect(() => {
-    console.log("form", form);
     async function getCategory() {
       const { data: category } = await Axios.get(
         "http://49.50.173.236:8080/web/category",
