@@ -148,6 +148,7 @@ const Contents = styled.section`
     li.active a {
       color: blue;
     }
+    
   }
 `;
 const Banner = styled.div`

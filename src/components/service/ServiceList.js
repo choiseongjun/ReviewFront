@@ -5,6 +5,7 @@ import { initalizeWebList } from "../../modules/weblist";
 import { Link } from "react-router-dom";
 import {BeatLoader} from 'react-spinners';
 import { css } from "@emotion/core";
+import './ServiceList.css';
 
 const override = css`
   display: flex;
@@ -105,9 +106,19 @@ const ListWrap = styled.div`
         display:flex;
         flex-wrap:wrap;
         margin:-20px 0 0 -28px;
+
+        @media (max-width: 1280px) {
+          margin: -20px auto 0;
+        }
         li {
+            @media (max-width: 1280px) {
+              width: calc(50% - 10px);margin: 20px 20px 0 0;
+            }
             width: calc(25% - 28px);
             margin:20px 0 0 28px;
+            &:nth-child(2n) {
+              margin-right: 0;
+            }
             .info {
                 display:flex;
                 flex-wrap:wrap;
@@ -179,4 +190,5 @@ const ListWrap = styled.div`
                 margin-left:26px;
             }
         }
+  
 `;
