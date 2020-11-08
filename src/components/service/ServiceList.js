@@ -53,7 +53,7 @@ function ServiceList({servicelist}) {
                           ? require("../../asset/img/img_test.png")
                           : "http://49.50.173.236:8080/getWebImage/" + item.file_name
                       }
-                      width="320"
+                      width="100%"
                       height="200"
                       alt={item.content}
                     />
