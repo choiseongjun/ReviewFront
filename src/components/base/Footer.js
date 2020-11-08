@@ -93,6 +93,8 @@ function Footer() {
             <SitemapItem>공유하기</SitemapItem>
             <SitemapItem>내 서비스 보기</SitemapItem>
           </Sitemap>
+          <br /><br />
+          문의:choisj2702@gmail.com
         </LeftArea>
         <RightArea>
           <Slogan>나에게 맞는 서비스를 찾다.</Slogan>

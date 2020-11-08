@@ -28,7 +28,6 @@ function NaviContainer() {
   useEffect(() => {
     if (auth) {
       const userCheck = window.sessionStorage.getItem("user");
-      console.log("userCheck", userCheck);
       setUser(true);
     }
   }, [auth, user, setUser]);

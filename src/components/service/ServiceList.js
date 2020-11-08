@@ -124,7 +124,7 @@ const ListWrap = styled.div`
                 flex-wrap:wrap;
                 padding:13px 18px;
                 background-color:#fff;
-                width:320px;
+                width:100%;
                 .right {
                     margin-left:auto;
                     display:flex;

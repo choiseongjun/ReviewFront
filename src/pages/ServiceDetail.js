@@ -249,7 +249,7 @@ export default function ({match}) {
               <div className="container">
                 <div className="content-header">
                   <h3>{serviceDetail.title}</h3>
-                  <span>with {serviceDetail.user.name}</span>
+                  {/* <span>with {serviceDetail.user.name}</span> */}
                 </div>
                 <div className="state">
                   <img src="/image/iconmonstr-star-3-240.png"></img>

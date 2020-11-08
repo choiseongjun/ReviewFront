@@ -11,6 +11,7 @@ export default function(id) {
   }));
   useEffect(() => {
     dispatch(initalizeServiceDetail(id));
+    window.scrollTo(0,0);
   }, []);
 
   return serviceDetail ?? {"user": [], "webreply": []};

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Route, Switch} from "react-router-dom";
 import Home from "../pages/Home";
 import Service from "../pages/Service";
@@ -14,6 +14,7 @@ import ShareFinish from "../pages/ShareFinish";
 import Community from "../pages/Community/Main";
 import GrantService from "../pages/Admin/GrantService";
 import Forbidden from './Forbidden';
+import ReactGa from 'react-ga';
 
 const RouteIf = ({ role, component: Component, ...rest }) => {
   return (
@@ -27,7 +28,6 @@ const RouteIf = ({ role, component: Component, ...rest }) => {
           return <Component {...props} role={role} />;
         }else{
           if (Component) {
-            console.log('this site')
             // role을 컴포넌트에 전달 
             return <Forbidden />;
           }
@@ -44,16 +44,23 @@ function App() {
     ROLE_USER: sessionStorage.getItem("role"), //일반유저
     ROLE_ADMIN: sessionStorage.getItem("role") // 관리자
   };
+
+  useEffect(() => {
+    ReactGa.initialize('G-TL2RBPZVP0')
+
+    ReactGa.pageview('/')
+  }, [])
+
   return (
     <>
       <Navigation />
       <GlobalStyles />
-      <Responsive />
+      {/* <Responsive /> */}
       <Switch>
         {/* <Route exact path="/" component={Home} /> */}
         <Route exact path="/" component={Service} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/serviceDetail/:id" component={ServiceDetail} />
+        <Route exact path="/serviceDetail/:id" component={ServiceDetail}  />
         <Route exact path="/share" component={Share} />
         <Route exact path="/shareFinish" component={ShareFinish} />
         <Route exact path="/community" component={Community} />

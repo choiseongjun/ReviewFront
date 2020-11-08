@@ -71,7 +71,12 @@ function Service() {
   return (
     <Contents>
       <Banner> 
-        <div className="service_img" />
+        <div className="service_img">
+          <div className="service_img_text">
+            <strong>인터넷 사이트, 모바일 앱</strong> <br />
+            웹플레이스에서 쉽게 찾아보세요!
+          </div>
+        </div>        
       </Banner>
       <Search number={number}></Search>
       <CategotyTab>
@@ -122,6 +127,7 @@ export default Service;
 
 
 const Contents = styled.section`
+  padding-top:80px;
   .sub-tit {
     display: flex;
     flex-wrap: wrap;
@@ -136,10 +142,14 @@ const Contents = styled.section`
   }
   .pagination {
     margin-left: calc(50% - 100px);
-    
+    @media (max-width: 1280px) {
+      display:flex;
+      margin-left:10px;
+      width:100%;
+    }
     li {
       display: inline-block;
-      margin: 0 3px;
+      margin: 0 10px;
       a {
         color: #333;
       }
@@ -152,17 +162,35 @@ const Contents = styled.section`
   }
 `;
 const Banner = styled.div`
-  padding-top: 80px;
-  padding-left:30px;
-  position: relative;
+  
+  
   .service_img{
+    
     width:100%;
     height:475px;
     background: #ddd url(${servicelistBanner}) no-repeat center/cover;
     display:flex;
     align-items:center;
     justify-content:center;
+    position: relative;
+    .service_img_text{
+      display:none;
+    }
+    @media (max-width: 1280px) {
+      width:100%;
+      background:#054FA7;
+      height:78px;
+      .service_img_text{
+        display:block;
+        position:absolute;
+        top: 18px;
+        left: 16px;
+        color:#FFF;
+        
+      }
+    }
   }
+  
 `
 const CategotyTab = styled.div`
   padding: 10px 0;

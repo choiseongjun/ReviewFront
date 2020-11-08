@@ -89,11 +89,15 @@ const TopNav = styled.nav`
   width: 100%;
   background-color: white;
   height:80px;
+  @media (max-width: 1280px) {
+    width:100%;
+  }
 
   & > div {
     display: flex;
     height:100%;
     align-items: center;
+    
   }
 
   div,
