@@ -27,35 +27,35 @@ function MainList() {
                             <tbody>
                                 <tr>
                                     <td className="num2">1</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
                                 </tr>
                                 <tr>
                                     <td className="num2">2</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
                                 </tr>
                                 <tr>
                                     <td className="num2">3</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
                                 </tr>
                                  <tr>
                                     <td className="num2">4</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
                                 </tr>
                                  <tr>
                                     <td className="num2">5</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
@@ -83,35 +83,35 @@ function MainList() {
                             <tbody>
                                 <tr>
                                     <td className="num2">1</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
                                 </tr>
                                 <tr>
                                     <td className="num2">2</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
                                 </tr>
                                 <tr>
                                     <td className="num2">3</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
                                 </tr>
                                  <tr>
                                     <td className="num2">4</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
                                 </tr>
                                  <tr>
                                     <td className="num2">5</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
@@ -138,35 +138,35 @@ function MainList() {
                             <tbody>
                                 <tr>
                                     <td className="num2">1</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
                                 </tr>
                                 <tr>
                                     <td className="num2">2</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
                                 </tr>
                                 <tr>
                                     <td className="num2">3</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
                                 </tr>
                                  <tr>
                                     <td className="num2">4</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
                                 </tr>
                                  <tr>
                                     <td className="num2">5</td>
-                                    <td>이제 이게 나온다고요?</td>
+                                    <td>홈페이지 주제별로 볼 수 있는 사이트입니다!</td>
                                     <td>김다정</td>
                                     <td>2020-10-18</td>
                                     <td className="view2">2</td>
